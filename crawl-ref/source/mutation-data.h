@@ -889,6 +889,16 @@ static const mutation_def mut_data[] =
   TILEG_MUT_GENERIC_GOOD_MUTATION,
 },
 
+// Vanara only
+{ MUT_GOLDEN_FUR, 0, 1, mutflag::good | mutflag::anatomy,
+  "golden fur",
+
+  {"Your fur shines with a golden light. (AC +3, EV +3, SInv)", "", ""},
+  {"Your fur turns a brilliant gold, and your eyes grow keen.", "", ""},
+  {"Your fur loses its golden sheen.", "", ""},
+  TILEG_MUT_SHAGGY_FUR,
+},
+
 // Draconian/gargoyle only
 { MUT_BIG_WINGS, 4, 1, mutflag::good | mutflag::anatomy,
   "big wings",

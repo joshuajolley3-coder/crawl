@@ -523,6 +523,8 @@ tileidx_t tileidx_feature_base(dungeon_feature_type feat)
         return TILE_DNGN_ALTAR_WU_JIAN;
     case DNGN_ALTAR_IGNIS:
         return TILE_DNGN_ALTAR_IGNIS;
+    case DNGN_ALTAR_VASHTAR:
+        return TILE_DNGN_ALTAR_VASHTAR;
     case DNGN_ALTAR_ECUMENICAL:
         return TILE_DNGN_ALTAR_ECUMENICAL;
     case DNGN_FOUNTAIN_BLUE:
@@ -4684,6 +4686,18 @@ tileidx_t tileidx_ability(const ability_type ability)
     case ABIL_IGNIS_RISING_FLAME:
         return TILEG_ABILITY_IGNIS_RISING_FLAME;
 
+    // Vashtar (borrowed icons until it has its own)
+    case ABIL_VASHTAR_WAR_PAINT:
+        return TILEG_ABILITY_OKAWARU_HEROISM;
+    case ABIL_VASHTAR_FURY:
+        return TILEG_ABILITY_TROG_BERSERK;
+    case ABIL_VASHTAR_BLOOD_TITHE:
+        return TILEG_ABILITY_RU_SACRIFICE_HEALTH;
+    case ABIL_VASHTAR_SPOILS_OF_WAR:
+        return TILEG_ABILITY_OKAWARU_GIFT_WEAPON;
+    case ABIL_VASHTAR_THOUSAND_ARMS:
+        return TILEG_ABILITY_MAKHLEB_VESSEL_OF_SLAUGHTER;
+
     // General divine (pseudo) abilities.
     case ABIL_RENOUNCE_RELIGION:
         return TILEG_ABILITY_RENOUNCE_RELIGION;
@@ -4841,6 +4855,8 @@ static tileidx_t _tileidx_player_job_base(const job_type job)
             return TILEG_JOB_REAVER;
         case JOB_CINDER_ACOLYTE:
             return TILEG_JOB_CINDER_ACOLYTE;
+        case JOB_WRATHFUL_MONK:
+            return TILEG_JOB_MONK;
         default:
             return TILEG_ERROR;
     }

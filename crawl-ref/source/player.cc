@@ -2262,6 +2262,9 @@ static int _player_base_evasion_modifiers()
     if (you.has_mutation(MUT_PREHENSILE_TAIL))
         evbonus += 3;
 
+    if (you.has_mutation(MUT_GOLDEN_FUR))
+        evbonus += 3;
+
     if (you.get_mutation_level(MUT_DISTORTION_FIELD))
         evbonus += you.get_mutation_level(MUT_DISTORTION_FIELD) + 2;
 
@@ -3988,6 +3991,9 @@ int player::slaying(bool throwing, bool random) const
 
     if (you.duration[DUR_HORROR])
         ret -= you.props[HORROR_PENALTY_KEY].get_int();
+
+    if (you.duration[DUR_WAR_PAINT])
+        ret += 3;
 
     if (you.props.exists(WU_JIAN_HEAVENLY_STORM_KEY))
         ret += you.props[WU_JIAN_HEAVENLY_STORM_KEY].get_int();
@@ -6656,6 +6662,7 @@ vector<mutation_ac_changes> all_mutation_ac_changes = {
     ,mutation_ac_changes(MUT_SHARP_SCALES,              TWO_THREE_FOUR)
     ,mutation_ac_changes(MUT_IRON_FUSED_SCALES,         {5, 5, 5})
     ,mutation_ac_changes(MUT_DEMONIC_WINGS,             {2, 4, 6})
+    ,mutation_ac_changes(MUT_GOLDEN_FUR,                {3, 3, 3})
 };
 
 /**
@@ -6782,6 +6789,9 @@ int player::armour_class_scaled(int scale) const
 
     if (duration[DUR_QAZLAL_AC])
         AC += 300;
+
+    if (duration[DUR_WAR_PAINT])
+        AC += 400;
 
     if (duration[DUR_SPWPN_PROTECTION])
     {
@@ -8025,7 +8035,7 @@ bool player::can_see_invisible() const
 /// Can the player see invisible things without needing items' help?
 bool player::innate_sinv() const
 {
-    if (has_mutation(MUT_ACUTE_VISION))
+    if (has_mutation(MUT_ACUTE_VISION) || has_mutation(MUT_GOLDEN_FUR))
         return true;
 
     // antennae give sInvis at 3

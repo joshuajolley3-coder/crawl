@@ -313,5 +313,6 @@ enum duration_type
     DUR_TAILWIND,
     DUR_EXEGESIS,
     DUR_ANTISWIFT,
+    DUR_WAR_PAINT,
     NUM_DURATIONS
 };

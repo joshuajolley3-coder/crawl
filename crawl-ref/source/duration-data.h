@@ -567,6 +567,13 @@ static const duration_def duration_data[] =
       "Qazlal is protecting you from electricity.", D_NO_FLAGS,
       {{ "You feel less protected from electricity." },
         { "Your protection from electricity is fading.", 1}}, 6},
+    { DUR_WAR_PAINT,
+      LIGHTRED, "WarPaint",
+      "war-painted", "war paint",
+      "You are painted for war, hardened and bloodthirsty.", D_EXPIRES,
+      {{ "Your war paint flakes away.", [](){
+          you.redraw_armour_class = true;
+      }}, { "Your war paint is starting to flake.", 1 }}, 5},
     { DUR_QAZLAL_AC,
       LIGHTBLUE, "",
       "protected from physical damage", "qazlal ac",

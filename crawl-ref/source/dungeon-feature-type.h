@@ -246,6 +246,7 @@ enum dungeon_feature_type
     DNGN_ALTAR_HEPLIAKLQANA,
     DNGN_ALTAR_WU_JIAN,
     DNGN_ALTAR_IGNIS,
+    DNGN_ALTAR_VASHTAR,
     DNGN_ALTAR_ECUMENICAL,
 #endif
 
@@ -412,6 +413,7 @@ enum dungeon_feature_type
     DNGN_EXIT_GULCH,
     DNGN_MOULD_PATCH,
     DNGN_PURIFIED_MUTATION_CATALYST,
+    DNGN_ALTAR_VASHTAR,
 #endif
 
     NUM_FEATURES

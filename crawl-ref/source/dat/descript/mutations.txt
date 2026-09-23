@@ -711,6 +711,11 @@ prehensile tail mutation
 
 A long, grasping tail. It gives +3 EV and lets you wear one extra ring.
 %%%%
+golden fur mutation
+
+As a Vanara matures, its fur turns a brilliant gold. It gives +3 AC and +3 EV,
+and lets you see invisible things.
+%%%%
 demonic wings mutation
 
 Demonic wings sprout from your back, shielding you and making you more nimble.

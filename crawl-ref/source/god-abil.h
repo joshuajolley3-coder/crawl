@@ -269,3 +269,17 @@ void makhleb_handle_crucible_of_flesh();
 void makhleb_crucible_kill(monster& victim);
 
 void simulate_time_passing(int turns);
+
+#define VASHTAR_TITHES_KEY "vashtar_tithes"
+#define VASHTAR_TITHE_BASE_COST 40
+#define VASHTAR_TITHE_STEP_COST 15
+#define VASHTAR_MAX_TITHES 3
+
+int vashtar_tithes_taken();
+int vashtar_tithe_cost();
+bool vashtar_can_tithe(bool quiet);
+bool vashtar_blood_tithe();
+void vashtar_war_paint();
+void vashtar_fury();
+void vashtar_thousand_arms();
+void vashtar_death_effects(const monster &mons, bool your_or_ally_kill);

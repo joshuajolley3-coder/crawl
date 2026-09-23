@@ -754,6 +754,20 @@ static vector<ability_def> &_get_ability_list()
         { ABIL_IGNIS_RISING_FLAME, "Rising Flame",
             0, 0, 0, -1, {fail_basis::invo}, abflag::none },
 
+        // Vashtar
+        { ABIL_VASHTAR_WAR_PAINT, "War Paint",
+            0, 0, 3, -1, {fail_basis::invo, 30, 6, 20}, abflag::none },
+        { ABIL_VASHTAR_FURY, "Vashtar's Fury",
+            0, 0, 6, -1, {fail_basis::invo, 50, 5, 20}, abflag::none },
+        { ABIL_VASHTAR_BLOOD_TITHE, "Blood Tithe",
+            0, 0, generic_cost::fixed(VASHTAR_TITHE_BASE_COST), -1,
+            {fail_basis::invo}, abflag::none },
+        { ABIL_VASHTAR_SPOILS_OF_WAR, "Spoils of War",
+            0, 0, generic_cost::fixed(80), -1, {fail_basis::invo},
+            abflag::none },
+        { ABIL_VASHTAR_THOUSAND_ARMS, "Thousand Arms",
+            0, 0, 15, -1, {fail_basis::invo, 80, 4, 25}, abflag::none },
+
         { ABIL_RENOUNCE_RELIGION, "Renounce Religion",
             0, 0, 0, -1, {fail_basis::invo}, abflag::silence_ok },
         { ABIL_CONVERT_TO_BEOGH, "Convert to Beogh",
@@ -1203,10 +1217,16 @@ ability_type fixup_ability(ability_type ability)
         else
             return ability;
 
+    case ABIL_VASHTAR_BLOOD_TITHE:
+        if (vashtar_tithes_taken() >= VASHTAR_MAX_TITHES)
+            return ABIL_NON_ABILITY;
+        return ability;
+
     case ABIL_OKAWARU_GIFT_WEAPON:
         if (you.props.exists(OKAWARU_WEAPON_GIFTED_KEY))
             return ABIL_NON_ABILITY;
         // fall through
+    case ABIL_VASHTAR_SPOILS_OF_WAR:
     case ABIL_TSO_BLESS_WEAPON:
     case ABIL_KIKU_BLESS_WEAPON:
     case ABIL_LUGONU_BLESS_WEAPON:
@@ -1987,8 +2007,12 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
         }
         return true;
 
+    case ABIL_VASHTAR_BLOOD_TITHE:
+        return vashtar_can_tithe(quiet);
+
     case ABIL_OKAWARU_GIFT_WEAPON:
     case ABIL_OKAWARU_GIFT_ARMOUR:
+    case ABIL_VASHTAR_SPOILS_OF_WAR:
         if (feat_eliminates_items(env.grid(you.pos())))
         {
             if (!quiet)
@@ -2779,6 +2803,9 @@ unique_ptr<targeter> find_ability_targeter(ability_type ability)
     case ABIL_WU_JIAN_SERPENTS_LASH:
     case ABIL_IGNIS_FIERY_ARMOUR:
     case ABIL_IGNIS_RISING_FLAME:
+    case ABIL_VASHTAR_WAR_PAINT:
+    case ABIL_VASHTAR_FURY:
+    case ABIL_VASHTAR_THOUSAND_ARMS:
         return make_unique<targeter_radius>(&you, LOS_SOLID_SEE, 0);
 
     case ABIL_HEPLIAKLQANA_IDEALISE:
@@ -4148,6 +4175,31 @@ static spret _do_ability(const ability_def& abil, bool fail, dist *target,
         you.set_duration(DUR_RISING_FLAME, 2 + random2(3));
         you.one_time_ability_used.set(GOD_IGNIS);
         return spret::success;
+
+    case ABIL_VASHTAR_WAR_PAINT:
+        fail_check();
+        vashtar_war_paint();
+        break;
+
+    case ABIL_VASHTAR_FURY:
+        fail_check();
+        vashtar_fury();
+        break;
+
+    case ABIL_VASHTAR_BLOOD_TITHE:
+        if (!vashtar_blood_tithe())
+            return spret::abort;
+        break;
+
+    case ABIL_VASHTAR_SPOILS_OF_WAR:
+        if (!vashtar_spoils_of_war())
+            return spret::abort;
+        break;
+
+    case ABIL_VASHTAR_THOUSAND_ARMS:
+        fail_check();
+        vashtar_thousand_arms();
+        break;
 
     case ABIL_RENOUNCE_RELIGION:
         if (yesno("Really renounce your faith, foregoing its fabulous benefits?",

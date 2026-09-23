@@ -23,6 +23,12 @@ Chaos Knight
 Chaos Knights are playthings of the unpredictable Xom, and are subject to the
 god's constantly changing moods.
 %%%%
+Wrathful Monk
+
+Wrathful Monks are ascetic warriors sworn to Vashtar, the Unending War. They
+begin with a simple weapon, a robe, a potion of might and Vashtar's favour, and
+grow stronger with every death they bring about.
+%%%%
 Cinder Acolyte
 
 Cinder Acolytes worship Ignis, drawing upon the flame of a dying god until

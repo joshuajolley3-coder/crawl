@@ -113,6 +113,11 @@ A bloodstained altar of Trog
 An altar to Trog the Wrathful, crudely made by what seem to be the hands of
 giants and covered with bloodstains.
 %%%%
+A skull-heaped altar of Vashtar
+
+An altar to Vashtar the Unending War, buried under the skulls of countless
+fallen foes. The newest ones are still wet.
+%%%%
 A hide-covered altar of Uskayaw
 
 An altar to Uskayaw the Reveller. It appears to be hollow and covered in a hide,

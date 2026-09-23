@@ -85,7 +85,8 @@ static const char *conducts[] =
 #if TAG_MAJOR_VERSION == 34
     "Use Wizardly Item",
 #endif
-    "Tithed"
+    "Tithed",
+    "Witnessed Death",
 };
 COMPILE_CHECK(ARRAYSZ(conducts) == NUM_CONDUCTS);
 
@@ -274,6 +275,8 @@ static forbidden_map divine_prohibitions[] =
     // GOD_WU_JIAN,
     forbidden_map(),
     // GOD_IGNIS,
+    forbidden_map(),
+    // GOD_VASHTAR,
     forbidden_map(),
 };
 
@@ -478,6 +481,8 @@ static peeve_map divine_peeves[] =
     // GOD_WU_JIAN,
     peeve_map(),
     // GOD_IGNIS,
+    peeve_map(),
+    // GOD_VASHTAR,
     peeve_map(),
 };
 
@@ -977,6 +982,15 @@ static like_map divine_likes[] =
     DEFAULT_KILL_CONDUCT,
     // GOD_IGNIS,
     like_map(),
+    // GOD_VASHTAR,
+    default_kill_conduct_with_extra(
+        {
+            { DID_WITNESS_DEATH, {
+                "anything dies in your sight, by any hand", false,
+                30, 100, nullptr
+            } },
+        }
+    ),
 };
 
 /**

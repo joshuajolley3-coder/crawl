@@ -289,6 +289,11 @@ void give_items_skills(const newgame_def& ng)
         you.raw_piety = 150;
         break;
 
+    case JOB_WRATHFUL_MONK:
+        you.religion = GOD_VASHTAR;
+        you.raw_piety = 60;
+        break;
+
     default:
         break;
     }

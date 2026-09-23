@@ -1261,6 +1261,15 @@ int acquirement_create_item(object_class_type class_wanted,
 
         _adjust_brand(acq_item, agent);
 
+        // Vashtar's spoils of war are always artefacts.
+        if (agent == GOD_VASHTAR && acq_item.base_type == OBJ_WEAPONS
+            && !is_artefact(acq_item) && !make_item_randart(acq_item, true))
+        {
+            destroy_item(thing_created, true);
+            thing_created = NON_ITEM;
+            continue;
+        }
+
         // Increase the chance of armour being an artefact by usually
         // rerolling non-artefacts.
         if (acq_item.base_type == OBJ_ARMOUR && !is_artefact(acq_item))
@@ -1808,6 +1817,51 @@ static void _make_okawaru_gifts(object_class_type gift_type)
         if (item.defined() && !_is_duplicate(item, acq_items))
             acq_items.push_back(item);
     }
+}
+
+/**
+ * Vashtar's Spoils of War: a choice of three artefact weapons.
+ *
+ * @return Whether a weapon was chosen (false if the player cancelled, in
+ *         which case the same choices are offered next time).
+ */
+bool vashtar_spoils_of_war()
+{
+    if (!you.props.exists(VASHTAR_WEAPONS_KEY))
+    {
+        CrawlVector &acq_items = you.props[VASHTAR_WEAPONS_KEY].get_vector();
+        acq_items.clear();
+        int tries = 0;
+        while (acq_items.size() < 3 && tries++ < 100)
+        {
+            auto item = _acquirement_item_def(OBJ_WEAPONS, GOD_VASHTAR);
+            if (item.defined() && is_artefact(item)
+                && !_is_duplicate(item, acq_items))
+            {
+                acq_items.push_back(item);
+            }
+        }
+        if (acq_items.empty())
+        {
+            you.props.erase(VASHTAR_WEAPONS_KEY);
+            simple_god_message(" finds no spoils worthy of you.");
+            return false;
+        }
+    }
+
+    auto &acq_items = you.props[VASHTAR_WEAPONS_KEY].get_vector();
+
+    simple_god_message(" lays the spoils of war before you!");
+
+    AcquireMenu acq_menu(acq_items, VASHTAR_WEAPONS_KEY);
+    acq_menu.show();
+
+    // Nothing selected yet.
+    if (you.props.exists(VASHTAR_WEAPONS_KEY))
+        return false;
+
+    take_note(Note(NOTE_GOD_GIFT, you.religion));
+    return true;
 }
 
 bool okawaru_gift_weapon()

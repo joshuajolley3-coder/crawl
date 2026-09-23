@@ -48,5 +48,6 @@ enum conduct_type
     DID_WIZARDLY_ITEM,                    // now forbidden
 #endif
     DID_TITHE,                            // Zin
+    DID_WITNESS_DEATH,                    // Vashtar
     NUM_CONDUCTS
 };

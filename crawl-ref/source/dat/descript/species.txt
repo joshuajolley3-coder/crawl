@@ -63,7 +63,8 @@ Vanara
 Vanara are sturdy, fur-covered monkey people. They are strong, hardy and
 remarkably good at throwing things, but have little patience for magic. Their
 long prehensile tail helps them dodge and can even wear a ring, and their
-small fangs let them bite in melee.
+small fangs let them bite in melee. As they grow in experience, their fur
+turns gold, making them harder to hit and letting them see the unseen.
 %%%%
 Human
 

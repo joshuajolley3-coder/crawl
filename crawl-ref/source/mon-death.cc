@@ -3053,6 +3053,23 @@ item_def* monster_die(monster& mons, killer_type killer,
     const bool destroyed = wounded_damaged(targ_holy) ||
                            mons.type == MONS_CRAWLING_FLESH_CAGE;
 
+    // Vashtar delights in every death: kills heal, and deaths seen give piety.
+    // Only real deaths count, not monsters being reset, banished or dismissed.
+    const bool actually_died = killer == KILL_YOU || killer == KILL_YOU_MISSILE
+                               || killer == KILL_YOU_CONF || killer == KILL_MON
+                               || killer == KILL_MON_MISSILE
+                               || killer == KILL_NON_ACTOR;
+    if (actually_died && gives_player_xp && !crawl_state.game_is_arena()
+        && you_worship(GOD_VASHTAR))
+    {
+        const bool your_kill = killer == KILL_YOU
+                               || killer == KILL_YOU_CONF
+                               || killer == KILL_YOU_MISSILE
+                               || killer_index == YOU_FAULTLESS;
+        vashtar_death_effects(mons,
+                              your_kill || _is_pet_kill(killer, killer_index));
+    }
+
     // Print standard death messages, handle god conducts and piety gain, and
     // perform other killer_type specific actions (like handling banishment).
     switch (killer)

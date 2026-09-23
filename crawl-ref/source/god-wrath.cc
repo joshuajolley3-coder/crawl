@@ -100,6 +100,7 @@ static const char *_god_wrath_adjectives[] =
     "memory",           // Hepliaklqana (unused)
     "rancor",           // Wu Jian
     "fiery vengeance",  // Ignis
+    "bloodlust",        // Vashtar
 };
 COMPILE_CHECK(ARRAYSZ(_god_wrath_adjectives) == NUM_GODS);
 
@@ -1694,6 +1695,44 @@ static bool _ignis_retribution()
     return true;
 }
 
+/**
+ * Call down the wrath of Vashtar upon the player!
+ *
+ * War demons and weakness.
+ *
+ * @return Whether to take further divine wrath actions afterward.
+ */
+static bool _vashtar_retribution()
+{
+    const god_type god = GOD_VASHTAR;
+
+    if (coinflip())
+    {
+        simple_god_message(" drinks deep of your strength!", false, god);
+        you.weaken(nullptr, 25);
+        drain_player(random_range(50, 100), false, true, false);
+        return true;
+    }
+
+    const int wanted = 1 + random2(1 + you.experience_level / 7);
+    int count = 0;
+    for (int i = 0; i < wanted; ++i)
+    {
+        const monster_type demon = you.experience_level >= 14
+            ? random_choose(MONS_EXECUTIONER, MONS_BALRUG, MONS_REAPER)
+            : random_choose(MONS_HELLWING, MONS_ORANGE_DEMON, MONS_YNOXINUL,
+                            MONS_SMOKE_DEMON);
+        if (create_monster(_wrath_mon_data(demon, god), false))
+            ++count;
+    }
+
+    simple_god_message(count > 1 ? " sends war demons to punish you." :
+                       count > 0 ? " sends a war demon to punish you."
+                                 : "'s war demons fail to arrive.",
+                       false, god);
+    return true;
+}
+
 static bool _uskayaw_retribution()
 {
     const god_type god = GOD_USKAYAW;
@@ -1779,6 +1818,7 @@ bool divine_retribution(god_type god, bool no_bonus, bool force)
     case GOD_USKAYAW:       do_more = _uskayaw_retribution(); break;
     case GOD_WU_JIAN:       do_more = _wu_jian_retribution(); break;
     case GOD_IGNIS:         do_more = _ignis_retribution(); break;
+    case GOD_VASHTAR:       do_more = _vashtar_retribution(); break;
 
     case GOD_ASHENZARI:
     case GOD_ELYVILON:

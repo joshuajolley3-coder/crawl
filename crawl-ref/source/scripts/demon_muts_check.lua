@@ -114,6 +114,26 @@ check(t ~= nil and t < 0.65,"throwing is cheap (3 better than human fighting)")
 check(s ~= nil and s > 1.0, "spellcasting is expensive")
 say("  mutations: " .. you.mutation_overview())
 
+-- Level-up mutations only come the first time you reach an XL, and this test
+-- character has already been XL 27, so rebuild the species at each XL instead.
+you.delete_all_mutations("check")
+assert(you.change_species("human"))
+assert(you.set_xl(11, false))
+assert(you.change_species("vanara"))
+local ac11, ev11 = you.ac(), you.ev()
+check(you.get_base_mutation_level("golden fur") == 0, "no golden fur at XL 11")
+check(not you.see_invisible(), "no see invisible at XL 11")
+you.delete_all_mutations("check")
+assert(you.change_species("human"))
+assert(you.set_xl(12, false))
+assert(you.change_species("vanara"))
+say(string.format("  XL 12: AC +%d, EV +%d, SInv %s",
+    you.ac() - ac11, you.ev() - ev11, tostring(you.see_invisible())))
+check(you.get_base_mutation_level("golden fur") == 1, "golden fur at XL 12")
+check(you.ac() - ac11 == 3, "golden fur gives AC +3")
+check(you.ev() - ev11 == 3, "golden fur gives EV +3")
+check(you.see_invisible(), "golden fur gives see invisible")
+
 ------------------------------------------------------------------
 say("== Ruyi Jingu Bang ==")
 check(not you.unrands("Ruyi Jingu Bang"), "not generated yet")

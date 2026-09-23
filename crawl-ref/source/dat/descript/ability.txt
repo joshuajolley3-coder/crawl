@@ -348,6 +348,32 @@ The affected area will shrink over time, and a new one cannot be created until
 the old one has fully expired.
 %%%%
 # Okawaru
+War Paint ability
+
+Daubs you in the blood of your foes, temporarily increasing your AC by 4 and
+your slaying by 3. The duration is increased by Invocations skill.
+%%%%
+Vashtar's Fury ability
+
+Fills you with Vashtar's fury, making you mighty and hasted for a short time.
+The duration is increased by Invocations skill.
+%%%%
+Blood Tithe ability
+
+Offers a portion of your devotion in exchange for a permanent +2 to Strength,
+Intelligence or Dexterity. Vashtar accepts only three tithes, and each costs
+more piety than the last.
+%%%%
+Spoils of War ability
+
+Vashtar lays three artefact weapons before you, and you may claim one. This
+costs a great deal of piety, but can be done again once you have earned it.
+%%%%
+Thousand Arms ability
+
+For a short time, every melee attack you make also strikes all other enemies
+around you. Each kill you make extends the effect.
+%%%%
 Heroism ability
 
 Temporarily increases all of your combat skills, both offensive and defensive.

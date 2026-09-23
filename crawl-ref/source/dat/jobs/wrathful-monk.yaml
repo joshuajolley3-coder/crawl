@@ -1,0 +1,25 @@
+enum: JOB_WRATHFUL_MONK
+name: "Wrathful Monk"
+short_name: WM
+category: Zealot
+category_priority: 85
+str: 6
+int: 0
+dex: 6
+equipment:
+  - "robe"
+  - "potion of might"
+weapon_choice: plain
+recommended_species:
+  - vanara
+  - minotaur
+  - troll
+  - demonspawn
+  - gnoll
+  - mountain dwarf
+skills:
+  fighting: 3
+  dodging: 2
+  weapon: 2
+  invocations: 2
+create_enum: false

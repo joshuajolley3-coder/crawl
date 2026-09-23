@@ -14,6 +14,7 @@
 #define OKAWARU_WEAPON_GIFTED_KEY "okawaru_weapon_gifted"
 #define OKAWARU_ARMOUR_KEY "okawaru_armour"
 #define OKAWARU_ARMOUR_GIFTED_KEY "okawaru_armour_gifted"
+#define VASHTAR_WEAPONS_KEY "vashtar_weapons"
 
 #define INVENT_GIZMO_USED_KEY "invent_gizmo_used"
 #define COGLIN_GIZMO_KEY "coglin_gizmos"
@@ -25,6 +26,7 @@ const int COGLIN_GIZMO_XL = 14;
 bool acquirement_menu();
 
 bool okawaru_gift_weapon();
+bool vashtar_spoils_of_war();
 bool okawaru_gift_armour();
 
 bool coglin_invent_gizmo();

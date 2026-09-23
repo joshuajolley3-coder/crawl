@@ -83,6 +83,10 @@ Ignis lastname
 
 Ignis, the Dying Flame
 %%%%
+Vashtar lastname
+
+Vashtar the Unending War
+%%%%
 Wu Jian lastname
 
 the Wu Jian Council

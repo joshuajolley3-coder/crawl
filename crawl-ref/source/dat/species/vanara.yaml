@@ -35,7 +35,10 @@ mutations:
     MUT_SHAGGY_FUR: 1
     MUT_FANGS: 1
     MUT_PREHENSILE_TAIL: 1
+  12:
+    MUT_GOLDEN_FUR: 1
 recommended_jobs:
+  - wrathful monk
   - fighter
   - gladiator
   - brigand

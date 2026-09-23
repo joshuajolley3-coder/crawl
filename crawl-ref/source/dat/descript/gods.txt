@@ -175,6 +175,14 @@ gain the ability to go berserk at will in combat, and will be granted
 assistance in the form of powerful weapons and mighty allies. Followers are
 absolutely forbidden the use of spell magic.
 %%%%
+Vashtar
+
+Vashtar the Unending War is an asura, a warlike demigod who has fought the
+heavens since before the dungeon was dug. Vashtar cares nothing for how a
+creature dies, only that it does: followers are rewarded for every kill made by
+them or their allies, and even for deaths they merely witness. Unlike Trog,
+Vashtar has no quarrel with magic, and asks nothing of followers but slaughter.
+%%%%
 Uskayaw
 
 Uskayaw the Reveller is a god of ecstatic dance. In the dungeon, Uskayaw
@@ -438,6 +446,16 @@ heal their wounds while fortifying their willpower, and later the ability to
 call in powerful raging allies. Eventually, Trog will gift followers with
 weapons, often with antimagic effects.
 %%%%
+Vashtar powers
+
+Vashtar's followers are healed by every death they or their allies cause. They
+can paint themselves for war to harden their skin and sharpen their blows, and
+call on Vashtar's fury to become mighty and swift. Devout followers may trade
+piety directly for power: three times, Vashtar will permanently strengthen body
+or mind in exchange for a blood tithe, and those who have killed enough may
+claim a choice of artefact weapons as spoils of war. The most devoted may take
+on a thousand arms, striking every foe around them, sustained by each kill.
+%%%%
 Uskayaw powers
 
 Worshippers of Uskayaw can stomp to damage foes around them, and rapidly move
@@ -650,6 +668,11 @@ Trog's wrath is incandescent. Offenders find themselves swarmed by berserkers â€
 from packs of bears to, for the most powerful, mobs of giants and trolls.
 Otherwise, those who anger Trog will regularly lose both their strength and
 self-control as they thoughtlessly thrash in place.
+%%%%
+Vashtar wrath
+
+Vashtar does not forgive deserters. Apostates are hunted by war demons, and
+Vashtar will drink deep of their strength, leaving them weakened and drained.
 %%%%
 Uskayaw wrath
 

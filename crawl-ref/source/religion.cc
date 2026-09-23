@@ -444,6 +444,19 @@ const vector<vector<god_power>> & get_all_god_powers()
             { 1, ABIL_IGNIS_FOXFIRE, "call a swarm of foxfires against your foes" },
             { 7, ABIL_IGNIS_RISING_FLAME, "rocket upward and away, once" },
         },
+
+        // Vashtar
+        {
+            { 1, "heal yourself when you or your allies kill" },
+            { 2, ABIL_VASHTAR_WAR_PAINT, "paint yourself for war" },
+            { 3, ABIL_VASHTAR_FURY, "call upon Vashtar's fury" },
+            { 4, ABIL_VASHTAR_BLOOD_TITHE,
+                 "trade piety for permanent attributes, three times" },
+            { 5, ABIL_VASHTAR_SPOILS_OF_WAR,
+                 "trade piety for a choice of artefact weapons" },
+            { 6, ABIL_VASHTAR_THOUSAND_ARMS,
+                 "strike every foe around you, fed by each kill" },
+        },
     };
     static bool god_powers_init = false;
 
@@ -2176,6 +2189,7 @@ string god_name(god_type which_god, bool long_name)
     case GOD_HEPLIAKLQANA:  return "Hepliaklqana";
     case GOD_WU_JIAN:       return "Wu Jian";
     case GOD_IGNIS:         return "Ignis";
+    case GOD_VASHTAR:       return "Vashtar";
     case GOD_JIYVA: // This is handled at the beginning of the function
     case GOD_ECUMENICAL:    return "an unknown god";
     case NUM_GODS:          return "Buggy";
@@ -3175,6 +3189,20 @@ void excommunication(bool voluntary, god_type new_god)
         {
             you.duration[DUR_RISING_FLAME] = 0;
             mpr("Your rising flame fizzles out.");
+        }
+        break;
+
+    case GOD_VASHTAR:
+        if (you.duration[DUR_WAR_PAINT])
+        {
+            you.duration[DUR_WAR_PAINT] = 0;
+            mpr("Your war paint flakes away.");
+            you.redraw_armour_class = true;
+        }
+        if (you.duration[DUR_CLEAVE])
+        {
+            you.duration[DUR_CLEAVE] = 0;
+            mpr("Your thousand arms fade away.");
         }
         break;
 
@@ -4262,6 +4290,9 @@ int god_colour(god_type god) // mv - added
     case GOD_WU_JIAN:
         return LIGHTRED;
 
+    case GOD_VASHTAR:
+        return RED;
+
     case GOD_GOZAG:
     case GOD_XOM:
     case GOD_IGNIS:
@@ -4392,6 +4423,9 @@ colour_t god_message_altar_colour(god_type god)
 
     case GOD_IGNIS:
         return random_choose(WHITE, YELLOW);
+
+    case GOD_VASHTAR:
+        return random_choose(RED, LIGHTRED, DARKGREY);
 
     default:
         return YELLOW;

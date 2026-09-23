@@ -242,6 +242,10 @@ static const char *divine_title[][8] =
     // Ignis -- fire/candles theme
     {"Extinguished",          "Last Ember",             "Glowing Coal",              "Thurifer",
         "Hearthfire",     "Furnace",               "Raging Flame",              "Inferno"},
+
+    // Vashtar -- asura/endless war theme
+    {"Deserter",          "Bloodied",               "Skull-taker",              "Warbringer",
+        "Reaver",             "Asura",                 "Thousand-Armed",           "Unending War"},
 };
 COMPILE_CHECK(ARRAYSZ(divine_title) == NUM_GODS);
 

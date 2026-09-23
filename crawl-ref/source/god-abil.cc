@@ -39,6 +39,7 @@
 #include "fineff.h"
 #include "format.h" // formatted_string
 #include "god-companions.h"
+#include "god-conduct.h"
 #include "god-item.h"
 #include "god-passive.h"
 #include "hints.h"
@@ -7402,4 +7403,140 @@ void simulate_time_passing(int turns)
     you.doing_monster_catchup = true;
     _run_time_step();
     you.doing_monster_catchup = false;
+}
+
+/// How many times has the player paid Vashtar's Blood Tithe?
+int vashtar_tithes_taken()
+{
+    return you.props.exists(VASHTAR_TITHES_KEY)
+        ? you.props[VASHTAR_TITHES_KEY].get_int() : 0;
+}
+
+/// The total piety the next Blood Tithe costs. Each one costs more.
+int vashtar_tithe_cost()
+{
+    return VASHTAR_TITHE_BASE_COST
+           + VASHTAR_TITHE_STEP_COST * vashtar_tithes_taken();
+}
+
+bool vashtar_can_tithe(bool quiet)
+{
+    if (vashtar_tithes_taken() >= VASHTAR_MAX_TITHES)
+    {
+        if (!quiet)
+            simple_god_message(" has taken all the blood you can give.");
+        return false;
+    }
+    if (you.piety() < vashtar_tithe_cost())
+    {
+        if (!quiet)
+        {
+            mprf("You need more piety to pay the tithe. (It costs %d.)",
+                 vashtar_tithe_cost());
+        }
+        return false;
+    }
+    return true;
+}
+
+/**
+ * Trade piety for +2 to a stat of the player's choice. At most three times.
+ *
+ * The ability table charges the base cost; the rising part is charged here.
+ * @return Whether the tithe was paid (false if the player cancelled).
+ */
+bool vashtar_blood_tithe()
+{
+    if (!vashtar_can_tithe(false))
+        return false;
+
+    mprf(MSGCH_PROMPT, "Offer your blood for (S)trength, (I)ntelligence or "
+                       "(D)exterity? (%d of %d tithes left)",
+         VASHTAR_MAX_TITHES - vashtar_tithes_taken(), VASHTAR_MAX_TITHES);
+
+    stat_type stat = NUM_STATS;
+    while (stat == NUM_STATS)
+    {
+        const int keyin = toupper_safe(getchm());
+        if (key_is_escape(keyin))
+        {
+            canned_msg(MSG_OK);
+            return false;
+        }
+        if (keyin == 'S')
+            stat = STAT_STR;
+        else if (keyin == 'I')
+            stat = STAT_INT;
+        else if (keyin == 'D')
+            stat = STAT_DEX;
+    }
+
+    const int extra = vashtar_tithe_cost() - VASHTAR_TITHE_BASE_COST;
+    you.props[VASHTAR_TITHES_KEY] = vashtar_tithes_taken() + 1;
+
+    simple_god_message(" drinks your offering and remakes your flesh.");
+    modify_stat(stat, 2, false);
+    if (extra > 0)
+        lose_piety(extra);
+    take_note(Note(NOTE_GOD_GIFT, you.religion));
+    return true;
+}
+
+void vashtar_war_paint()
+{
+    mprf(MSGCH_DURATION, you.duration[DUR_WAR_PAINT]
+         ? "You refresh your war paint."
+         : "You daub yourself in the blood of your foes.");
+    you.increase_duration(DUR_WAR_PAINT,
+                          15 + random2avg(you.skill(SK_INVOCATIONS, 2), 2),
+                          50);
+    you.redraw_armour_class = true;
+}
+
+void vashtar_fury()
+{
+    simple_god_message(" fills you with the fury of endless war!");
+    const int invo = you.skill(SK_INVOCATIONS, 1);
+    mprf(MSGCH_DURATION, "You feel %s.",
+         you.duration[DUR_MIGHT] ? "mightier" : "very mighty");
+    you.increase_duration(DUR_MIGHT, 10 + random2(10 + invo), 50);
+    haste_player(5 + random2(5 + invo / 2));
+}
+
+void vashtar_thousand_arms()
+{
+    simple_god_message(" grants you a thousand arms!");
+    you.increase_duration(DUR_CLEAVE,
+                          8 + random2avg(you.skill(SK_INVOCATIONS, 1), 2),
+                          30);
+}
+
+/**
+ * Vashtar's reactions to a monster dying.
+ *
+ * @param mons                The monster that died.
+ * @param your_or_ally_kill   Whether the player or their allies killed it.
+ */
+void vashtar_death_effects(const monster &mons, bool your_or_ally_kill)
+{
+    if (!you_worship(GOD_VASHTAR))
+        return;
+
+    if (!your_or_ally_kill)
+    {
+        if (you.see_cell(mons.pos()))
+            did_god_conduct(DID_WITNESS_DEATH, mons.get_experience_level());
+        return;
+    }
+
+    // Death Feeds: a little healing for every kill.
+    if (piety_rank() >= 1 && you.hp < you.hp_max
+        && !you.duration[DUR_DEATHS_DOOR])
+    {
+        inc_hp(1 + random2(1 + piety_rank() + mons.get_hit_dice() / 2));
+    }
+
+    // Thousand Arms is fed by each kill.
+    if (you.duration[DUR_CLEAVE])
+        you.increase_duration(DUR_CLEAVE, 2, 30);
 }
