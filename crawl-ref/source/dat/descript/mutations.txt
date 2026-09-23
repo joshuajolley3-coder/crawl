@@ -17,6 +17,16 @@ You are surrounded by a repulsion field, providing a small amount of evasion.
 Each level of this mutation provides more EV. The third level of this mutation
 also repels missiles, greatly increasing your EV against such attacks.
 %%%%
+golden scales mutation
+
+You are covered in golden scales, providing a small amount of protection. Each
+level of this mutation provides more AC. The third level of this mutation also
+provides resistance to fire, cold and poison.
+
+The source of these scales is incredibly odd. No demon lord is known to bear
+anything like them, and scholars of the Pandemonium bloodlines can only guess
+which of your ancestors you have to thank for them.
+%%%%
 icy blue scales mutation
 
 You are covered in blue scales, providing a small amount of protection. Each
@@ -424,7 +434,7 @@ Each level of this mutation makes you move slower.
 robust mutation
 
 You can take a beating. Each level of this mutation improves your health
-further (+10% HP).
+further (+15% HP).
 %%%%
 frail mutation
 
@@ -610,7 +620,7 @@ sturdy frame mutation
 
 Your movements are less encumbered by armour, mitigating penalties to spell
 success, evasion, and ranged weapon attack speed. Each level of this mutation
-reduces armour ER by 2.
+reduces armour ER by 3.
 %%%%
 sanguine armour mutation
 
@@ -696,6 +706,13 @@ You fly evasively through the air, increasing your evasion somewhat.
 big wings mutation
 
 You have big, strong wings, capable of bearing you through the air.
+%%%%
+demonic wings mutation
+
+Demonic wings sprout from your back, shielding you and making you more nimble.
+Each level of this mutation provides +2 AC and +1 Dex. At the third level your
+wings are strong enough to let you fly, but they are too large to wear a cloak
+over.
 %%%%
 float mutation
 

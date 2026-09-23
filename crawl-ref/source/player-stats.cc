@@ -263,6 +263,8 @@ static const vector<mut_stat_effect> mut_stat_effects = {
     { MUT_CLUMSY,    0,  0, -3 },
     { MUT_THIN_SKELETAL_STRUCTURE,
                      0,  0,  2 },
+    { MUT_DEMONIC_WINGS,
+                     0,  0,  1 },
 };
 
 static int _get_mut_effects(stat_type which_stat, bool innate_only)

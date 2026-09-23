@@ -212,6 +212,8 @@ int count = 0;
             NO_SLOT("You can't wear that.")
         else if (you.get_mutation_level(MUT_WEAKNESS_STINGER, false) >= 3)
             NO_SLOT("You can't wear that with your sharp stinger!")
+        else if (you.get_mutation_level(MUT_DEMONIC_WINGS, false) >= 3)
+            NO_SLOT("You can't wear that over your wings!")
 
         return 1;
 

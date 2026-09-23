@@ -26,7 +26,7 @@ TEST_CASE_METHOD(MockPlayerYouTestsFixture,
           "Check single AC mutation", "[single-file]" ) {
     mutate(MUT_ICY_BLUE_SCALES, "testing");
 
-    REQUIRE(you.base_ac(100) == 200);
+    REQUIRE(you.base_ac(100) == 300);
 }
 
 TEST_CASE_METHOD(MockPlayerYouTestsFixture,
@@ -36,7 +36,7 @@ TEST_CASE_METHOD(MockPlayerYouTestsFixture,
 
     mutate(MUT_GELATINOUS_BODY, "testing");
 
-    REQUIRE(you.base_ac(100) == 300);
+    REQUIRE(you.base_ac(100) == 400);
 }
 
 TEST_CASE_METHOD(MockPlayerYouTestsFixture,
@@ -44,7 +44,7 @@ TEST_CASE_METHOD(MockPlayerYouTestsFixture,
 
     mutate(MUT_ICY_BLUE_SCALES, "testing");
 
-    REQUIRE(you.base_ac(100) == 200);
+    REQUIRE(you.base_ac(100) == 300);
 }
 
 TEST_CASE_METHOD(MockPlayerYouTestsFixture,
@@ -75,7 +75,7 @@ TEST_CASE_METHOD(MockPlayerYouTestsFixture,
 
     mutate(MUT_RUGGED_BROWN_SCALES, "testing");
 
-    REQUIRE(you.base_ac(100) == 100);
+    REQUIRE(you.base_ac(100) == 200);
 }
 
 TEST_CASE_METHOD(MockPlayerYouTestsFixture,
@@ -83,7 +83,7 @@ TEST_CASE_METHOD(MockPlayerYouTestsFixture,
 
     mutate(MUT_MOLTEN_SCALES, "testing");
 
-    REQUIRE(you.base_ac(100) == 200);
+    REQUIRE(you.base_ac(100) == 300);
 }
 
 TEST_CASE_METHOD(MockPlayerYouTestsFixture,

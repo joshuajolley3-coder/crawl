@@ -1563,6 +1563,7 @@ int player_res_fire(bool allow_random, bool include_temp, bool items)
     rf -= you.get_mutation_level(MUT_HEAT_VULNERABILITY, include_temp);
     rf -= you.get_mutation_level(MUT_TEMPERATURE_SENSITIVITY, include_temp);
     rf += you.get_mutation_level(MUT_MOLTEN_SCALES, include_temp) == 3 ? 1 : 0;
+    rf += you.get_mutation_level(MUT_GOLDEN_SCALES, include_temp) == 3 ? 1 : 0;
 
     // spells:
     if (include_temp)
@@ -1658,6 +1659,7 @@ int player_res_cold(bool allow_random, bool include_temp, bool items)
     rc -= you.get_mutation_level(MUT_COLD_VULNERABILITY, include_temp);
     rc -= you.get_mutation_level(MUT_TEMPERATURE_SENSITIVITY, include_temp);
     rc += you.get_mutation_level(MUT_ICY_BLUE_SCALES, include_temp) == 3 ? 1 : 0;
+    rc += you.get_mutation_level(MUT_GOLDEN_SCALES, include_temp) == 3 ? 1 : 0;
     rc += you.get_mutation_level(MUT_SHAGGY_FUR, include_temp) == 3 ? 1 : 0;
 
     if (rc < -3)
@@ -1794,6 +1796,7 @@ int player_res_poison(bool allow_random, bool include_temp, bool items, bool for
     // mutations:
     rp += you.get_mutation_level(MUT_POISON_RESISTANCE, include_temp);
     rp += you.get_mutation_level(MUT_SLIMY_GREEN_SCALES, include_temp) == 3 ? 1 : 0;
+    rp += you.get_mutation_level(MUT_GOLDEN_SCALES, include_temp) == 3 ? 1 : 0;
 
     if (include_temp && you.duration[DUR_RESISTANCE])
         rp++;
@@ -2257,7 +2260,7 @@ static int _player_base_evasion_modifiers()
     evbonus += you.get_mutation_level(MUT_GELATINOUS_BODY);
 
     if (you.get_mutation_level(MUT_DISTORTION_FIELD))
-        evbonus += you.get_mutation_level(MUT_DISTORTION_FIELD) + 1;
+        evbonus += you.get_mutation_level(MUT_DISTORTION_FIELD) + 2;
 
     if (you.get_mutation_level(MUT_PROTEAN_GRACE))
         evbonus += protean_grace_amount();
@@ -2489,9 +2492,9 @@ int player_shield_class(int scale, bool random, bool include_temp)
         shield += _sh_from_shield(*shield_item);
 
     // mutations
-    // +4, +6, +8 (displayed values)
+    // +5, +8, +11 (displayed values)
     shield += (you.get_mutation_level(MUT_LARGE_BONE_PLATES) > 0
-               ? you.get_mutation_level(MUT_LARGE_BONE_PLATES) * 400 + 400
+               ? you.get_mutation_level(MUT_LARGE_BONE_PLATES) * 600 + 400
                : 0);
 
     // Icemail and Ephemeral Shield aren't active all of the time, so consider
@@ -3352,7 +3355,9 @@ void level_change(bool skip_attribute_increase)
 
                 for (const player::demon_trait trait : you.demonic_traits)
                 {
-                    if (is_body_facet(trait.mutation))
+                    // Wings take the cloak slot but aren't a "monstrous" set.
+                    if (is_body_facet(trait.mutation)
+                        && trait.mutation != MUT_DEMONIC_WINGS)
                     {
                         if (first_body_facet < NUM_MUTATIONS
                             && trait.mutation != first_body_facet)
@@ -4392,9 +4397,9 @@ int get_real_hp(bool trans, bool drained)
                            || player_under_penance(GOD_HEPLIAKLQANA);
 
     // Mutations that increase HP by a percentage
-    hitp *= 100 + (you.get_mutation_level(MUT_ROBUST) * 10)
+    hitp *= 100 + (you.get_mutation_level(MUT_ROBUST) * 15)
                 + (you.get_mutation_level(MUT_RUGGED_BROWN_SCALES) ?
-                   you.get_mutation_level(MUT_RUGGED_BROWN_SCALES) * 2 + 1 : 0)
+                   you.get_mutation_level(MUT_RUGGED_BROWN_SCALES) * 3 + 2 : 0)
                 - (you.get_mutation_level(MUT_FRAIL) * 10)
                 - (hep_frail ? 10 : 0);
 
@@ -6379,7 +6384,7 @@ int player::unadjusted_body_armour_penalty(bool archery) const
 
     // PARM_EVASION is always less than or equal to 0
     return max(0, -property(*body_armour, PARM_EVASION) / 10 / rfactor
-                  - get_mutation_level(MUT_STURDY_FRAME) * 2);
+                  - get_mutation_level(MUT_STURDY_FRAME) * 3);
 }
 
 /**
@@ -6521,7 +6526,7 @@ int sanguine_armour_bonus()
 
     const int mut_lev = you.get_mutation_level(MUT_SANGUINE_ARMOUR);
     // like iridescent, but somewhat moreso (when active)
-    return 300 + mut_lev * 300;
+    return 400 + mut_lev * 400;
 }
 
 int stone_body_armour_bonus()
@@ -6629,6 +6634,8 @@ class mutation_ac_changes{
 // all_mutation_ac_changes
 const vector<int> ONE_TWO_THREE  = {1,2,3};
 const vector<int> TWO_THREE_FOUR = {2,3,4};
+// Buffed Demonspawn scale values.
+const vector<int> THREE_FOUR_SIX = {3,4,6};
 
 vector<mutation_ac_changes> all_mutation_ac_changes = {
      mutation_ac_changes(MUT_GELATINOUS_BODY,           ONE_TWO_THREE)
@@ -6636,14 +6643,16 @@ vector<mutation_ac_changes> all_mutation_ac_changes = {
     ,mutation_ac_changes(MUT_SHAGGY_FUR,                ONE_TWO_THREE)
     ,mutation_ac_changes(MUT_PHYSICAL_VULNERABILITY,    {-5,-10,-15})
     ,mutation_ac_changes(MUT_IRIDESCENT_SCALES,         {2, 4, 6})
-    ,mutation_ac_changes(MUT_RUGGED_BROWN_SCALES,       ONE_TWO_THREE)
-    ,mutation_ac_changes(MUT_ICY_BLUE_SCALES,           TWO_THREE_FOUR)
-    ,mutation_ac_changes(MUT_MOLTEN_SCALES,             TWO_THREE_FOUR)
-    ,mutation_ac_changes(MUT_SLIMY_GREEN_SCALES,        TWO_THREE_FOUR)
-    ,mutation_ac_changes(MUT_THIN_METALLIC_SCALES,      TWO_THREE_FOUR)
-    ,mutation_ac_changes(MUT_YELLOW_SCALES,             TWO_THREE_FOUR)
-    ,mutation_ac_changes(MUT_SHARP_SCALES,              ONE_TWO_THREE)
+    ,mutation_ac_changes(MUT_RUGGED_BROWN_SCALES,       TWO_THREE_FOUR)
+    ,mutation_ac_changes(MUT_ICY_BLUE_SCALES,           THREE_FOUR_SIX)
+    ,mutation_ac_changes(MUT_MOLTEN_SCALES,             THREE_FOUR_SIX)
+    ,mutation_ac_changes(MUT_SLIMY_GREEN_SCALES,        THREE_FOUR_SIX)
+    ,mutation_ac_changes(MUT_THIN_METALLIC_SCALES,      THREE_FOUR_SIX)
+    ,mutation_ac_changes(MUT_YELLOW_SCALES,             THREE_FOUR_SIX)
+    ,mutation_ac_changes(MUT_GOLDEN_SCALES,             THREE_FOUR_SIX)
+    ,mutation_ac_changes(MUT_SHARP_SCALES,              TWO_THREE_FOUR)
     ,mutation_ac_changes(MUT_IRON_FUSED_SCALES,         {5, 5, 5})
+    ,mutation_ac_changes(MUT_DEMONIC_WINGS,             {2, 4, 6})
 };
 
 /**
@@ -7438,6 +7447,7 @@ bool player::racial_permanent_flight() const
 {
     return has_mutation(MUT_TENGU_FLIGHT)
         || get_mutation_level(MUT_BIG_WINGS)
+        || get_mutation_level(MUT_DEMONIC_WINGS) >= 3
         || has_mutation(MUT_FLOAT);
 }
 

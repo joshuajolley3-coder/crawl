@@ -126,7 +126,8 @@ static const body_facet_def _body_facets[] =
     { SLOT_GLOVES, MUT_DEMONIC_TOUCH },
     { SLOT_BOOTS, MUT_HOOVES },
     { SLOT_BOOTS, MUT_TALONS },
-    { SLOT_CLOAK, MUT_WEAKNESS_STINGER }
+    { SLOT_CLOAK, MUT_WEAKNESS_STINGER },
+    { SLOT_CLOAK, MUT_DEMONIC_WINGS },
 };
 
 vector<mutation_type> get_removed_mutations()
@@ -2245,6 +2246,13 @@ bool _delete_single_mutation_level(mutation_type mutat,
 #endif
         break;
 
+    case MUT_DEMONIC_WINGS:
+        // Losing the third level takes away flight.
+        if (you.mutation[mutat] == 2)
+            land_player();
+        ash_check_bondage();
+        break;
+
     case MUT_HORNS:
     case MUT_ANTENNAE:
     case MUT_BEAK:
@@ -2889,6 +2897,8 @@ static const facet_def _demon_facets[] =
       { -33, -33, 0 } },
     { 1, { MUT_SLIMY_GREEN_SCALES, MUT_SLIMY_GREEN_SCALES, MUT_SLIMY_GREEN_SCALES },
       { -33, -33, 0 } },
+    { 1, { MUT_GOLDEN_SCALES, MUT_GOLDEN_SCALES, MUT_GOLDEN_SCALES },
+      { -33, -33, 0 } },
     { 1, { MUT_THIN_METALLIC_SCALES, MUT_THIN_METALLIC_SCALES,
         MUT_THIN_METALLIC_SCALES },
       { -33, -33, 0 } },
@@ -2901,16 +2911,12 @@ static const facet_def _demon_facets[] =
       { -33, -33, 0 } },
     { 1, { MUT_SANGUINE_ARMOUR, MUT_SANGUINE_ARMOUR, MUT_SANGUINE_ARMOUR },
       { -33, -33, 0 } },
-    { 1, { MUT_BIG_BRAIN, MUT_BIG_BRAIN, MUT_BIG_BRAIN },
-      { -33, -33, 0 } },
     { 1, { MUT_SHARP_SCALES, MUT_SHARP_SCALES, MUT_SHARP_SCALES },
       { -33, -33, 0 } },
     // Tier 2 facets
     { 2, { MUT_IGNITE_BLOOD, MUT_IGNITE_BLOOD, MUT_IGNITE_BLOOD },
       { -33, 0, 0 } },
     { 2, { MUT_CONDENSATION_SHIELD, MUT_ICEMAIL, MUT_ICEMAIL },
-      { -33, 0, 0 } },
-    { 2, { MUT_DEMONIC_MAGIC, MUT_DEMONIC_MAGIC, MUT_DEMONIC_MAGIC },
       { -33, 0, 0 } },
     { 2, { MUT_POWERED_BY_DEATH, MUT_POWERED_BY_DEATH, MUT_POWERED_BY_DEATH },
       { -33, 0, 0 } },
@@ -2922,16 +2928,14 @@ static const facet_def _demon_facets[] =
       { -33, 0, 0 } },
     { 2, { MUT_FOUL_STENCH, MUT_FOUL_STENCH, MUT_FOUL_STENCH },
       { -33, 0, 0 } },
-    { 2, { MUT_MANA_REGENERATION, MUT_MANA_SHIELD, MUT_MANA_LINK },
-      { -33, 0, 0 } },
     { 2, { MUT_FOUL_SHADOW, MUT_FOUL_SHADOW, MUT_FOUL_SHADOW },
+      { -33, 0, 0 } },
+    { 2, { MUT_DEMONIC_WINGS, MUT_DEMONIC_WINGS, MUT_DEMONIC_WINGS },
       { -33, 0, 0 } },
     // Tier 3 facets
     { 3, { MUT_DEMONIC_WILL, MUT_TORMENT_RESISTANCE, MUT_HURL_DAMNATION },
       { 50, 50, 50 } },
     { 3, { MUT_ROBUST, MUT_ROBUST, MUT_ROBUST },
-      { 50, 50, 50 } },
-    { 3, { MUT_HEX_ENHANCER, MUT_BLACK_MARK, MUT_SILENCE_AURA },
       { 50, 50, 50 } },
     { 3, { MUT_AUGMENTATION, MUT_AUGMENTATION, MUT_AUGMENTATION },
       { 50, 50, 50 } },

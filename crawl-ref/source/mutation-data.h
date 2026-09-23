@@ -562,9 +562,9 @@ static const mutation_def mut_data[] =
 { MUT_ROBUST, 5, 3, mutflag::good,
   "robust",
 
-  {"You are robust. (+10% HP)",
-   "You are very robust. (+20% HP)",
-   "You are extremely robust. (+30% HP)"},
+  {"You are robust. (+15% HP)",
+   "You are very robust. (+30% HP)",
+   "You are extremely robust. (+45% HP)"},
 
   {"You feel robust.",
    "You feel robust.",
@@ -859,6 +859,24 @@ static const mutation_def mut_data[] =
    "The barb on your tail seems less sharp.",
    "The barb on your tail seems less sharp."},
   TILEG_MUT_STINGER,
+},
+
+// Demonspawn only
+{ MUT_DEMONIC_WINGS, 0, 3, mutflag::good | mutflag::anatomy,
+  "demonic wings",
+
+  {"You have whelpling wings. (AC +2, Dex +1)",
+   "You have small wings. (AC +4, Dex +2)",
+   "You have large demonic wings. (AC +6, Dex +3, Flight, no cloaks)"},
+
+  {"Whelpling wings sprout painfully from your back.",
+   "Your wings grow larger and stronger.",
+   "Your wings finish growing in, ready to bear your weight."},
+
+  {"Your wings wither and fall away.",
+   "Your wings shrink to whelpling size.",
+   "Your wings shrink and can no longer bear your weight."},
+  TILEG_MUT_BIG_WINGS,
 },
 
 // Draconian/gargoyle only
@@ -1364,9 +1382,9 @@ static const mutation_def mut_data[] =
 { MUT_DISTORTION_FIELD, 0, 3, mutflag::good,
   "repulsion field",
 
-  {"You are surrounded by a mild repulsion field. (EV +2)",
-   "You are surrounded by a moderate repulsion field. (EV +3)",
-   "You are surrounded by a strong repulsion field. (EV +4, RMsl)"},
+  {"You are surrounded by a mild repulsion field. (EV +3)",
+   "You are surrounded by a moderate repulsion field. (EV +4)",
+   "You are surrounded by a strong repulsion field. (EV +5, RMsl)"},
 
   {"You begin to radiate repulsive energy.",
    "Your repulsive radiation grows stronger.",
@@ -1381,9 +1399,9 @@ static const mutation_def mut_data[] =
 { MUT_ICY_BLUE_SCALES, 0, 3, mutflag::good | mutflag::substance | mutflag::anatomy | mutflag::scales,
   "icy blue scales",
 
-  {"You are partially covered in icy blue scales. (AC +2)",
-   "You are mostly covered in icy blue scales. (AC +3)",
-   "You are completely covered in icy blue scales. (AC +4, rC+)"},
+  {"You are partially covered in icy blue scales. (AC +3)",
+   "You are mostly covered in icy blue scales. (AC +4)",
+   "You are completely covered in icy blue scales. (AC +6, rC+)"},
 
   {"Icy blue scales grow over part of your body.",
    "Icy blue scales spread over more of your body.",
@@ -1417,9 +1435,9 @@ static const mutation_def mut_data[] =
 { MUT_LARGE_BONE_PLATES, 2, 3, mutflag::good | mutflag::substance | mutflag::anatomy,
   "large bone plates",
 
-  {"You are partially covered in large bone plates. (SH +4)",
-   "You are mostly covered in large bone plates. (SH +6)",
-   "You are completely covered in large bone plates. (SH +8)"},
+  {"You are partially covered in large bone plates. (SH +5)",
+   "You are mostly covered in large bone plates. (SH +8)",
+   "You are completely covered in large bone plates. (SH +11)"},
 
   {"Large bone plates grow over parts of your arms.",
    "Large bone plates spread over more of your arms.",
@@ -1435,9 +1453,9 @@ static const mutation_def mut_data[] =
 { MUT_MOLTEN_SCALES, 0, 3, mutflag::good | mutflag::substance | mutflag::anatomy | mutflag::scales,
   "molten scales",
 
-  {"You are partially covered in molten scales. (AC +2)",
-   "You are mostly covered in molten scales. (AC +3)",
-   "You are completely covered in molten scales. (AC +4, rF+)"},
+  {"You are partially covered in molten scales. (AC +3)",
+   "You are mostly covered in molten scales. (AC +4)",
+   "You are completely covered in molten scales. (AC +6, rF+)"},
 
   {"Molten scales grow over part of your body.",
    "Molten scales spread over more of your body.",
@@ -1453,9 +1471,9 @@ static const mutation_def mut_data[] =
 { MUT_RUGGED_BROWN_SCALES, 0, 3, mutflag::good | mutflag::substance | mutflag::anatomy | mutflag::scales,
   "rugged brown scales",
 
-  {"You are partially covered in rugged brown scales. (AC +1, +3% HP)",
-   "You are mostly covered in rugged brown scales. (AC +2, +5% HP)",
-   "You are completely covered in rugged brown scales. (AC +3, +7% HP)"},
+  {"You are partially covered in rugged brown scales. (AC +2, +5% HP)",
+   "You are mostly covered in rugged brown scales. (AC +3, +8% HP)",
+   "You are completely covered in rugged brown scales. (AC +4, +11% HP)"},
 
   {"Rugged brown scales grow over part of your body.",
    "Rugged brown scales spread over more of your body.",
@@ -1471,9 +1489,9 @@ static const mutation_def mut_data[] =
 { MUT_SLIMY_GREEN_SCALES, 0, 3, mutflag::good | mutflag::substance | mutflag::anatomy | mutflag::scales,
   "slimy green scales",
 
-  {"You are partially covered in slimy green scales. (AC +2)",
-   "You are mostly covered in slimy green scales. (AC +3)",
-   "You are completely covered in slimy green scales. (AC +4, rPois)"},
+  {"You are partially covered in slimy green scales. (AC +3)",
+   "You are mostly covered in slimy green scales. (AC +4)",
+   "You are completely covered in slimy green scales. (AC +6, rPois)"},
 
   {"Slimy green scales grow over part of your body.",
    "Slimy green scales spread over more of your body.",
@@ -1489,9 +1507,9 @@ static const mutation_def mut_data[] =
 { MUT_THIN_METALLIC_SCALES, 0, 3, mutflag::good | mutflag::substance | mutflag::anatomy | mutflag::scales,
   "thin metallic scales",
 
-  {"You are partially covered in thin metallic scales. (AC +2)",
-   "You are mostly covered in thin metallic scales. (AC +3)",
-   "You are completely covered in thin metallic scales. (AC +4, rElec)"},
+  {"You are partially covered in thin metallic scales. (AC +3)",
+   "You are mostly covered in thin metallic scales. (AC +4)",
+   "You are completely covered in thin metallic scales. (AC +6, rElec)"},
 
   {"Thin metallic scales grow over part of your body.",
    "Thin metallic scales spread over more of your body.",
@@ -1525,9 +1543,9 @@ static const mutation_def mut_data[] =
 { MUT_YELLOW_SCALES, 0, 3, mutflag::good | mutflag::substance | mutflag::anatomy | mutflag::scales,
   "yellow scales",
 
-  {"You are partially covered in yellow scales. (AC +2)",
-   "You are mostly covered in yellow scales. (AC +3)",
-   "You are completely covered in yellow scales. (AC +4, rCorr)"},
+  {"You are partially covered in yellow scales. (AC +3)",
+   "You are mostly covered in yellow scales. (AC +4)",
+   "You are completely covered in yellow scales. (AC +6, rCorr)"},
 
   {"Yellow scales grow over part of your body.",
    "Yellow scales spread over more of your body.",
@@ -1540,12 +1558,30 @@ static const mutation_def mut_data[] =
     TILEG_MUT_YELLOW_SCALES
 },
 
+{ MUT_GOLDEN_SCALES, 0, 3, mutflag::good | mutflag::substance | mutflag::anatomy | mutflag::scales,
+  "golden scales",
+
+  {"You are partially covered in golden scales. (AC +3)",
+   "You are mostly covered in golden scales. (AC +4)",
+   "You are completely covered in golden scales. (AC +6, rF+, rC+, rPois)"},
+
+  {"Golden scales grow over part of your body. Where did these come from?",
+   "Golden scales spread over more of your body.",
+   "Golden scales cover your body completely."},
+
+  {"Your golden scales disappear.",
+   "Your golden scales recede somewhat.",
+   "Your golden scales recede somewhat."},
+
+    TILEG_MUT_YELLOW_SCALES,
+},
+
 { MUT_SHARP_SCALES, 0, 3, mutflag::good | mutflag::substance | mutflag::anatomy | mutflag::scales,
   "sharp scales",
 
-  {"You are partially covered in razor-sharp scales. (AC +1, Slay +1)",
-   "You are mostly covered in razor-sharp scales. (AC +2, Slay +2)",
-   "You are completely covered in razor-sharp scales. (AC +3, Slay +3)"},
+  {"You are partially covered in razor-sharp scales. (AC +2, Slay +1)",
+   "You are mostly covered in razor-sharp scales. (AC +3, Slay +2)",
+   "You are completely covered in razor-sharp scales. (AC +4, Slay +3)"},
 
   {"Sharp scales grow over part of your body.",
    "Sharp scales spread over more of your body.",
@@ -1561,9 +1597,9 @@ static const mutation_def mut_data[] =
 { MUT_STURDY_FRAME, 2, 3, mutflag::good,
   "sturdy frame",
 
-  {"Your movements are slightly less encumbered by armour. (ER -2)",
-   "Your movements are less encumbered by armour. (ER -4)",
-   "Your movements are significantly less encumbered by armour. (ER -6)"},
+  {"Your movements are slightly less encumbered by armour. (ER -3)",
+   "Your movements are less encumbered by armour. (ER -6)",
+   "Your movements are significantly less encumbered by armour. (ER -9)"},
 
   {"You feel less encumbered by your armour.",
    "You feel less encumbered by your armour.",

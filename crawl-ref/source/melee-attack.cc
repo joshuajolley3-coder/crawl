@@ -4710,8 +4710,8 @@ void melee_attack::do_spines()
 
         if (mut && attacker->alive() && coinflip())
         {
-            int dmg = random_range(mut,
-                div_rand_round(you.experience_level * 2, 3) + mut * 3);
+            int dmg = random_range(mut * 2,
+                div_rand_round(you.experience_level * 2, 3) + mut * 4);
             int hurt = attacker->apply_ac(dmg);
 
             dprf(DIAG_COMBAT, "Spiny: dmg = %d hurt = %d", dmg, hurt);

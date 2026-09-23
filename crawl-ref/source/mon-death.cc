@@ -2435,7 +2435,7 @@ static void _player_on_kill_effects(monster& mons, killer_type killer,
         const int pbd_str = you.props[POWERED_BY_DEATH_KEY].get_int();
         if (x_chance_in_y(10 - pbd_str, 10))
         {
-            const int pbd_inc = random2(1 + pbd_level);
+            const int pbd_inc = 1 + random2(pbd_level);
             you.props[POWERED_BY_DEATH_KEY] = pbd_str + pbd_inc;
             dprf("Powered by Death strength +%d=%d", pbd_inc,
                  pbd_str + pbd_inc);
