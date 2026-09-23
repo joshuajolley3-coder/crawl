@@ -3013,7 +3013,8 @@ tileidx_t tileidx_player_shadow()
         case SP_FORMICID:       return TILEP_MONS_PLAYER_SHADOW_FORMICID;
         case SP_GARGOYLE:       return TILEP_MONS_PLAYER_SHADOW_GARGOYLE;
         case SP_GNOLL:          return TILEP_MONS_PLAYER_SHADOW_GNOLL;
-        case SP_HUMAN:          return TILEP_MONS_PLAYER_SHADOW_HUMAN;
+        case SP_HUMAN:
+        case SP_VANARA:         return TILEP_MONS_PLAYER_SHADOW_HUMAN;
         case SP_KOBOLD:         return TILEP_MONS_PLAYER_SHADOW_KOBOLD;
         case SP_MERFOLK:        return TILEP_MONS_PLAYER_SHADOW_MERFOLK;
         case SP_MINOTAUR:       return TILEP_MONS_PLAYER_SHADOW_MINOTAUR;
@@ -4850,6 +4851,7 @@ static tileidx_t _tileidx_player_species_base(const species_type species)
     switch (species)
     {
         case SP_HUMAN:
+        case SP_VANARA:
 #if TAG_MAJOR_VERSION == 34
         case SP_DEEP_DWARF:
         case SP_HILL_ORC:

@@ -229,6 +229,9 @@ int count = 0;
         if (you.has_mutation(MUT_MISSING_HAND))
             ring_count -= 1;
 
+        if (you.has_mutation(MUT_PREHENSILE_TAIL))
+            ring_count += 1;
+
         if (_use_slots(UNRAND_FINGER_AMULET, count_melded_unrands, count_items))
             ring_count += 1;
 

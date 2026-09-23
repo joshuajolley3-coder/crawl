@@ -2116,6 +2116,18 @@ BOOL:    enh_forge, evil
 DESCRIP: Apostate: Equipping it will reduce your piety. While worn, you gain
  piety at three quarters of the normal rate.
 
+ENUM:    RUYI_JINGU_BANG
+NAME:    Ruyi Jingu Bang
+OBJ:     OBJ_WEAPONS/WPN_QUARTERSTAFF
+PLUS:    +9
+COLOUR:  ETC_GOLD
+TILE:    urand_ruyi_jingu_bang
+TILE_EQ: STAFF_MAGE2
+BRAND:   SPWPN_HEAVY
+STR:     +4
+DEX:     +4
+BOOL:    rMut
+
 # This entry must always be last.
 ENUM:   DUMMY2
 NAME:   DUMMY UNRANDART 2

@@ -707,6 +707,10 @@ big wings mutation
 
 You have big, strong wings, capable of bearing you through the air.
 %%%%
+prehensile tail mutation
+
+A long, grasping tail. It gives +3 EV and lets you wear one extra ring.
+%%%%
 demonic wings mutation
 
 Demonic wings sprout from your back, shielding you and making you more nimble.

@@ -2259,6 +2259,9 @@ static int _player_base_evasion_modifiers()
     // mutations
     evbonus += you.get_mutation_level(MUT_GELATINOUS_BODY);
 
+    if (you.has_mutation(MUT_PREHENSILE_TAIL))
+        evbonus += 3;
+
     if (you.get_mutation_level(MUT_DISTORTION_FIELD))
         evbonus += you.get_mutation_level(MUT_DISTORTION_FIELD) + 2;
 
@@ -7903,6 +7906,7 @@ bool player::has_tail(bool allow_tran) const
     if (species::is_draconian(species)
         || species == SP_FELID
         || has_mutation(MUT_CONSTRICTING_TAIL, allow_tran)
+        || has_mutation(MUT_PREHENSILE_TAIL, allow_tran)
         || fishtail // XX respect allow_tran
         || get_mutation_level(MUT_ARMOURED_TAIL, allow_tran)
         || get_mutation_level(MUT_STINGER, allow_tran)

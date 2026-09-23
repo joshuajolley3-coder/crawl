@@ -1,0 +1,47 @@
+enum: SP_VANARA
+monster: MONS_HUMAN
+name: Vanara
+short_name: Va
+genus: Monkey
+difficulty: Simple
+difficulty_priority: 45
+aptitudes:
+  xp: 0
+  hp: 2
+  mp_mod: -1
+  wl: 2
+  throwing: 3
+  spellcasting: -2
+  conjurations: -2
+  hexes: -2
+  summoning: -2
+  forgecraft: -2
+  necromancy: -2
+  translocations: -2
+  fire_magic: -2
+  ice_magic: -2
+  air_magic: -2
+  earth_magic: -2
+  alchemy: -2
+str: 11
+int: 5
+dex: 9
+levelup_stat_frequency: 4
+levelup_stats:
+  - str
+  - dex
+mutations:
+  1:
+    MUT_SHAGGY_FUR: 1
+    MUT_FANGS: 1
+    MUT_PREHENSILE_TAIL: 1
+recommended_jobs:
+  - fighter
+  - gladiator
+  - brigand
+  - hunter
+  - monk
+recommended_weapons:
+  - staves
+  - maces and flails
+child_name: Infant

@@ -879,6 +879,16 @@ static const mutation_def mut_data[] =
   TILEG_MUT_BIG_WINGS,
 },
 
+// Vanara only
+{ MUT_PREHENSILE_TAIL, 0, 1, mutflag::good | mutflag::anatomy,
+  "prehensile tail",
+
+  {"Your prehensile tail can wear a ring and helps you dodge. (EV +3)", "", ""},
+  {"A long, grasping tail grows from your spine.", "", ""},
+  {"Your tail withers away.", "", ""},
+  TILEG_MUT_GENERIC_GOOD_MUTATION,
+},
+
 // Draconian/gargoyle only
 { MUT_BIG_WINGS, 4, 1, mutflag::good | mutflag::anatomy,
   "big wings",

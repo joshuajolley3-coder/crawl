@@ -58,6 +58,13 @@ Gnoll
 Gnolls are canine-like humanoids. They are unable to specialise in any single
 skill, but instead gradually become proficient in all skills at once.
 %%%%
+Vanara
+
+Vanara are sturdy, fur-covered monkey people. They are strong, hardy and
+remarkably good at throwing things, but have little patience for magic. Their
+long prehensile tail helps them dodge and can even wear a ring, and their
+small fangs let them bite in melee.
+%%%%
 Human
 
 Humans are natural explorers. Discovering new places refreshes and invigorates them.
