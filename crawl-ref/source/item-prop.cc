@@ -126,6 +126,17 @@ static const armour_def Armour_prop[] =
             { SPARM_NORMAL,          4 },
             { SPARM_WILLPOWER,       4 },
     }},
+    // A robe cut from the hide of some great beast: all the freedom of a
+    // robe, with the protection of real armour.
+    { ARM_BEAST_HIDE_ROBE,      "beast hide robe",        5,   0,   120,
+        SLOT_BODY_ARMOUR, SIZE_LITTLE, SIZE_LARGE, true, 25, {
+            { SPARM_RESISTANCE,      1 },
+            { SPARM_COLD_RESISTANCE, 2 },
+            { SPARM_FIRE_RESISTANCE, 2 },
+            { SPARM_POSITIVE_ENERGY, 2 },
+            { SPARM_NORMAL,          4 },
+            { SPARM_WILLPOWER,       4 },
+    }},
     { ARM_LEATHER_ARMOUR,       "leather armour",         3,  -40,   20,
         SLOT_BODY_ARMOUR, SIZE_SMALL, SIZE_MEDIUM, true, 10, BASIC_BODY_EGOS },
     { ARM_RING_MAIL,            "ring mail",              5,  -70,   40,
@@ -672,6 +683,10 @@ static const weapon_def Weapon_prop[] =
     { WPN_SCIMITAR,              "scimitar",              12, 0, 14,
         SK_LONG_BLADES,  SIZE_LITTLE, SIZE_LITTLE,
         DAMV_SLICING, 6, 20, 60, LBL_BRANDS },
+    // The heaviest sword that can still be swung in one hand.
+    { WPN_BASTARD_SWORD,         "bastard sword",         14, -3, 15,
+        SK_LONG_BLADES,  SIZE_LITTLE, SIZE_MEDIUM,
+        DAMV_SLICING, 5, 15, 80, LBL_BRANDS },
     { WPN_DEMON_BLADE,           "demon blade",           13, -1, 13,
         SK_LONG_BLADES,  SIZE_LITTLE, SIZE_LITTLE,
         DAMV_SLICING, 0, 13, 250, DEMON_BRANDS },
@@ -909,6 +924,7 @@ static const missile_def Missile_prop[] =
     { MI_JAVELIN,       "javelin",      10, 20, 30 },
     { MI_THROWING_NET,  "throwing net",  0, 0,  30 },
     { MI_BOOMERANG,     "boomerang",     6, 20, 20 },
+    { MI_THROWING_KNIFE, "throwing knife", 7, 15, 8 },
 
 #if TAG_MAJOR_VERSION == 34
     { MI_NEEDLE,        "needle",        0, 12, 2  },
@@ -1991,6 +2007,24 @@ bool is_brandable_weapon(const item_def &wpn, bool allow_ranged, bool divine)
     return true;
 }
 
+/// Can a scroll of true name awaken this item into an artefact?
+bool can_true_name(const item_def &item)
+{
+    switch (item.base_type)
+    {
+    case OBJ_WEAPONS:
+    case OBJ_ARMOUR:
+    case OBJ_JEWELLERY:
+    case OBJ_STAVES:
+    case OBJ_TALISMANS:
+        break;
+    default:
+        return false;
+    }
+    // Blessed weapons already have a name of their own, of a sort.
+    return !is_artefact(item) && !is_blessed(item);
+}
+
 /**
  * Which skill should the lochaber axe use?
  *
@@ -2496,6 +2530,8 @@ static map<potion_type, item_rarity_type> _potion_rarity = {
     { POT_CANCELLATION, RARITY_RARE },
     { POT_AMBROSIA,     RARITY_RARE },
     { POT_EXPERIENCE,   RARITY_VERY_RARE },
+    { POT_POSITIVE_MUTATION, RARITY_RARE },
+    { POT_EMPOWERMENT,  RARITY_VERY_RARE },
 };
 
 static map<scroll_type, item_rarity_type> _scroll_rarity = {
@@ -2513,6 +2549,8 @@ static map<scroll_type, item_rarity_type> _scroll_rarity = {
     { SCR_POISON,         RARITY_UNCOMMON },
     { SCR_VULNERABILITY,  RARITY_UNCOMMON },
     { SCR_BUTTERFLIES,    RARITY_RARE },
+    { SCR_ENSLAVEMENT,    RARITY_VERY_RARE },
+    { SCR_TRUE_NAME,      RARITY_VERY_RARE },
     { SCR_SUMMONING,      RARITY_RARE },
     { SCR_SILENCE,        RARITY_RARE },
     { SCR_BRAND_WEAPON,   RARITY_RARE },

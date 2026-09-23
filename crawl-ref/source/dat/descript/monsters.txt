@@ -3249,6 +3249,18 @@ tengu warrior
 A particularly bloodthirsty tengu who has opted to hone its skill in airborne
 fighting and weaponry instead of spellcasting.
 %%%%
+vanara champion
+
+A veteran of the monkey folk, quick on its feet and quicker with its staff. It
+peppers foes with throwing knives before closing in to strike and bite, and its
+golden-tipped fur lets it see what others cannot.
+%%%%
+hollowkin champion
+
+An ash-grey warrior clad in dark iron, born without a spark of magic. Its
+blows drain the magic from its victims, and spells aimed at its mind find
+nothing to hold on to.
+%%%%
 tentacle
 
 The mighty tentacle of a kraken. Any damage dealt to it hurts the whole

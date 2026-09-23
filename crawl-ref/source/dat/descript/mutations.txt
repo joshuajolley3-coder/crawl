@@ -711,6 +711,28 @@ prehensile tail mutation
 
 A long, grasping tail. It gives +3 EV and lets you wear one extra ring.
 %%%%
+shunned mutation
+
+Shopkeepers refuse to serve your kind. You may look at their wares, but you
+cannot buy anything.
+%%%%
+wolf blood mutation
+
+Your animal blood has made you a wolfman: shaggy, strong and sharp of tooth.
+From the second stage you can call a pack of wolves, which grows stronger as
+you evolve.
+%%%%
+cat blood mutation
+
+Your animal blood has made you a catman: quick, stealthy and keen-eyed, with
+claws that sharpen as you evolve. Each stage makes you harder to hit.
+%%%%
+bird blood mutation
+
+Your animal blood has made you a birdman, clever and at home in the wind. You
+can call down wind strikes, fly from the second stage, and summon a vortex from
+the third. Your skill with air magic grows as you evolve.
+%%%%
 no magic mutation
 
 You have no magic at all. You cannot cast or memorise spells, and have no

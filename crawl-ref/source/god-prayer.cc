@@ -212,7 +212,9 @@ void try_god_conversion(god_type god)
 
     if (you.has_mutation(MUT_FORLORN))
     {
-        mpr("A being of your status worships no god.");
+        mpr(you.species == SP_BEASTKIN
+            ? "The gods have abandoned your kind, and do not hear you."
+            : "A being of your status worships no god.");
         return;
     }
 

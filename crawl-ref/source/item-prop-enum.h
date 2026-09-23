@@ -116,6 +116,7 @@ enum armour_type
 #endif
 
     ARM_CROWN,
+    ARM_BEAST_HIDE_ROBE,
 
     NUM_ARMOURS
 };
@@ -384,6 +385,8 @@ enum missile_type
     MI_SLUG,
 #endif
 
+    MI_THROWING_KNIFE,
+
     NUM_MISSILES,
 };
 
@@ -479,6 +482,8 @@ enum scroll_type
 #endif
     SCR_POISON,
     SCR_BUTTERFLIES,
+    SCR_ENSLAVEMENT,
+    SCR_TRUE_NAME,
     NUM_SCROLLS
 };
 
@@ -746,6 +751,8 @@ enum weapon_type
     WPN_PARTISAN,
     WPN_ATHAME,
 #endif
+
+    WPN_BASTARD_SWORD,
 
     NUM_WEAPONS,
 

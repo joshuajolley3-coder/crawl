@@ -1719,9 +1719,13 @@ bool mut_is_compatible(mutation_type mut, bool base_only)
         if (mut == MUT_TOUGH_SKIN && !you.has_innate_mutation(MUT_TOUGH_SKIN))
             return false;
 
-        // Only species that have innate fur can mutate more.
-        if (mut == MUT_SHAGGY_FUR && !you.has_innate_mutation(MUT_SHAGGY_FUR))
+        // Only species that have innate fur (or Beastkin wolfmen) can mutate
+        // more.
+        if (mut == MUT_SHAGGY_FUR && !you.has_innate_mutation(MUT_SHAGGY_FUR)
+            && !you.has_mutation(MUT_BEAST_WOLF))
+        {
             return false;
+        }
 
         // Formicids have stasis and so prevent mutations that would do nothing.
         if (mut == MUT_TELEPORTITIS && you.stasis())
@@ -2788,6 +2792,8 @@ string mutation_desc(mutation_type mut, int level, bool colour,
     }
     else if (!ignore_player && you.has_innate_mutation(MUT_PAWS) && mut == MUT_CLAWS)
         result = "You have sharp claws."; // XX ugly override
+    else if (!ignore_player && mut == MUT_FORLORN && you.species == SP_BEASTKIN)
+        result = "The gods have abandoned you.";
     else if (result.empty() && level > 0)
         result = mdef.have[level - 1];
 

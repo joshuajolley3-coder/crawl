@@ -32,6 +32,8 @@ mutations:
   1:
     MUT_NO_MAGIC: 1
     MUT_DEVOUT: 1
+  12:
+    MUT_HOLLOW_SILENCE: 1
 recommended_jobs:
   - fighter
   - gladiator

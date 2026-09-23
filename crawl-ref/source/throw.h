@@ -21,8 +21,9 @@ enum fire_type
     FIRE_ROCK      = 0x0008,
     FIRE_NET       = 0x0010,
     FIRE_BOOMERANG = 0x0020,
+    FIRE_KNIFE     = 0x0080,
     FIRE_THROWING  = FIRE_DART | FIRE_STONE | FIRE_JAVELIN | FIRE_ROCK
-                               | FIRE_NET | FIRE_BOOMERANG,
+                               | FIRE_NET | FIRE_BOOMERANG | FIRE_KNIFE,
     FIRE_LAUNCHER  = 0x0040,
     FIRE_INSCRIBED = 0x1000,   // Only used for _get_fire_order
     FIRE_SPELL     = 0x2000, // TODO: more fine-grained

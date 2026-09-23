@@ -66,6 +66,17 @@ long prehensile tail helps them dodge and can even wear a ring, and their
 small fangs let them bite in melee. As they grow in experience, their fur
 turns gold, making them harder to hit and letting them see the unseen.
 %%%%
+Beastkin
+
+Misshapen, half-animal folk abandoned by the gods. They cannot worship, and no
+shopkeeper will sell to them. They begin with weak claws and a bite, but at
+level 6 their animal blood awakens and they choose one of three paths: the
+strong wolfman who calls a pack, the quick and stealthy catman, or the winged
+birdman who commands the wind. They evolve further every six levels.
+
+Without gods or merchants to lean on, Beastkin rely on their bodies: they heal
+quickly, grow strong fast, and take naturally to fighting and dodging.
+%%%%
 Hollowkin
 
 The ash-grey Hollowkin are born with a hollow where their magic should be. They cannot

@@ -2647,6 +2647,25 @@ unsigned int skill_exp_needed(int lev, skill_type sk, species_type sp)
     return _get_skill_cost_for(lev) * species_apt_factor(sk, sp);
 }
 
+/// Beastkin aptitudes improve as they evolve along their animal path.
+static int _beastkin_apt_bonus(skill_type skill)
+{
+    const int wolf = beastkin_stage(MUT_BEAST_WOLF);
+    const int cat  = beastkin_stage(MUT_BEAST_CAT);
+    const int bird = beastkin_stage(MUT_BEAST_BIRD);
+    switch (skill)
+    {
+    case SK_UNARMED_COMBAT: return wolf + cat / 2;
+    case SK_FIGHTING:       return wolf / 2;
+    case SK_STEALTH:        return cat ? cat + 1 : 0;
+    case SK_DODGING:        return cat / 2 + bird / 2;
+    case SK_SHORT_BLADES:   return cat / 2;
+    case SK_AIR_MAGIC:      return bird * 2;
+    case SK_SPELLCASTING:   return bird / 2;
+    default:                return 0;
+    }
+}
+
 int species_apt(skill_type skill, species_type species)
 {
     static bool spec_skills_initialised = false;
@@ -2668,8 +2687,14 @@ int species_apt(skill_type skill, species_type species)
         spec_skills_initialised = true;
     }
 
-    return max(UNUSABLE_SKILL, _spec_skills[species][skill]
-                               - you.get_mutation_level(MUT_UNSKILLED));
+    const int apt = max(UNUSABLE_SKILL, _spec_skills[species][skill]
+                                        - you.get_mutation_level(MUT_UNSKILLED));
+    if (species == SP_BEASTKIN && you.species == SP_BEASTKIN
+        && apt != UNUSABLE_SKILL)
+    {
+        return apt + _beastkin_apt_bonus(skill);
+    }
+    return apt;
 }
 
 float species_apt_factor(skill_type sk, species_type sp)

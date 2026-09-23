@@ -167,6 +167,7 @@ int get_damage_type(const item_def &item) PURE;
 int single_damage_type(const item_def &item) PURE;
 
 bool is_brandable_weapon(const item_def &wpn, bool allow_ranged, bool divine = false);
+bool can_true_name(const item_def &item);
 
 skill_type item_attack_skill(const item_def &item) PURE;
 skill_type item_attack_skill(object_class_type wclass, int wtype) IMMUTABLE;

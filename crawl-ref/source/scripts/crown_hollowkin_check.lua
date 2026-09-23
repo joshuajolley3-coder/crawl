@@ -99,7 +99,9 @@ if saber then
     say(string.format("  %s: plus %s, ego %s, artefact %s",
         saber.name(), tostring(saber.plus), tostring(saber.ego_type),
         tostring(saber.artefact)))
-    check(saber.plus == 10, "is +10")
+    check(saber.plus == 12, "is +12")
+    say("  base damage: " .. tostring(saber.damage))
+    check(saber.damage == 10, "is a long sword (base damage 10)")
     check(saber.ego_type == "electrocution", "has the electrocution brand")
 end
 

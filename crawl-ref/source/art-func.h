@@ -30,6 +30,7 @@
 #include "coordit.h"       // For distance_iterator()
 #include "death-curse.h"   // For the Scythe of Curses
 #include "english.h"       // For apostrophise
+#include "env.h"           // For Xom's Treads
 #include "exercise.h"      // For practise_evoking
 #include "fight.h"
 #include "fineff.h"        // For the Storm Queen's Shield
@@ -1904,4 +1905,104 @@ static void _FORGEWARDEN_equip(item_def */*item*/, bool *show_msgs, bool unmeld)
 
         lose_piety(piety_loss);
     }
+}
+
+///////////////////////////////////////////////////
+// Xom's Treads: leave a random trail behind you as you walk.
+
+#define XOMS_TREADS_LAST_POS_KEY "xoms_treads_last_pos"
+#define XOMS_TREADS_LAST_LEVEL_KEY "xoms_treads_last_level"
+
+static void _XOMS_TREADS_equip(item_def */*item*/, bool *show_msgs, bool /*unmeld*/)
+{
+    you.props[XOMS_TREADS_LAST_POS_KEY].get_coord() = you.pos();
+    you.props[XOMS_TREADS_LAST_LEVEL_KEY] = level_id::current().describe();
+    if (*show_msgs)
+        mpr("You hear distant, delighted laughter.");
+}
+
+static void _xoms_treads_leave_trail(const coord_def &spot)
+{
+    if (cloud_at(spot) || actor_at(spot))
+        return;
+
+    const bool floor = env.grid(spot) == DNGN_FLOOR;
+    const int roll = random2(100);
+    if (roll < 30)
+        place_cloud(CLOUD_XOM_TRAIL, spot, random_range(4, 8), &you);
+    else if (roll < 42)
+        place_cloud(CLOUD_MIST, spot, random_range(3, 6), &you);
+    else if (roll < 52)
+        place_cloud(CLOUD_FLUFFY, spot, random_range(3, 6), &you);
+    else if (roll < 62)
+    {
+        if (!you.allies_forbidden())
+        {
+            mgen_data butterfly(MONS_BUTTERFLY, BEH_FRIENDLY, spot, MHITYOU,
+                                MG_AUTOFOE | MG_FORCE_PLACE);
+            butterfly.set_summoned(&you, MON_SUMM_BUTTERFLIES, summ_dur(1));
+            create_monster(butterfly);
+        }
+    }
+    else if (roll < 70)
+        place_cloud(CLOUD_FIRE, spot, random_range(2, 4), &you);
+    else if (roll < 78)
+        place_cloud(CLOUD_COLD, spot, random_range(2, 4), &you);
+    else if (roll < 85)
+    {
+        if (floor)
+            temp_change_terrain(spot, DNGN_TRAP_WEB, random_range(40, 80),
+                                TERRAIN_CHANGE_WEBS);
+    }
+    else if (roll < 92)
+    {
+        if (floor)
+            temp_change_terrain(spot, DNGN_SHALLOW_WATER, random_range(40, 80),
+                                TERRAIN_CHANGE_FLOOD);
+    }
+    else if (roll < 96)
+        place_cloud(CLOUD_STEAM, spot, random_range(2, 4), &you);
+    else if (roll < 99)
+        place_cloud(CLOUD_MAGIC_TRAIL, spot, random_range(4, 8), &you);
+    else
+        place_cloud(CLOUD_CHAOS, spot, random_range(2, 4), &you);
+}
+
+static void _XOMS_TREADS_world_reacts(item_def */*item*/)
+{
+    const string here = level_id::current().describe();
+    const bool same_level = you.props.exists(XOMS_TREADS_LAST_LEVEL_KEY)
+        && you.props[XOMS_TREADS_LAST_LEVEL_KEY].get_string() == here;
+    const coord_def last = you.props.exists(XOMS_TREADS_LAST_POS_KEY)
+        ? you.props[XOMS_TREADS_LAST_POS_KEY].get_coord() : coord_def();
+
+    if (same_level && in_bounds(last) && last != you.pos()
+        && grid_distance(last, you.pos()) == 1)
+    {
+        _xoms_treads_leave_trail(last);
+    }
+
+    you.props[XOMS_TREADS_LAST_POS_KEY].get_coord() = you.pos();
+    you.props[XOMS_TREADS_LAST_LEVEL_KEY] = here;
+}
+
+///////////////////////////////////////////////////
+// Alien zapper (wizard-mode only): shots explode into huge plasma blasts.
+
+static void _ALIEN_ZAPPER_launch(bolt* beam)
+{
+    beam->name   = "plasma orb";
+    beam->colour = LIGHTGREEN;
+    beam->glyph  = DCHAR_FIRED_ZAP;
+
+    bolt *expl = new bolt(*beam);
+    expl->flavour      = BEAM_MMISSILE;
+    expl->is_explosion = true;
+    expl->ex_size      = 2;
+    expl->damage       = dice_def(5, 20);
+    expl->name         = "plasma explosion";
+    expl->colour       = LIGHTGREEN;
+    expl->safe_to_user = true;
+
+    beam->special_explosion = expl;
 }

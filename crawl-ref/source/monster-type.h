@@ -1443,6 +1443,9 @@ enum monster_type                      // env.mons[].type
     MONS_ABYSSAL_ACOLYTE,
 #endif
 
+    MONS_VANARA_CHAMPION,
+    MONS_HOLLOWKIN_CHAMPION,
+
     NUM_MONSTERS,               // used for polymorph
 
     // MONS_NO_MONSTER can get put in savefiles, so it shouldn't change

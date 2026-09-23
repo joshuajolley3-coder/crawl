@@ -2131,8 +2131,8 @@ BOOL:    rMut
 ENUM:    VAAPAD
 NAME:    lightsaber "Vaapad"
 APPEAR:  humming violet blade
-OBJ:     OBJ_WEAPONS/WPN_DOUBLE_SWORD
-PLUS:    +10
+OBJ:     OBJ_WEAPONS/WPN_LONG_SWORD
+PLUS:    +12
 COLOUR:  LIGHTMAGENTA
 TILE:    urand_vaapad
 TILE_EQ: VAAPAD
@@ -2142,6 +2142,34 @@ BOOL:    elec
 DESCRIP: Light: It surrounds you with a glowing violet halo, revealing
  invisible creatures and making everything within it other than you easier to
  hit, but reducing your stealth.
+
+ENUM:    XOMS_TREADS
+NAME:    Xom's Treads
+APPEAR:  shimmering rainbow boots
+OBJ:     OBJ_ARMOUR/ARM_BOOTS
+PLUS:    +3
+COLOUR:  ETC_RANDOM
+TILE:    urand_xoms_treads
+TILE_EQ: XOMS_TREADS
+EV:      +3
+DEX:     +2
+BOOL:    chaotic
+INSCRIP: Trail,
+DESCRIP: Trail: Every step you take leaves something behind: rainbow fog, mist,
+ fluffy clouds, butterflies, fire, freezing vapour, cobwebs, puddles, steam, or
+ something stranger still.
+
+ENUM:    ALIEN_ZAPPER
+NAME:    alien zapper
+APPEAR:  humming silver ray gun
+OBJ:     OBJ_WEAPONS/WPN_HAND_CANNON
+PLUS:    +9
+COLOUR:  LIGHTGREEN
+TILE:    urand_alien_zapper
+TILE_EQ: HAND_CANNON
+BOOL:    nogen
+DBRAND:  Plasma: Its shots burst into enormous explosions of green plasma that
+ harm everything nearby except you.
 
 # This entry must always be last.
 ENUM:   DUMMY2

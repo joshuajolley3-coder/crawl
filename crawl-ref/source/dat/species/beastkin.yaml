@@ -1,0 +1,55 @@
+enum: SP_BEASTKIN
+monster: MONS_HUMAN
+name: Beastkin
+short_name: Bk
+difficulty: Advanced
+difficulty_priority: 40
+# Beastkin get no god and no shops, so they make up for it with good
+# martial aptitudes, sturdy bodies, fast healing and strong stat growth
+# (plus the evolution bonuses in player.cc and skills.cc).
+aptitudes:
+  xp: 0
+  hp: 1
+  mp_mod: 0
+  wl: 3
+  fighting: 2
+  unarmed_combat: 3
+  dodging: 2
+  stealth: 1
+  throwing: 1
+  evocations: 1
+  shapeshifting: 1
+  spellcasting: -1
+  conjurations: -1
+  hexes: -1
+  summoning: -1
+  necromancy: -2
+  forgecraft: -1
+  translocations: -1
+  fire_magic: -1
+  ice_magic: -1
+  air_magic: -1
+  earth_magic: -1
+  alchemy: -1
+  invocations: false
+str: 10
+int: 8
+dex: 10
+levelup_stat_frequency: 3
+mutations:
+  1:
+    MUT_CLAWS: 1
+    MUT_FANGS: 1
+    MUT_REGENERATION: 1
+    MUT_FORLORN: 1
+    MUT_SHUNNED: 1
+recommended_jobs:
+  - fighter
+  - gladiator
+  - brigand
+  - hunter
+  - shapeshifter
+recommended_weapons:
+  - unarmed combat
+  - short blades
+  - long blades

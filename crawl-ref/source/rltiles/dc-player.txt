@@ -36,6 +36,10 @@ gnoll4_m
 gnoll4_f
 vanara VANARA
 hollowkin HOLLOWKIN
+beastkin BEASTKIN
+beastkin_wolf BEASTKIN_WOLF
+beastkin_cat BEASTKIN_CAT
+beastkin_bird BEASTKIN_BIRD
 gnome_f GNOME
 gnome_m
 halfling_m HALFLING
@@ -299,6 +303,8 @@ blue_gold
 %syn BLUE_GOLD
 mesh_red
 %syn MESH_RED
+xoms_treads
+%syn XOMS_TREADS
 mesh_black
 %syn MESH_BLACK
 mesh_white
@@ -445,6 +451,7 @@ robe_of_night ROBE_OF_NIGHT
 robe_red2 ROBE_FOLLY
 
 animal_skin ANIMAL_SKIN
+beast_hide_robe BEAST_HIDE_ROBE
 zhor ZHOR
 neck NECK
 belt1 BELT1
@@ -790,6 +797,7 @@ sword_black SWORD_BLACK
 sword_twist SWORD_TWIST
 knife KNIFE
 heavy_sword HEAVY_SWORD
+bastard_sword BASTARD_SWORD
 rapier RAPIER
 %enchant_variation RAPIER shiny runed glowing
 rapier2 RAPIER_MAGIC

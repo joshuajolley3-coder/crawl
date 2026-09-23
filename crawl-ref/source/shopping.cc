@@ -487,7 +487,12 @@ unsigned int item_value(item_def item, bool ident)
             switch (item.sub_type)
             {
             case POT_EXPERIENCE:
+            case POT_EMPOWERMENT:
                 valued += 500;
+                break;
+
+            case POT_POSITIVE_MUTATION:
+                valued += 150;
                 break;
 
             case POT_RESISTANCE:
@@ -538,6 +543,14 @@ unsigned int item_value(item_def item, bool ident)
             {
             case SCR_ACQUIREMENT:
                 valued += 520;
+                break;
+
+            case SCR_ENSLAVEMENT:
+                valued += 250;
+                break;
+
+            case SCR_TRUE_NAME:
+                valued += 400;
                 break;
 
             case SCR_SUMMONING:
@@ -1585,6 +1598,15 @@ void shop()
     }
     if (culled)
         more(); // make sure all messages appear before menu
+
+    // Beastkin may look, but nobody will sell to them.
+    if (you.has_mutation(MUT_SHUNNED))
+    {
+        mprf("The shopkeeper of %s refuses to serve your kind!",
+             shopname.c_str());
+        ShopMenu(shop, level_pos::current(), false).show();
+        return;
+    }
 
     ShopMenu menu(shop, level_pos::current(), true);
     menu.show();

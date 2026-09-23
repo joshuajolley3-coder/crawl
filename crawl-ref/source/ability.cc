@@ -36,6 +36,7 @@
 #include "fight.h"
 #include "fineff.h"
 #include "god-abil.h"
+#include "shout.h"
 #include "god-companions.h"
 #include "god-conduct.h"
 #include "god-item.h"
@@ -767,6 +768,15 @@ static vector<ability_def> &_get_ability_list()
             abflag::none },
         { ABIL_VASHTAR_THOUSAND_ARMS, "Thousand Arms",
             0, 0, 15, -1, {fail_basis::invo, 80, 4, 25}, abflag::none },
+
+        { ABIL_HOLLOW_SILENCE, "Hollow Silence",
+            0, 0, 0, LOS_MAX_RANGE, {}, abflag::target | abflag::not_self },
+        { ABIL_BEAST_CALL_PACK, "Call the Pack",
+            0, 0, 0, -1, {}, abflag::none },
+        { ABIL_BEAST_WIND_STRIKE, "Wind Strike",
+            3, 0, 0, LOS_MAX_RANGE, {}, abflag::none },
+        { ABIL_BEAST_GALE_VORTEX, "Gale Vortex",
+            8, 0, 0, -1, {}, abflag::none },
 
         { ABIL_RENOUNCE_RELIGION, "Renounce Religion",
             0, 0, 0, -1, {fail_basis::invo}, abflag::silence_ok },
@@ -1823,6 +1833,89 @@ static bool _can_blinkbolt(bool quiet)
         return false;
     }
     return true;
+}
+
+#define HOLLOW_SILENCE_TARGET_KEY "hollow_silence_target"
+
+/// Hollowkin: mute one foe in sight. Only one foe can be silenced at a time,
+/// so silencing a new one releases the previous one.
+static spret _hollow_silence(const coord_def &where, bool fail)
+{
+    monster* mon = monster_at(where);
+    if (!mon || !you.can_see(*mon))
+    {
+        mpr("You see nothing there to silence.");
+        return spret::abort;
+    }
+    if (mon->wont_attack())
+    {
+        mpr("You can only silence your enemies.");
+        return spret::abort;
+    }
+    if (mon->has_ench(ENCH_MUTE))
+    {
+        mprf("%s is already silent.", mon->name(DESC_THE).c_str());
+        return spret::abort;
+    }
+    if (fail)
+        return spret::fail;
+
+    if (you.props.exists(HOLLOW_SILENCE_TARGET_KEY))
+    {
+        const mid_t old_mid = you.props[HOLLOW_SILENCE_TARGET_KEY].get_int();
+        monster* old = monster_by_mid(old_mid);
+        if (old && old->alive() && old->has_ench(ENCH_MUTE))
+        {
+            old->del_ench(ENCH_MUTE);
+            if (you.can_see(*old))
+                simple_monster_message(*old, " finds its voice again.");
+        }
+    }
+
+    mon->add_ench(mon_enchant(ENCH_MUTE, &you, INFINITE_DURATION));
+    simple_monster_message(*mon, " is swallowed by your hollow silence.");
+    you.props[HOLLOW_SILENCE_TARGET_KEY].get_int() = mon->mid;
+    return spret::success;
+}
+
+/// Beastkin wolfmen howl for their pack: wolves, then wargs, then worse.
+static spret _beastkin_call_pack()
+{
+    if (you.duration[DUR_PACK_COOLDOWN])
+    {
+        mpr("Your throat is still raw from your last howl.");
+        return spret::abort;
+    }
+
+    const int stage = beastkin_stage(MUT_BEAST_WOLF);
+    vector<monster_type> pack = { MONS_WOLF, MONS_WOLF };
+    if (stage >= 3)
+        pack.push_back(MONS_WARG);
+    if (stage >= 4)
+    {
+        pack.push_back(MONS_WARG);
+        pack.push_back(MONS_BLACK_BEAR);
+    }
+
+    int count = 0;
+    for (monster_type mt : pack)
+    {
+        mgen_data mg(mt, BEH_FRIENDLY, you.pos(), MHITYOU, MG_AUTOFOE);
+        mg.set_summoned(&you, MON_SUMM_AID, summ_dur(3));
+        if (create_monster(mg))
+            ++count;
+    }
+
+    if (!count)
+    {
+        mpr("You howl, but nothing answers.");
+        return spret::abort;
+    }
+
+    mpr("You throw back your head and howl, and your pack answers!");
+    noisy(15, you.pos());
+    you.set_duration(DUR_PACK_COOLDOWN, 40 + random2(20));
+    return spret::success;
 }
 
 static bool _can_rising_flame(bool quiet)
@@ -3489,6 +3582,24 @@ static spret _do_ability(const ability_def& abil, bool fail, dist *target,
     case ABIL_BREATHE_RUST:
         return your_spells(SPELL_RUST_BREATH, get_form()->get_effect_size(), false, nullptr, target);
 
+    case ABIL_HOLLOW_SILENCE:
+        return _hollow_silence(beam.target, fail);
+
+    case ABIL_BEAST_CALL_PACK:
+        return _beastkin_call_pack();
+
+    case ABIL_BEAST_WIND_STRIKE:
+        return your_spells(SPELL_AIRSTRIKE,
+                           20 + you.experience_level * 4
+                              + beastkin_stage(MUT_BEAST_BIRD) * 10,
+                           false, nullptr, target);
+
+    case ABIL_BEAST_GALE_VORTEX:
+        return your_spells(SPELL_POLAR_VORTEX,
+                           30 + you.experience_level * 4
+                              + beastkin_stage(MUT_BEAST_BIRD) * 10,
+                           false, nullptr, target);
+
     case ABIL_EVOKE_BLINK:      // randarts
         return cast_blink(min(50, 1 + you.skill(SK_EVOCATIONS, 3)), fail);
 
@@ -4492,6 +4603,14 @@ bool player_has_ability(ability_type abil, bool include_unusable)
                && (!form_changes_anatomy() || include_unusable);
     case ABIL_HOP:
         return you.get_mutation_level(MUT_FROG_LEGS);
+    case ABIL_HOLLOW_SILENCE:
+        return you.has_mutation(MUT_HOLLOW_SILENCE);
+    case ABIL_BEAST_CALL_PACK:
+        return beastkin_stage(MUT_BEAST_WOLF) >= 2;
+    case ABIL_BEAST_WIND_STRIKE:
+        return beastkin_stage(MUT_BEAST_BIRD) >= 1;
+    case ABIL_BEAST_GALE_VORTEX:
+        return beastkin_stage(MUT_BEAST_BIRD) >= 3;
     case ABIL_BREATHE_POISON:
         return you.get_mutation_level(MUT_SPIT_POISON) >= 2;
     case ABIL_SPIT_POISON:
@@ -4605,6 +4724,10 @@ vector<talent> your_talents(bool include_unusable, bool ignore_piety)
             ABIL_WATERY_GRAVE,
             ABIL_BESTIAL_TAKEDOWN,
             ABIL_BREATHE_RUST,
+            ABIL_HOLLOW_SILENCE,
+            ABIL_BEAST_CALL_PACK,
+            ABIL_BEAST_WIND_STRIKE,
+            ABIL_BEAST_GALE_VORTEX,
             ABIL_BLINKBOLT,
             ABIL_SIPHON_ESSENCE,
             ABIL_IMBUE_SERVITOR,

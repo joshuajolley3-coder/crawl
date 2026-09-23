@@ -348,6 +348,28 @@ The affected area will shrink over time, and a new one cannot be created until
 the old one has fully expired.
 %%%%
 # Okawaru
+Call the Pack ability
+
+Howls for a pack of wolves to fight at your side for a time. As a wolfman
+evolves, wargs and even a great black bear answer the call. Your throat needs
+time to recover between howls.
+%%%%
+Wind Strike ability
+
+Calls down a sudden blast of wind on a creature in sight, striking harder the
+more a birdman has evolved.
+%%%%
+Gale Vortex ability
+
+Whips the air around you into a freezing, howling vortex that tears at
+everything nearby.
+%%%%
+Hollow Silence ability
+
+Swallows the voice of one enemy in sight, so that it can no longer cast spells
+or speak. Only one creature can be silenced this way at a time: silencing
+another releases the first.
+%%%%
 War Paint ability
 
 Daubs you in the blood of your foes, temporarily increasing your AC by 4 and

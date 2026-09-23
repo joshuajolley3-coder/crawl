@@ -349,6 +349,10 @@ base/octopode1 SP_RECOMMENDED_OCTOPODE
 %compose base/hollowkin
 %compose body/animal_skin
 %finish SP_RECOMMENDED_HOLLOWKIN
+%start
+%compose base/beastkin
+%compose body/animal_skin
+%finish SP_RECOMMENDED_BEASTKIN
 %syn LAST_RECOMMENDED_SPECIES
 
 %sdir gui/backgrounds
@@ -383,4 +387,5 @@ enum:SP_RECOMMENDED_METEORAN SP_METEORAN
 enum:SP_RECOMMENDED_COGLIN SP_COGLIN
 enum:SP_RECOMMENDED_VANARA SP_VANARA
 enum:SP_RECOMMENDED_HOLLOWKIN SP_HOLLOWKIN
+enum:SP_RECOMMENDED_BEASTKIN SP_BEASTKIN
 %syn LAST_SPECIES

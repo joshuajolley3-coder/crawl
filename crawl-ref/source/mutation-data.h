@@ -919,6 +919,77 @@ static const mutation_def mut_data[] =
   TILEG_MUT_DEVOUT,
 },
 
+// Hollowkin only
+{ MUT_HOLLOW_SILENCE, 0, 1, mutflag::good,
+  "hollow silence",
+
+  {"You can smother one foe at a time in your hollow silence.", "", ""},
+  {"The hollow inside you learns to swallow the voices of others.", "", ""},
+  {"Your hollow silence fades.", "", ""},
+  TILEG_MUT_NO_MAGIC,
+},
+
+// Beastkin only
+{ MUT_SHUNNED, 0, 1, mutflag::bad,
+  "shunned",
+
+  {"Shopkeepers refuse to serve your kind.", "", ""},
+  {"You feel unwelcome in polite company.", "", ""},
+  {"You feel welcome again.", "", ""},
+  TILEG_MUT_FORLORN,
+},
+
+// Beastkin only: the wolf path. Level = evolution stage.
+{ MUT_BEAST_WOLF, 0, 3, mutflag::good | mutflag::anatomy,
+  "wolf blood",
+
+  {"You are a wolfman: shaggy, strong and sharp of tooth.",
+   "You are a wolfman, and can call a pack to your side.",
+   "You are a great wolfman, and your pack runs with wargs."},
+
+  {"Your body twists into a lupine shape! You have become a wolfman.",
+   "The call of the wild answers you. You can summon a pack.",
+   "Your jaws lengthen and your fur thickens."},
+
+  {"Your lupine features fade.", "Your lupine features fade.",
+   "Your lupine features fade."},
+  TILEG_MUT_SHAGGY_FUR,
+},
+
+// Beastkin only: the cat path. Level = evolution stage.
+{ MUT_BEAST_CAT, 0, 3, mutflag::good | mutflag::anatomy,
+  "cat blood",
+
+  {"You are a catman: quick, keen-eyed and quiet.",
+   "You are a catman with razor claws.",
+   "You are a great catman, a shadow among shadows."},
+
+  {"Your body twists into a feline shape! You have become a catman.",
+   "Your claws grow long and razor sharp.",
+   "You move like a shadow."},
+
+  {"Your feline features fade.", "Your feline features fade.",
+   "Your feline features fade."},
+  TILEG_MUT_GENERIC_GOOD_MUTATION,
+},
+
+// Beastkin only: the bird path. Level = evolution stage.
+{ MUT_BEAST_BIRD, 0, 3, mutflag::good | mutflag::anatomy,
+  "bird blood",
+
+  {"You are a birdman, and the wind answers your call.",
+   "You are a birdman, and your wings bear you aloft.",
+   "You are a great birdman, and can summon a whirling vortex."},
+
+  {"Your body twists into an avian shape! You have become a birdman.",
+   "Your feathered wings are strong enough to carry you!",
+   "The winds gather at your command."},
+
+  {"Your avian features fade.", "Your avian features fade.",
+   "Your avian features fade."},
+  TILEG_MUT_BIG_WINGS,
+},
+
 // Draconian/gargoyle only
 { MUT_BIG_WINGS, 4, 1, mutflag::good | mutflag::anatomy,
   "big wings",

@@ -26,4 +26,5 @@ enum object_selector
     OSEL_JEWELLERY_OR_TALISMAN   = -23,
     OSEL_GEAR                    = -24, // Equippable items + throwables
     OSEL_EVOKABLE_ALL            = -25, // All wands/baubles/misc, regardless of usability
+    OSEL_TRUE_NAMEABLE           = -26, // Non-artefact gear (scroll of true name)
 };

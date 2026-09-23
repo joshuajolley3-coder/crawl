@@ -376,6 +376,13 @@ enum ability_type
     ABIL_BESTIAL_TAKEDOWN,
     ABIL_BREATHE_RUST,
 
+    // Innate abilities added in this fork. They live here rather than with
+    // the other innate abilities, which are close to running out of numbers.
+    ABIL_HOLLOW_SILENCE,
+    ABIL_BEAST_CALL_PACK,
+    ABIL_BEAST_WIND_STRIKE,
+    ABIL_BEAST_GALE_VORTEX,
+
 #ifdef WIZARD
     ABIL_WIZ_BUILD_TERRAIN = 10000,
     ABIL_FIRST_WIZ = ABIL_WIZ_BUILD_TERRAIN,

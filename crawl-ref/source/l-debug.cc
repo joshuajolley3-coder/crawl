@@ -14,6 +14,8 @@
 #include "dungeon.h"
 #include "files.h"
 #include "god-wrath.h"
+#include "item-prop.h"
+#include "item-use.h"
 #include "los.h"
 #include "maps.h"
 #include "message.h"
@@ -246,6 +248,19 @@ LUAFN(debug_dismiss_monsters)
     }
 
     return 0;
+}
+
+// Usage: true_name(slot) -- speak the true name of the item in inventory
+// slot `slot` (0-based), as a scroll of true name would. Returns success.
+LUAFN(debug_true_name)
+{
+    const int slot = luaL_safe_checkint(ls, 1);
+    if (slot < 0 || slot >= ENDOFPACK || !you.inv[slot].defined()
+        || !can_true_name(you.inv[slot]))
+    {
+        PLUARET(boolean, false);
+    }
+    PLUARET(boolean, awaken_true_name(you.inv[slot]));
 }
 
 LUAFN(debug_god_wrath)
@@ -495,6 +510,7 @@ const struct luaL_Reg debug_dlib[] =
 { "dismiss_adjacent", debug_dismiss_adjacent},
 { "dismiss_monsters", debug_dismiss_monsters},
 { "god_wrath", debug_god_wrath},
+{ "true_name", debug_true_name },
 { "handle_monster_move", debug_handle_monster_move },
 { "save_uniques", debug_save_uniques },
 { "randomize_uniques", debug_randomize_uniques },

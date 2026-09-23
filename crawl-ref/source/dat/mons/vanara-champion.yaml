@@ -1,0 +1,19 @@
+name: "vanara champion"
+glyph: {char: "p", colour: yellow}
+flags: [fighter, see_invis, speaks, warm_blood]
+exp: 900
+will: 40
+attacks:
+ - {type: hit, damage: 22}
+ - {type: bite, damage: 9}
+hd: 11
+hp_10x: 850
+ac: 4
+ev: 18
+has_corpse: true
+corpse_tile: human
+shout: shout
+intelligence: human
+uses: weapons_armour
+size: medium
+shape: humanoid_tailed

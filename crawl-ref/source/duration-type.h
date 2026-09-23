@@ -314,5 +314,6 @@ enum duration_type
     DUR_EXEGESIS,
     DUR_ANTISWIFT,
     DUR_WAR_PAINT,
+    DUR_PACK_COOLDOWN,
     NUM_DURATIONS
 };

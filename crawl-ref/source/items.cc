@@ -3784,6 +3784,8 @@ colour_t item_def::missile_colour() const
 #endif
         case MI_DART:
             return WHITE;
+        case MI_THROWING_KNIFE:
+            return LIGHTGREY;
         case MI_JAVELIN:
             return RED;
         case MI_THROWING_NET:
@@ -3835,6 +3837,7 @@ colour_t item_def::armour_colour() const
         case ARM_GLOVES:
             return LIGHTBLUE;
         case ARM_LEATHER_ARMOUR:
+        case ARM_BEAST_HIDE_ROBE:
             return BROWN;
         case ARM_KITE_SHIELD:
         case ARM_TOWER_SHIELD:

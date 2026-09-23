@@ -130,6 +130,9 @@ tileidx_t tilep_equ_weapon(const item_def &item)
     case WPN_DOUBLE_SWORD:
         tile = TILEP_HAND1_DOUBLE_SWORD;
         break;
+    case WPN_BASTARD_SWORD:
+        tile = TILEP_HAND1_BASTARD_SWORD;
+        break;
     case WPN_TRIPLE_SWORD:
         tile = TILEP_HAND1_TRIPLE_SWORD;
         break;
@@ -295,6 +298,7 @@ tileidx_t tilep_equ_armour(const item_def &item)
     case ARM_PEARL_DRAGON_ARMOUR:   tile = TILEP_BODY_DRAGONARM_PEARL; break;
 
     case ARM_ANIMAL_SKIN:           tile = TILEP_BODY_ANIMAL_SKIN; break;
+    case ARM_BEAST_HIDE_ROBE:       tile = TILEP_BODY_BEAST_HIDE_ROBE; break;
     case ARM_TROLL_LEATHER_ARMOUR:  tile = TILEP_BODY_TROLL_LEATHER; break;
 
     default:                        tile = 0;
@@ -569,6 +573,19 @@ tileidx_t tilep_species_to_base_tile(int sp, int level)
         return TILEP_BASE_VANARA;
     case SP_HOLLOWKIN:
         return TILEP_BASE_HOLLOWKIN;
+    case SP_BEASTKIN:
+        // Beastkin change shape as they take on an animal path.
+        if (sp == you.species)
+        {
+            switch (beastkin_path())
+            {
+            case MUT_BEAST_WOLF: return TILEP_BASE_BEASTKIN_WOLF;
+            case MUT_BEAST_CAT:  return TILEP_BASE_BEASTKIN_CAT;
+            case MUT_BEAST_BIRD: return TILEP_BASE_BEASTKIN_BIRD;
+            default: break;
+            }
+        }
+        return TILEP_BASE_BEASTKIN;
     case SP_DJINNI:
         return TILEP_BASE_DJINNI;
     case SP_COGLIN:
@@ -685,6 +702,7 @@ void tilep_race_default(int sp, int level, dolls_data *doll)
         case SP_GNOLL:
         case SP_VANARA:
         case SP_HOLLOWKIN:
+        case SP_BEASTKIN:
         case SP_GARGOYLE:
         case SP_VINE_STALKER:
             hair = 0;

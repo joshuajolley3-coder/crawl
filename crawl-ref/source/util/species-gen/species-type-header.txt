@@ -83,5 +83,6 @@ enum species_type
     SP_GALE_CENTAUR,
     SP_VANARA,
     SP_HOLLOWKIN,
+    SP_BEASTKIN,
 
     // Auto-generated enums start here

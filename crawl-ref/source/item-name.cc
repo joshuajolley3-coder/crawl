@@ -727,6 +727,8 @@ const char* potion_type_name(int potiontype)
     case POT_MUTATION:          return "mutation";
     case POT_RESISTANCE:        return "resistance";
     case POT_LIGNIFY:           return "lignification";
+    case POT_POSITIVE_MUTATION: return "positive mutation";
+    case POT_EMPOWERMENT:       return "empowerment";
 
     // FIXME: Remove this once known-items no longer uses this as a sentinel.
     default:
@@ -750,6 +752,8 @@ const char* scroll_type_name(int scrolltype)
     case SCR_IMMOLATION:         return "immolation";
     case SCR_POISON:             return "poison";
     case SCR_BUTTERFLIES:        return "butterflies";
+    case SCR_ENSLAVEMENT:        return "enslavement";
+    case SCR_TRUE_NAME:          return "true name";
     case SCR_BLINKING:           return "blinking";
     case SCR_REVELATION:         return "revelation";
     case SCR_FOG:                return "fog";
@@ -1618,7 +1622,8 @@ string item_def::name_aux(description_level_type desc, bool terse, bool ident,
                     buff << "embroidered ";
                 }
                 else if (item_typ != ARM_LEATHER_ARMOUR
-                         && item_typ != ARM_ANIMAL_SKIN)
+                         && item_typ != ARM_ANIMAL_SKIN
+                         && item_typ != ARM_BEAST_HIDE_ROBE)
                 {
                     buff << "shiny ";
                 }
@@ -2933,6 +2938,7 @@ bool is_good_item(const item_def &item)
         switch (item.sub_type)
         {
         case POT_EXPERIENCE:
+        case POT_EMPOWERMENT:
             return true;
         default:
             return false;
@@ -3130,6 +3136,7 @@ string cannot_read_item_reason(const item_def *item, bool temp, bool ident,
 
         case SCR_SUMMONING:
         case SCR_BUTTERFLIES:
+        case SCR_ENSLAVEMENT:
             if (you.allies_forbidden())
                 return "You cannot coerce anything to answer your summons.";
             break;
@@ -3195,6 +3202,9 @@ string cannot_read_item_reason(const item_def *item, bool temp, bool ident,
 
         case SCR_BRAND_WEAPON:
             return _no_items_reason(OSEL_BRANDABLE_WEAPON, true);
+
+        case SCR_TRUE_NAME:
+            return _no_items_reason(OSEL_TRUE_NAMEABLE, true);
 
         case SCR_IDENTIFY:
             return _no_items_reason(OSEL_UNIDENT, true);

@@ -48,6 +48,7 @@ int default_osel(operation_types oper);
 bool item_is_worn(int inv_slot);
 
 bool enchant_weapon(item_def &wpn, bool quiet);
+bool awaken_true_name(item_def &item);
 bool enchant_armour(item_def &arm, bool quiet);
 
 void prompt_inscribe_item();

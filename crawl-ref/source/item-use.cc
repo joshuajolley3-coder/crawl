@@ -21,7 +21,9 @@
 #include "database.h"
 #include "delay.h"
 #include "describe.h"
+#include "attitude-change.h"
 #include "directn.h"
+#include "mon-tentacle.h"
 #include "english.h"
 #include "env.h"
 #include "evoke.h"
@@ -2630,7 +2632,8 @@ static bool _is_cancellable_scroll(scroll_type scroll)
            || scroll == SCR_BRAND_WEAPON
            || scroll == SCR_ENCHANT_WEAPON
            || scroll == SCR_ACQUIREMENT
-           || scroll == SCR_POISON;
+           || scroll == SCR_POISON
+           || scroll == SCR_TRUE_NAME;
 }
 
 /**
@@ -2729,6 +2732,176 @@ public:
         return false;
     }
 };
+
+/// Can a scroll of enslavement bind this monster? Not uniques, lords,
+/// ghosts, the Orb's guardians, or anything carrying a rune.
+static bool _can_enslave(const monster &mon)
+{
+    if (mon.wont_attack() || !you.can_see(mon) || mon.is_firewood()
+        || mons_is_or_was_unique(mon)
+        || mons_is_tentacle_or_tentacle_segment(mon.type)
+        || mon.type == MONS_PANDEMONIUM_LORD
+        || mon.type == MONS_PLAYER_GHOST
+        || mon.type == MONS_PLAYER_ILLUSION
+        || mon.type == MONS_ORB_GUARDIAN)
+    {
+        return false;
+    }
+    for (int slot = 0; slot < NUM_MONSTER_SLOTS; ++slot)
+    {
+        const int idx = mon.inv[slot];
+        if (idx != NON_ITEM && env.item[idx].base_type == OBJ_RUNES)
+            return false;
+    }
+    return true;
+}
+
+static spret _read_enslavement(bool alreadyknown)
+{
+    if (you.allies_forbidden())
+    {
+        mpr("Your god will not allow you to take a servant.");
+        return alreadyknown ? spret::abort : spret::success;
+    }
+
+    vector<monster*> candidates;
+    for (monster_near_iterator mi(you.pos(), LOS_NO_TRANS); mi; ++mi)
+        if (_can_enslave(**mi))
+            candidates.push_back(*mi);
+
+    if (candidates.empty())
+    {
+        mpr("You feel a brief urge to dominate, but there is no one to bind.");
+        return alreadyknown ? spret::abort : spret::success;
+    }
+
+    monster* target = nullptr;
+    if (!alreadyknown || candidates.size() == 1)
+        target = alreadyknown ? candidates[0] : *random_iterator(candidates);
+    else
+    {
+        dist spd;
+        direction_chooser_args args;
+        args.mode = TARG_HOSTILE;
+        args.needs_path = false;
+        args.top_prompt = "Enslave which creature?";
+        direction(spd, args);
+        if (!spd.isValid || spd.isCancel)
+            return spret::abort;
+        target = monster_at(spd.target);
+        if (!target || find(candidates.begin(), candidates.end(), target)
+                       == candidates.end())
+        {
+            mpr("That cannot be enslaved.");
+            return spret::abort;
+        }
+    }
+
+    mprf("%s is bound to your will!", target->name(DESC_THE).c_str());
+    target->attitude = ATT_FRIENDLY;
+    target->flags |= MF_NO_REWARD;
+    mons_att_changed(target);
+    behaviour_event(target, ME_ALERT, &you);
+    return spret::success;
+}
+
+/// Does this freshly made artefact carry only boons (no drawbacks)?
+static bool _true_name_is_pure(const item_def &item)
+{
+    artefact_properties_t proprt;
+    artefact_properties(item, proprt);
+    for (int i = 0; i < ARTP_NUM_PROPERTIES; ++i)
+    {
+        const auto prop = static_cast<artefact_prop_type>(i);
+        if (prop == ARTP_BRAND || !proprt[prop])
+            continue;
+        if (artp_potentially_good(prop) ? proprt[prop] < 0
+                                        : artp_potentially_bad(prop))
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+/**
+ * Speak an item's true name: it becomes an artefact with a name of its own
+ * and new powers, while keeping its base stats, enchantment and ego.
+ */
+bool awaken_true_name(item_def &item)
+{
+    const int old_ego = item.base_type == OBJ_WEAPONS ? (int) get_weapon_brand(item)
+                      : item.base_type == OBJ_ARMOUR  ? (int) get_armour_ego_type(item)
+                                                      : 0;
+    const string old_name = item.name(DESC_YOUR);
+    const bool equipped = item_is_equipped(item);
+
+    for (int tries = 0; tries < 500; ++tries)
+    {
+        item_def trial = item;
+        if (!make_item_randart(trial, true))
+            return false;
+        if (old_ego)
+            artefact_set_property(trial, ARTP_BRAND, old_ego);
+        if (randart_is_bad(trial) || !_true_name_is_pure(trial))
+            continue;
+
+        trial.flags |= ISFLAG_IDENTIFIED;
+        item = trial;
+        mprf("You speak the true name of %s. It answers, awakening as %s!",
+             old_name.c_str(), item.name(DESC_THE).c_str());
+        if (equipped)
+        {
+            bool show_msgs = true;
+            equip_artefact_effect(item, &show_msgs, false);
+        }
+        you.wield_change = true;
+        you.redraw_armour_class = true;
+        you.redraw_evasion = true;
+        calc_hp();
+        calc_mp();
+        flash_view_delay(UA_PLAYER, YELLOW, 300);
+        return true;
+    }
+    return false;
+}
+
+static spret _read_true_name(bool alreadyknown, const string &pre_msg)
+{
+    item_def* target = nullptr;
+    if (alreadyknown)
+    {
+        const spret result = _choose_target_item_for_scroll(true,
+                                OSEL_TRUE_NAMEABLE,
+                                "Speak the true name of which item?", target);
+        if (result != spret::success)
+            return result;
+        mpr(pre_msg);
+    }
+    else
+    {
+        // Unread, the name chooses its own bearer: worn gear first.
+        mpr(pre_msg);
+        vector<item_def*> worn, carried;
+        for (item_def &item : you.inv)
+        {
+            if (!item.defined() || !can_true_name(item))
+                continue;
+            (item_is_equipped(item) ? worn : carried).push_back(&item);
+        }
+        if (!worn.empty())
+            target = *random_iterator(worn);
+        else if (!carried.empty())
+            target = *random_iterator(carried);
+    }
+
+    if (!target || !awaken_true_name(*target))
+    {
+        mpr("A name hangs in the air for a moment, then fades unspoken.");
+        return spret::success;
+    }
+    return spret::success;
+}
 
 static unique_ptr<targeter> _get_scroll_targeter(scroll_type which_scroll)
 {
@@ -3083,6 +3256,14 @@ bool read(item_def* scroll, dist *target)
 
     case SCR_BUTTERFLIES:
         result = summon_butterflies();
+        break;
+
+    case SCR_ENSLAVEMENT:
+        result = _read_enslavement(alreadyknown);
+        break;
+
+    case SCR_TRUE_NAME:
+        result = _read_true_name(alreadyknown, pre_succ_msg);
         break;
 
     case SCR_FOG:

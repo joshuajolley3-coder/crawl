@@ -582,6 +582,10 @@ static special_missile_type _determine_missile_brand(const item_def& item,
         rc = random_choose_weighted(90, SPMSL_SILVER,
                                     nw, SPMSL_NORMAL);
         break;
+    case MI_THROWING_KNIFE:
+        rc = random_choose_weighted(60, SPMSL_SILVER,
+                                    nw, SPMSL_NORMAL);
+        break;
     }
 
     ASSERT(is_missile_brand_ok(item.sub_type, rc, true));
@@ -650,7 +654,7 @@ bool is_missile_brand_ok(int type, int brand, bool strict)
     case SPMSL_CHAOS:
         return type == MI_BOOMERANG || type == MI_JAVELIN;
     case SPMSL_SILVER:
-        return type == MI_JAVELIN;
+        return type == MI_JAVELIN || type == MI_THROWING_KNIFE;
     default: break;
     }
 
@@ -671,10 +675,11 @@ static void _generate_missile_item(item_def& item, int force_type,
         item.sub_type = force_type;
     else
     {
-        // Total weight: 100
+        // Total weight: 112
         item.sub_type =
             random_choose_weighted(60, MI_DART,
                                    17, MI_BOOMERANG,
+                                   12, MI_THROWING_KNIFE,
                                    11,  MI_JAVELIN,
                                    6,  MI_THROWING_NET,
                                    6,  MI_LARGE_ROCK);
@@ -703,7 +708,8 @@ static void _generate_missile_item(item_def& item, int force_type,
                            _determine_missile_brand(item, item_level));
     }
 
-    item.quantity = random_range(2, 6);
+    item.quantity = item.sub_type == MI_THROWING_KNIFE ? random_range(3, 8)
+                                                       : random_range(2, 6);
 }
 
 // Increment a given artprop on a given item while ensuring it doesn't overflow
@@ -1072,9 +1078,15 @@ armour_type pick_random_body_armour_type(int item_level)
         // monsters for hides.
         return random_choose(ARM_CRYSTAL_PLATE_ARMOUR,
                              ARM_TROLL_LEATHER_ARMOUR,
+                             ARM_BEAST_HIDE_ROBE,
                              ARM_FIRE_DRAGON_ARMOUR,
                              ARM_ICE_DRAGON_ARMOUR);
 
+    }
+    else if (x_chance_in_y(item_level + 3, 600))
+    {
+        // Beast hide robes: an uncommon upgrade to the humble robe.
+        return ARM_BEAST_HIDE_ROBE;
     }
     else if (x_chance_in_y(11 + item_level, 60))
     {

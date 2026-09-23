@@ -148,6 +148,7 @@ double_sword WPN_DOUBLE_SWORD
 double_sword2 WPN_DOUBLE_SWORD_MAGIC
 %enchant_variation WPN_DOUBLE_SWORD randart
 double_sword3 WPN_DOUBLE_SWORD_RANDART
+bastard_sword WPN_BASTARD_SWORD
 triple_sword WPN_TRIPLE_SWORD
 %enchant_variation WPN_TRIPLE_SWORD shiny runed glowing
 triple_sword2 WPN_TRIPLE_SWORD_MAGIC
@@ -439,6 +440,7 @@ effect/boomerang2 MI_BOOMERANG2
 effect/boomerang3 MI_BOOMERANG3
 
 %rim 1
+throwing_knife MI_THROWING_KNIFE
 dart1 MI_DART
 %enchant_variation MI_DART shiny runed glowing randart
 dart2 MI_DART_MAGIC
@@ -516,6 +518,8 @@ robe_ego2
 %enchant_variation ARM_ROBE randart
 robe_art1 ARM_ROBE_RANDART
 robe_art2
+
+beast_hide_robe ARM_BEAST_HIDE_ROBE
 
 leather_armour1 ARM_LEATHER_ARMOUR
 %enchant_variation ARM_LEATHER_ARMOUR shiny runed glowing
@@ -960,7 +964,10 @@ i-curse-jewellery SCR_CURSE_JEWELLERY
 %back scroll-brown
 i-poison SCR_POISON
 %back scroll-grey
-i-butterflies SCR_BUTTERFLIES SCR_ID_LAST
+i-butterflies SCR_BUTTERFLIES
+i-enslavement SCR_ENSLAVEMENT
+%back scroll-yellow
+i-true-name SCR_TRUE_NAME SCR_ID_LAST
 %back none
 
 ##################OBJ_JEWELLERY
@@ -1202,8 +1209,10 @@ i-coagulated-blood POT_BLOOD_COAGULATED
 i-lignify POT_LIGNIFY
 i-good-mutation POT_REMOVEME9
 # (corresponds to POT_DUMMY_AGILITY)
-i-attraction POT_REMOVEME10 POT_ID_LAST
+i-attraction POT_REMOVEME10
 # end TAG_MAJOR_VERSION
+i-good-mutation POT_POSITIVE_MUTATION
+i-restore-abilities POT_EMPOWERMENT POT_ID_LAST
 # start TAG_MAJOR_VERSION == 35
 # i-lignify POT_LIGNIFY POT_ID_LAST
 # end TAG_MAJOR_VERSION

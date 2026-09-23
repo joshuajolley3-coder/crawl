@@ -3017,7 +3017,8 @@ tileidx_t tileidx_player_shadow()
         case SP_GNOLL:          return TILEP_MONS_PLAYER_SHADOW_GNOLL;
         case SP_HUMAN:
         case SP_VANARA:
-        case SP_HOLLOWKIN:       return TILEP_MONS_PLAYER_SHADOW_HUMAN;
+        case SP_HOLLOWKIN:
+        case SP_BEASTKIN:       return TILEP_MONS_PLAYER_SHADOW_HUMAN;
         case SP_KOBOLD:         return TILEP_MONS_PLAYER_SHADOW_KOBOLD;
         case SP_MERFOLK:        return TILEP_MONS_PLAYER_SHADOW_MERFOLK;
         case SP_MINOTAUR:       return TILEP_MONS_PLAYER_SHADOW_MINOTAUR;
@@ -3074,6 +3075,7 @@ static tileidx_t _tileidx_weapon_base(const item_def &item)
     case WPN_GREAT_SWORD:           return TILE_WPN_GREAT_SWORD;
     case WPN_SCIMITAR:              return TILE_WPN_SCIMITAR;
     case WPN_DOUBLE_SWORD:          return TILE_WPN_DOUBLE_SWORD;
+    case WPN_BASTARD_SWORD:         return TILE_WPN_BASTARD_SWORD;
     case WPN_TRIPLE_SWORD:          return TILE_WPN_TRIPLE_SWORD;
     case WPN_HAND_AXE:              return TILE_WPN_HAND_AXE;
     case WPN_WAR_AXE:               return TILE_WPN_WAR_AXE;
@@ -3138,6 +3140,7 @@ static tileidx_t _tileidx_missile_base(const item_def &item)
     case MI_STONE:        return TILE_MI_STONE;
     case MI_LARGE_ROCK:   return TILE_MI_LARGE_ROCK;
     case MI_THROWING_NET: return TILE_MI_THROWING_NET;
+    case MI_THROWING_KNIFE: return TILE_MI_THROWING_KNIFE;
     case MI_BOOMERANG:
         switch (brand)
         {
@@ -3223,6 +3226,9 @@ static tileidx_t _tileidx_armour_base(const item_def &item)
 
     case ARM_CROWN:
         return TILE_THELM_CROWN;
+
+    case ARM_BEAST_HIDE_ROBE:
+        return TILE_ARM_BEAST_HIDE_ROBE;
 
 #if TAG_MAJOR_VERSION == 34
     case ARM_CAP:
@@ -3760,7 +3766,8 @@ tileidx_t tileidx_item_projectile(const item_def &item)
     {
         switch (item.sub_type)
         {
-            case MI_DART:           return TILE_MI_DART0;
+            case MI_DART:
+            case MI_THROWING_KNIFE: return TILE_MI_DART0;
             case MI_JAVELIN:        return TILE_MI_JAVELIN0;
             case MI_THROWING_NET:   return TILE_MI_THROWING_NET0;
             case MI_STONE:          return TILE_MI_STONE0;
@@ -4343,6 +4350,14 @@ tileidx_t tileidx_ability(const ability_type ability)
         return TILEG_ABILITY_BESTIAL_TAKEDOWN;
     case ABIL_BREATHE_RUST:
         return TILEG_ABILITY_BREATHE_RUST;
+    case ABIL_HOLLOW_SILENCE:
+        return TILEG_SILENCE;
+    case ABIL_BEAST_CALL_PACK:
+        return TILEG_ABILITY_TROG_BROTHERS_IN_ARMS;
+    case ABIL_BEAST_WIND_STRIKE:
+        return TILEG_AIRSTRIKE;
+    case ABIL_BEAST_GALE_VORTEX:
+        return TILEG_POLAR_VORTEX;
 
     // Others
     case ABIL_END_TRANSFORMATION:
@@ -4926,6 +4941,8 @@ static tileidx_t _tileidx_player_species_base(const species_type species)
             return TILEG_SP_VANARA;
         case SP_HOLLOWKIN:
             return TILEG_SP_HOLLOWKIN;
+        case SP_BEASTKIN:
+            return TILEG_SP_BEASTKIN;
         case SP_DJINNI:
             return TILEG_SP_DJINNI;
 #if TAG_MAJOR_VERSION == 34

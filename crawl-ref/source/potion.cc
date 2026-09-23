@@ -865,6 +865,60 @@ public:
     }
 };
 
+class PotionPositiveMutation : public PotionEffect
+{
+private:
+    PotionPositiveMutation() : PotionEffect(POT_POSITIVE_MUTATION) { }
+    DISALLOW_COPY_AND_ASSIGN(PotionPositiveMutation);
+public:
+    static const PotionPositiveMutation &instance()
+    {
+        static PotionPositiveMutation inst; return inst;
+    }
+
+    bool can_quaff(string *reason = nullptr, bool temp = true) const override
+    {
+        return _can_mutate(reason, temp);
+    }
+
+    bool effect(bool = true, int = 40, bool = true) const override
+    {
+        mpr("You feel a wonderful change come over you.");
+        bool mutated = mutate(RANDOM_GOOD_MUTATION, "potion of positive mutation",
+                              false);
+        if (coinflip())
+        {
+            mutated |= mutate(RANDOM_GOOD_MUTATION,
+                              "potion of positive mutation", false);
+        }
+        learned_something_new(HINT_YOU_MUTATED);
+        return mutated;
+    }
+};
+
+class PotionEmpowerment : public PotionEffect
+{
+private:
+    PotionEmpowerment() : PotionEffect(POT_EMPOWERMENT) { }
+    DISALLOW_COPY_AND_ASSIGN(PotionEmpowerment);
+public:
+    static const PotionEmpowerment &instance()
+    {
+        static PotionEmpowerment inst; return inst;
+    }
+
+    bool effect(bool = true, int = 40, bool = true) const override
+    {
+        mpr("Power surges through every fibre of your being!");
+        modify_stat(STAT_STR, 1, true);
+        modify_stat(STAT_INT, 1, true);
+        modify_stat(STAT_DEX, 1, true);
+        mprf(MSGCH_INTRINSIC_GAIN,
+             "You feel stronger, cleverer and more agile. (+1 to all stats)");
+        return true;
+    }
+};
+
 class PotionMoonshine : public PotionEffect
 {
 private:
@@ -910,6 +964,8 @@ static const unordered_map<potion_type, const PotionEffect*, std::hash<int>> pot
     { POT_MUTATION, &PotionMutation::instance(), },
     { POT_RESISTANCE, &PotionResistance::instance(), },
     { POT_LIGNIFY, &PotionLignify::instance(), },
+    { POT_POSITIVE_MUTATION, &PotionPositiveMutation::instance(), },
+    { POT_EMPOWERMENT, &PotionEmpowerment::instance(), },
 };
 
 const PotionEffect* get_potion_effect(potion_type pot)

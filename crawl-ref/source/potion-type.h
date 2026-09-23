@@ -56,6 +56,8 @@ enum potion_type
     POT_BENEFICIAL_MUTATION,
     POT_DUMMY_AGILITY,
 #endif
+    POT_POSITIVE_MUTATION,
+    POT_EMPOWERMENT,
     NUM_POTIONS
 };
 
@@ -79,6 +81,8 @@ const vector<potion_type> potion_types =
     POT_MUTATION,
     POT_RESISTANCE,
     POT_LIGNIFY,
+    POT_POSITIVE_MUTATION,
+    POT_EMPOWERMENT,
 };
 
 #if TAG_MAJOR_VERSION == 34

@@ -575,6 +575,11 @@ dart
 A thin piece of metal, typically coated in some harmful substance. When thrown
 it can deliver its toxins into the bloodstream of a living or demonic being.
 %%%%
+throwing knife
+
+A small, well-balanced blade made for throwing. It hits harder than a dart or a
+boomerang, but does not return to its thrower.
+%%%%
 decaying skeleton
 
 A decaying skeleton.
@@ -842,6 +847,19 @@ crown
 A circlet of precious metal. It sits lightly enough to be worn over horns,
 antennae or a beak, and crowns are far more often enchanted, or imbued with
 power over the body and mind, than lesser headgear.
+%%%%
+bastard sword
+
+A hand-and-a-half sword with a long, heavy blade and a grip long enough for a
+second hand. It is the largest sword that can still be swung in one hand, and
+hits nearly as hard as a great sword, though its weight makes it less accurate
+than lighter blades.
+%%%%
+beast hide robe
+
+A long robe cut from the shaggy hide of some great beast, trimmed with thick
+fur. It is as loose and light as any cloth robe, never hindering evasion or
+spellcasting, yet the tough pelt turns blows almost as well as mail.
 %%%%
 helmet
 
@@ -1135,6 +1153,16 @@ from the ground and increasing their Will to resist the world's temptations.
 potion of experience
 
 A truly wonderful and very rare drink, which grants experience when consumed.
+%%%%
+potion of empowerment
+
+An extraordinarily rare draught that permanently strengthens body and mind
+alike, raising strength, intelligence and dexterity by one each.
+%%%%
+potion of positive mutation
+
+A potion that reshapes the drinker's body for the better, granting one or two
+beneficial mutations and none of the harmful kind.
 %%%%
 potion of haste
 
@@ -1451,6 +1479,24 @@ scroll of butterflies
 
 A scroll that surrounds its user with a flight of beautiful butterflies, blowing
 back other creatures nearby with the flapping of their wings.
+%%%%
+scroll of enslavement
+
+A very rare scroll that permanently binds one hostile creature in sight to its
+reader's will. Named creatures, lords of Pandemonium, the guardians of the Orb
+and those carrying runes are beyond its power. If read without knowing what it
+is, it seizes a creature at random.
+%%%%
+scroll of true name
+
+A scroll inscribed with a secret word. Reading it speaks the true name of a
+weapon, piece of armour, piece of jewellery, staff or talisman chosen by the
+reader. The item awakens as a named artefact with new powers and no drawbacks,
+while keeping its enchantment, its ego and everything else it could already
+do. Items that are already artefacts cannot be named again.
+
+If read without knowing what it is, the scroll names an item the reader is
+wearing or wielding, or failing that, something they carry.
 %%%%
 scroll of enchant armour
 

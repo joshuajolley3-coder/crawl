@@ -461,6 +461,15 @@ int make_mons_weapon(monster_type type, int level, bool melee_only)
         { WPN_DIRE_FLAIL,       2 }, };
 
     static const map<monster_type, mon_weapon_spec> primary_weapon_specs = {
+        { MONS_VANARA_CHAMPION,
+            { { { WPN_QUARTERSTAFF,     4 },
+                { WPN_LAJATANG,         1 },
+        } } },
+        { MONS_HOLLOWKIN_CHAMPION,
+            { { { WPN_GREAT_SWORD,      2 },
+                { WPN_BATTLEAXE,        2 },
+                { WPN_GREAT_MACE,       1 },
+        } } },
         { MONS_ROBIN,
             { { { WPN_CLUB,             35 },
                 { WPN_DAGGER,           30 },
@@ -1634,6 +1643,11 @@ static void _give_ammo(monster* mon, int level)
         qty = random_range(4, 7);
         break;
 
+    case MONS_VANARA_CHAMPION:
+        weap_type = MI_THROWING_KNIFE;
+        qty       = random_range(3, 6);
+        break;
+
     // Sprint-only.
     case MONS_CHUCK:
         weap_type  = MI_LARGE_ROCK;
@@ -2161,8 +2175,16 @@ int make_mons_armour(monster_type type, int level)
 
     case MONS_TENGU_WARRIOR:
     case MONS_IRONBOUND_PRESERVER:
+    case MONS_VANARA_CHAMPION:
         item.base_type = OBJ_ARMOUR;
         item.sub_type  = random_choose(ARM_LEATHER_ARMOUR, ARM_RING_MAIL);
+        break;
+
+    case MONS_HOLLOWKIN_CHAMPION:
+        if (one_chance_in(3))
+            level = ISPEC_GOOD_ITEM;
+        item.base_type = OBJ_ARMOUR;
+        item.sub_type  = random_choose(ARM_CHAIN_MAIL, ARM_PLATE_ARMOUR);
         break;
 
     case MONS_GASTRONOK:

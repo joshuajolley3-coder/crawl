@@ -1,0 +1,18 @@
+name: "hollowkin champion"
+glyph: {char: "p", colour: darkgrey}
+flags: [fighter, speaks, warm_blood]
+exp: 1000
+will: 160
+attacks:
+ - {type: hit, flavour: antimagic, damage: 28}
+hd: 12
+hp_10x: 950
+ac: 8
+ev: 9
+has_corpse: true
+corpse_tile: human
+shout: shout
+intelligence: human
+uses: weapons_armour
+size: medium
+shape: humanoid

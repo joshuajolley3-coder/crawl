@@ -55,6 +55,7 @@
 #include "macro.h"
 #include "map-knowledge.h"
 #include "melee-attack.h"
+#include "menu.h"
 #include "message.h"
 #include "mon-behv.h"
 #include "mon-place.h"
@@ -2265,6 +2266,9 @@ static int _player_base_evasion_modifiers()
     if (you.has_mutation(MUT_GOLDEN_FUR))
         evbonus += 3;
 
+    // Beastkin catmen are hard to pin down.
+    evbonus += beastkin_stage(MUT_BEAST_CAT);
+
     if (you.get_mutation_level(MUT_DISTORTION_FIELD))
         evbonus += you.get_mutation_level(MUT_DISTORTION_FIELD) + 2;
 
@@ -3125,6 +3129,134 @@ static void _gain_innate_spells()
     }
 }
 
+/// Which animal path has this Beastkin taken? NUM_MUTATIONS if none yet.
+mutation_type beastkin_path()
+{
+    for (mutation_type m : { MUT_BEAST_WOLF, MUT_BEAST_CAT, MUT_BEAST_BIRD })
+        if (you.get_mutation_level(m, false))
+            return m;
+    return NUM_MUTATIONS;
+}
+
+/// How far along its path this Beastkin has evolved: 0 (none) to 4.
+/// Stages 1-3 are the path mutation's level; stage 4 comes at XL 24.
+int beastkin_stage(mutation_type path)
+{
+    const int lvl = you.get_mutation_level(path, false);
+    if (lvl >= 3 && you.max_level >= 24)
+        return 4;
+    return lvl;
+}
+
+/// At XL 6 a Beastkin picks the animal it will become. (Scripts and
+/// disconnected games, which can't answer a menu, get a random one.)
+static mutation_type _beastkin_choose_path()
+{
+    static const mutation_type paths[] =
+        { MUT_BEAST_WOLF, MUT_BEAST_CAT, MUT_BEAST_BIRD };
+    static const char *choices[] =
+    {
+        "Wolf - thick fur, a gnarly bite and more Strength. "
+            "Later, call your pack to fight beside you.",
+        "Cat  - razor claws, more Dexterity, stealth and evasion. "
+            "Your eyes pierce invisibility.",
+        "Bird - more Intelligence, a knack for air magic and innate "
+            "wind spells. Later, fly on your own wings.",
+    };
+
+    if (crawl_state.script || crawl_state.test || crawl_state.seen_hups)
+        return paths[random2(3)];
+
+    mprf(MSGCH_INTRINSIC_GAIN, "The beast within you stirs, demanding a shape!");
+    more();
+
+    while (true)
+    {
+        Menu menu(MF_SINGLESELECT | MF_UNCANCEL | MF_ARROWS_SELECT
+                  | MF_INIT_HOVER);
+        MenuEntry *title = new MenuEntry("Choose the beast you will become:",
+                                         MEL_TITLE);
+        title->colour = YELLOW;
+        menu.set_title(title);
+        for (int i = 0; i < 3; ++i)
+        {
+            MenuEntry *me = new MenuEntry(choices[i], MEL_ITEM, 1,
+                                          index_to_letter(i));
+            me->data = (void *) &paths[i];
+            menu.add_entry(me);
+        }
+        vector<MenuEntry*> sel = menu.show();
+        if (!sel.empty() && sel[0]->data)
+            return *static_cast<const mutation_type *>(sel[0]->data);
+        if (crawl_state.seen_hups)
+            return paths[random2(3)];
+    }
+}
+
+/// Beastkin evolve every six levels. At XL 6 they choose their path.
+static void _beastkin_evolve(int xl)
+{
+    if (xl % 6 != 0 || xl > 24)
+        return;
+
+    mutation_type path = beastkin_path();
+    if (path == NUM_MUTATIONS)
+        path = _beastkin_choose_path();
+
+    const int stage = xl / 6;
+    const string reason = "Beastkin evolution";
+    if (stage <= 3)
+        perma_mutate(path, 1, reason);
+    else
+    {
+        mprf(MSGCH_INTRINSIC_GAIN, "%s",
+             path == MUT_BEAST_WOLF ? "You become the alpha of every pack!" :
+             path == MUT_BEAST_CAT  ? "You become the perfect predator!"
+                                    : "You become one with the storm!");
+    }
+
+    const int gain = stage == 4 ? 3 : 2;
+    // Every evolution strengthens the whole body a little, too.
+    const stat_type main_stat = path == MUT_BEAST_WOLF ? STAT_STR
+                              : path == MUT_BEAST_CAT  ? STAT_DEX
+                                                       : STAT_INT;
+    for (stat_type s : { STAT_STR, STAT_INT, STAT_DEX })
+        if (s != main_stat)
+            modify_stat(s, 1, false);
+    you.hp_max_adj_perm += 5;
+    calc_hp();
+
+    switch (path)
+    {
+    case MUT_BEAST_WOLF:
+        modify_stat(STAT_STR, gain, false);
+        if (stage == 1 || stage == 3)
+            perma_mutate(MUT_FANGS, 1, reason);
+        if (stage <= 3)
+            perma_mutate(MUT_SHAGGY_FUR, 1, reason);
+        break;
+    case MUT_BEAST_CAT:
+        modify_stat(STAT_DEX, gain, false);
+        if (stage <= 2)
+            perma_mutate(MUT_CLAWS, 1, reason);
+        if (stage == 1)
+            perma_mutate(MUT_ACUTE_VISION, 1, reason);
+        you.redraw_evasion = true;
+        break;
+    case MUT_BEAST_BIRD:
+        modify_stat(STAT_INT, gain, false);
+        if (stage == 2)
+            float_player();
+        break;
+    default:
+        break;
+    }
+
+#ifdef USE_TILE
+    init_player_doll();
+#endif
+}
+
 // When first gaining the ability to enkindle, make sure the player has at least
 // one spell to use with it. (We gift one to everyone, both for flavor reasons
 // and to avoid weird gaming by amnesia-ing or delaying memorising a spell until
@@ -3432,6 +3564,10 @@ void level_change(bool skip_attribute_increase)
             case SP_REVENANT:
                 if (new_exp == 3)
                     _revenant_spell_gift();
+                break;
+
+            case SP_BEASTKIN:
+                _beastkin_evolve(new_exp);
                 break;
 
             default:
@@ -7464,6 +7600,7 @@ bool player::racial_permanent_flight() const
     return has_mutation(MUT_TENGU_FLIGHT)
         || get_mutation_level(MUT_BIG_WINGS)
         || get_mutation_level(MUT_DEMONIC_WINGS) >= 3
+        || get_mutation_level(MUT_BEAST_BIRD) >= 2
         || has_mutation(MUT_FLOAT);
 }
 
