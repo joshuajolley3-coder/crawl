@@ -957,6 +957,13 @@ static spell_type _choose_mem_spell(spell_list &spells)
 
 bool can_learn_spell(bool silent)
 {
+    if (you.has_mutation(MUT_NO_MAGIC))
+    {
+        if (!silent)
+            mpr("You have no magic with which to learn spells.");
+        return false;
+    }
+
     if (you.confused())
     {
         if (!silent)

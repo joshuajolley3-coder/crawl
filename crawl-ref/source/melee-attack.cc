@@ -3613,6 +3613,7 @@ string melee_attack::mons_attack_verb()
             {
                 case ARM_HAT:
                 case ARM_HELMET:
+                case ARM_CROWN:
                     return random_choose("headbutt", "bonk", "clobber");
                 case ARM_BOOTS:
                     return random_choose("kick", "punt", "thump");

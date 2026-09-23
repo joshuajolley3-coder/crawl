@@ -66,6 +66,13 @@ long prehensile tail helps them dodge and can even wear a ring, and their
 small fangs let them bite in melee. As they grow in experience, their fur
 turns gold, making them harder to hit and letting them see the unseen.
 %%%%
+Hollowkin
+
+The ash-grey Hollowkin are born with a hollow where their magic should be. They cannot
+cast or learn spells and have no magic points at all, but their bodies grow
+stronger and quicker than most as they gain experience, and the emptiness in
+them fills easily with faith: they earn half again as much piety as others.
+%%%%
 Human
 
 Humans are natural explorers. Discovering new places refreshes and invigorates them.

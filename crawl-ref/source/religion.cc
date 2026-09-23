@@ -2605,6 +2605,10 @@ bool gain_piety(int original_gain, int denominator, bool should_scale_piety)
     if (crawl_state.game_is_sprint() && should_scale_piety)
         pgn = sprint_modify_piety(pgn);
 
+    // The Hollowkin's devotion earns half again as much piety.
+    if (should_scale_piety && you.has_mutation(MUT_DEVOUT))
+        pgn = pgn * 3 / 2;
+
     pgn = div_rand_round(pgn, denominator);
     while (pgn-- > 0)
         _gain_piety_point();

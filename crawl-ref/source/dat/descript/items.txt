@@ -837,6 +837,12 @@ hat
 
 A cloth hat.
 %%%%
+crown
+
+A circlet of precious metal. It sits lightly enough to be worn over horns,
+antennae or a beak, and crowns are far more often enchanted, or imbued with
+power over the body and mind, than lesser headgear.
+%%%%
 helmet
 
 A piece of metal headgear.

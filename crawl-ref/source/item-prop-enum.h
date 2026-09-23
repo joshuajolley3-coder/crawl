@@ -115,6 +115,8 @@ enum armour_type
     ARM_ORB,
 #endif
 
+    ARM_CROWN,
+
     NUM_ARMOURS
 };
 

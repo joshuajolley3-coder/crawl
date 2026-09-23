@@ -370,6 +370,10 @@ tileidx_t tilep_equ_helm(const item_def &item)
     case ARM_HELMET:
         tile = TILEP_HELM_NORMAL;
         break;
+
+    case ARM_CROWN:
+        tile = TILEP_HELM_CROWN;
+        break;
     }
     return tile ? tileidx_enchant_equ(item, tile) : 0;
 }
@@ -561,6 +565,10 @@ tileidx_t tilep_species_to_base_tile(int sp, int level)
         return TILEP_BASE_BARACHI;
     case SP_GNOLL:
         return TILEP_BASE_GNOLL;
+    case SP_VANARA:
+        return TILEP_BASE_VANARA;
+    case SP_HOLLOWKIN:
+        return TILEP_BASE_HOLLOWKIN;
     case SP_DJINNI:
         return TILEP_BASE_DJINNI;
     case SP_COGLIN:
@@ -675,6 +683,8 @@ void tilep_race_default(int sp, int level, dolls_data *doll)
         case SP_FORMICID:
         case SP_BARACHI:
         case SP_GNOLL:
+        case SP_VANARA:
+        case SP_HOLLOWKIN:
         case SP_GARGOYLE:
         case SP_VINE_STALKER:
             hair = 0;

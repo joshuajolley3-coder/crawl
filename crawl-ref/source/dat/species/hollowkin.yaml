@@ -1,0 +1,41 @@
+enum: SP_HOLLOWKIN
+monster: MONS_HUMAN
+name: Hollowkin
+short_name: Hk
+difficulty: Intermediate
+difficulty_priority: 60
+aptitudes:
+  xp: 0
+  hp: 0
+  mp_mod: 0
+  wl: 3
+  spellcasting: false
+  conjurations: false
+  hexes: false
+  summoning: false
+  forgecraft: false
+  necromancy: false
+  translocations: false
+  fire_magic: false
+  ice_magic: false
+  air_magic: false
+  earth_magic: false
+  alchemy: false
+str: 10
+int: 8
+dex: 10
+levelup_stat_frequency: 2
+levelup_stats:
+  - str
+  - dex
+mutations:
+  1:
+    MUT_NO_MAGIC: 1
+    MUT_DEVOUT: 1
+recommended_jobs:
+  - fighter
+  - gladiator
+  - berserker
+  - wrathful monk
+  - brigand
+  - hunter

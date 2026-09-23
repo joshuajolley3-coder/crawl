@@ -739,8 +739,11 @@ static bool _try_make_armour_artefact(item_def& item, int force_type,
 {
     const bool force_randart = item_level == ISPEC_RANDART;
     const int old_ego = item.brand;
+    // Crowns are three times as likely to be artefacts.
+    const int art_chance = (101 + item_level * 3)
+                           * (item.sub_type == ARM_CROWN ? 3 : 1);
     if (!force_randart && (item_level <= 0
-                           || !x_chance_in_y(101 + item_level * 3, 4000)))
+                           || !x_chance_in_y(art_chance, 4000)))
     {
         return false;
     }
@@ -787,6 +790,18 @@ static bool _try_make_armour_artefact(item_def& item, int force_type,
     // bardings named Boots of xy.
     if (!make_item_randart(item, force_randart))
         return false;
+
+    // Artefact crowns always carry a stat bonus.
+    if (item.sub_type == ARM_CROWN && is_random_artefact(item)
+        && artefact_property(item, ARTP_STRENGTH) <= 0
+        && artefact_property(item, ARTP_INTELLIGENCE) <= 0
+        && artefact_property(item, ARTP_DEXTERITY) <= 0)
+    {
+        artefact_set_property(item,
+                              random_choose(ARTP_STRENGTH, ARTP_INTELLIGENCE,
+                                            ARTP_DEXTERITY),
+                              2 + random2(3));
+    }
 
     // Bane is a worse property than most negative values, so let's make them a
     // bit more tempting on average.
@@ -900,6 +915,9 @@ bool is_armour_brand_ok(int type, int brand, bool strict)
 
     case SPARM_STRENGTH:
     case SPARM_DEXTERITY:
+        if (type == ARM_CROWN)
+            return true;
+        // deliberate fall-through
     case SPARM_INFUSION:
         if (!strict)
             return true;
@@ -910,7 +928,7 @@ bool is_armour_brand_ok(int type, int brand, bool strict)
         return slot == SLOT_GLOVES;
 
     case SPARM_SEE_INVISIBLE:
-        return type == ARM_HAT;
+        return type == ARM_HAT || type == ARM_CROWN;
     case SPARM_INTELLIGENCE:
     case SPARM_SNIPING:
     case SPARM_ICE:
@@ -930,7 +948,7 @@ bool is_armour_brand_ok(int type, int brand, bool strict)
         return true; // in portal vaults, these can happen on every slot
 
     case SPARM_WILLPOWER:
-        if (type == ARM_HAT)
+        if (type == ARM_HAT || type == ARM_CROWN)
             return true;
         // deliberate fall-through
     case SPARM_POISON_RESISTANCE:
@@ -1023,7 +1041,8 @@ armour_type pick_random_aux_armour_type()
                                   3, ARM_SCARF,
                                   // Head slot
                                   10, ARM_HELMET,
-                                  2, ARM_HAT);
+                                  2, ARM_HAT,
+                                  1, ARM_CROWN);
 }
 
 armour_type pick_random_shield_type()
@@ -1199,11 +1218,14 @@ static void _generate_armour_item(item_def& item, bool allow_uniques,
         item.plus -= 1 + random2(3);
     }
     else if ((forced_ego || item.sub_type == ARM_HAT
+                    || item.sub_type == ARM_CROWN
                     || x_chance_in_y(51 + item_level, 250))
                 && !item.is_mundane() || force_good)
     {
+        const bool crown = item.sub_type == ARM_CROWN;
+
         // Make a good item...
-        item.plus += random2(3);
+        item.plus += crown ? 1 + random2(3) : random2(3);
 
         if (item.sub_type <= ARM_PLATE_ARMOUR
             && x_chance_in_y(21 + item_level, 300))
@@ -1211,7 +1233,8 @@ static void _generate_armour_item(item_def& item, bool allow_uniques,
             item.plus += random2(3);
         }
 
-        if (!no_ego && x_chance_in_y(31 + item_level, 350))
+        if (!no_ego && (crown ? x_chance_in_y(2, 3)
+                              : x_chance_in_y(31 + item_level, 350)))
         {
             // ...an ego item, in fact.
             set_item_ego_type(item, OBJ_ARMOUR, _generate_armour_ego(item));
@@ -1233,8 +1256,9 @@ static void _generate_armour_item(item_def& item, bool allow_uniques,
     if (armour_type_is_hide(static_cast<armour_type>(item.sub_type)))
         set_item_ego_type(item, OBJ_ARMOUR, SPARM_NORMAL);
 
-    // squash boring items.
+    // squash boring items. (Crowns keep their enchantment.)
     if (!force_good && item.brand == SPARM_NORMAL && item.plus > 0
+        && item.sub_type != ARM_CROWN
         && item.plus < _armour_plus_threshold(get_armour_slot(item)))
     {
         item.plus = 0;

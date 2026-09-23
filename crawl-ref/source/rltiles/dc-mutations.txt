@@ -238,6 +238,16 @@ cold_blooded COLD_BLOODED
 acid_res ACID_RES
 acidic_bite ACIDIC_BITE
 big_wings BIG_WINGS
+demonic_wings_1 DEMONIC_WINGS
+demonic_wings_2
+demonic_wings_3
+golden_scales_1 GOLDEN_SCALES
+golden_scales_2
+golden_scales_3
+golden_fur GOLDEN_FUR
+prehensile_tail PREHENSILE_TAIL
+no_magic NO_MAGIC
+devout DEVOUT
 inviolate_magic INVIOLATE_MAGIC
 steam_res STEAM_RES
 shaggy_fur_1 SHAGGY_FUR

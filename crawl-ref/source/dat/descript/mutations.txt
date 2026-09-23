@@ -711,6 +711,15 @@ prehensile tail mutation
 
 A long, grasping tail. It gives +3 EV and lets you wear one extra ring.
 %%%%
+no magic mutation
+
+You have no magic at all. You cannot cast or memorise spells, and have no
+magic points. Wands and divine abilities still work.
+%%%%
+devout mutation
+
+Your devotion burns brightly: you gain half again as much piety as others.
+%%%%
 golden fur mutation
 
 As a Vanara matures, its fur turns a brilliant gold. It gives +3 AC and +3 EV,

@@ -736,6 +736,13 @@ void inspect_spells()
 */
 bool can_cast_spells(bool quiet)
 {
+    if (you.has_mutation(MUT_NO_MAGIC))
+    {
+        if (!quiet)
+            mpr("You have no magic to cast with.");
+        return false;
+    }
+
     if (!get_form()->can_cast)
     {
         if (!quiet)

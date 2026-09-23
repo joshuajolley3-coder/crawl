@@ -209,6 +209,17 @@ static const armour_def Armour_prop[] =
             { SPARM_SNIPING,       1 },
     }},
 
+    // Worn like a hat, so mutations don't block it; generates with more
+    // enchantment and favours stat egos (see makeitem.cc).
+    { ARM_CROWN,                "crown",                  1,   0,  150,
+        SLOT_HELMET,      SIZE_TINY, SIZE_LARGE, true, 0, {
+            { SPARM_STRENGTH,      3 },
+            { SPARM_DEXTERITY,     3 },
+            { SPARM_INTELLIGENCE,  3 },
+            { SPARM_WILLPOWER,     2 },
+            { SPARM_SEE_INVISIBLE, 1 },
+    }},
+
     // Note that barding size is compared against torso so it currently
     // needs to fit medium, but that doesn't matter as much as race
     // and shapeshift status.
@@ -1403,7 +1414,9 @@ int armour_max_enchant(const item_def &item)
     const equipment_slot eq_slot = get_armour_slot(item);
 
     int max_plus = MAX_SEC_ENCHANT;
-    if (eq_slot == SLOT_BODY_ARMOUR || item.sub_type == ARM_BARDING)
+    if (item.sub_type == ARM_CROWN)
+        max_plus = MAX_SEC_ENCHANT + 2;
+    else if (eq_slot == SLOT_BODY_ARMOUR || item.sub_type == ARM_BARDING)
         max_plus = property(item, PARM_AC);
     else if (eq_slot == SLOT_OFFHAND)
         // 3 / 5 / 8 for bucklers/shields/lg. shields

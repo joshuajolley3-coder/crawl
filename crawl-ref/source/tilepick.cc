@@ -3016,7 +3016,8 @@ tileidx_t tileidx_player_shadow()
         case SP_GARGOYLE:       return TILEP_MONS_PLAYER_SHADOW_GARGOYLE;
         case SP_GNOLL:          return TILEP_MONS_PLAYER_SHADOW_GNOLL;
         case SP_HUMAN:
-        case SP_VANARA:         return TILEP_MONS_PLAYER_SHADOW_HUMAN;
+        case SP_VANARA:
+        case SP_HOLLOWKIN:       return TILEP_MONS_PLAYER_SHADOW_HUMAN;
         case SP_KOBOLD:         return TILEP_MONS_PLAYER_SHADOW_KOBOLD;
         case SP_MERFOLK:        return TILEP_MONS_PLAYER_SHADOW_MERFOLK;
         case SP_MINOTAUR:       return TILEP_MONS_PLAYER_SHADOW_MINOTAUR;
@@ -3219,6 +3220,9 @@ static tileidx_t _tileidx_armour_base(const item_def &item)
 
     case ARM_HAT:
         return TILE_THELM_HAT;
+
+    case ARM_CROWN:
+        return TILE_THELM_CROWN;
 
 #if TAG_MAJOR_VERSION == 34
     case ARM_CAP:
@@ -4686,17 +4690,17 @@ tileidx_t tileidx_ability(const ability_type ability)
     case ABIL_IGNIS_RISING_FLAME:
         return TILEG_ABILITY_IGNIS_RISING_FLAME;
 
-    // Vashtar (borrowed icons until it has its own)
+    // Vashtar
     case ABIL_VASHTAR_WAR_PAINT:
-        return TILEG_ABILITY_OKAWARU_HEROISM;
+        return TILEG_ABILITY_VASHTAR_WAR_PAINT;
     case ABIL_VASHTAR_FURY:
-        return TILEG_ABILITY_TROG_BERSERK;
+        return TILEG_ABILITY_VASHTAR_FURY;
     case ABIL_VASHTAR_BLOOD_TITHE:
-        return TILEG_ABILITY_RU_SACRIFICE_HEALTH;
+        return TILEG_ABILITY_VASHTAR_BLOOD_TITHE;
     case ABIL_VASHTAR_SPOILS_OF_WAR:
-        return TILEG_ABILITY_OKAWARU_GIFT_WEAPON;
+        return TILEG_ABILITY_VASHTAR_SPOILS_OF_WAR;
     case ABIL_VASHTAR_THOUSAND_ARMS:
-        return TILEG_ABILITY_MAKHLEB_VESSEL_OF_SLAUGHTER;
+        return TILEG_ABILITY_VASHTAR_THOUSAND_ARMS;
 
     // General divine (pseudo) abilities.
     case ABIL_RENOUNCE_RELIGION:
@@ -4856,7 +4860,7 @@ static tileidx_t _tileidx_player_job_base(const job_type job)
         case JOB_CINDER_ACOLYTE:
             return TILEG_JOB_CINDER_ACOLYTE;
         case JOB_WRATHFUL_MONK:
-            return TILEG_JOB_MONK;
+            return TILEG_JOB_WRATHFUL_MONK;
         default:
             return TILEG_ERROR;
     }
@@ -4867,7 +4871,6 @@ static tileidx_t _tileidx_player_species_base(const species_type species)
     switch (species)
     {
         case SP_HUMAN:
-        case SP_VANARA:
 #if TAG_MAJOR_VERSION == 34
         case SP_DEEP_DWARF:
         case SP_HILL_ORC:
@@ -4919,6 +4922,10 @@ static tileidx_t _tileidx_player_species_base(const species_type species)
             return TILEG_SP_BARACHI;
         case SP_GNOLL:
             return TILEG_SP_GNOLL;
+        case SP_VANARA:
+            return TILEG_SP_VANARA;
+        case SP_HOLLOWKIN:
+            return TILEG_SP_HOLLOWKIN;
         case SP_DJINNI:
             return TILEG_SP_DJINNI;
 #if TAG_MAJOR_VERSION == 34

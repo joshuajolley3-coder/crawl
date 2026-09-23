@@ -1461,7 +1461,7 @@ int player_indomitable_regen_rate()
 
 int player_mp_regen()
 {
-    if (you.has_mutation(MUT_HP_CASTING))
+    if (you.has_mutation(MUT_HP_CASTING) || you.has_mutation(MUT_NO_MAGIC))
         return 0;
 
     int regen_amount = 7 + you.max_magic_points / 2;
@@ -4441,7 +4441,7 @@ int get_real_hp(bool trans, bool drained)
 
 int get_real_mp(bool include_items)
 {
-    if (you.has_mutation(MUT_HP_CASTING))
+    if (you.has_mutation(MUT_HP_CASTING) || you.has_mutation(MUT_NO_MAGIC))
         return 0;
 
     const int scale = 100;
@@ -4499,8 +4499,8 @@ bool player_regenerates_hp()
 
 bool player_regenerates_mp()
 {
-    // Djinn don't do the whole "mp" thing.
-    if (you.has_mutation(MUT_HP_CASTING))
+    // Djinn don't do the whole "mp" thing, and the Hollowkin have none.
+    if (you.has_mutation(MUT_HP_CASTING) || you.has_mutation(MUT_NO_MAGIC))
         return false;
 #if TAG_MAJOR_VERSION == 34
     // Don't let DD use guardian spirit for free HP, since their

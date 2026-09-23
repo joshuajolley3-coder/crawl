@@ -202,7 +202,7 @@ void give_throwing_ammo(int n)
 static void _give_job_spells(job_type job)
 {
     vector<spell_type> spells = get_job_spells(job);
-    if (spells.empty())
+    if (spells.empty() || you.has_mutation(MUT_NO_MAGIC))
         return;
 
     if (you.has_mutation(MUT_INNATE_CASTER))

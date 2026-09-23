@@ -881,6 +881,9 @@ static void _add_spells(set<spell_type> &all_spells,
 
 static void _handle_start_spells(const set<spell_type> &spells)
 {
+    if (you.has_mutation(MUT_NO_MAGIC))
+        return;
+
     if (you.has_mutation(MUT_INNATE_CASTER))
     {
         for (spell_type s : spells)

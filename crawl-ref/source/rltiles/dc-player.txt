@@ -34,6 +34,8 @@ gnoll3_m
 gnoll3_f
 gnoll4_m
 gnoll4_f
+vanara VANARA
+hollowkin HOLLOWKIN
 gnome_f GNOME
 gnome_m
 halfling_m HALFLING

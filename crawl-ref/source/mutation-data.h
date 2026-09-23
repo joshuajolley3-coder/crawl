@@ -876,7 +876,7 @@ static const mutation_def mut_data[] =
   {"Your wings wither and fall away.",
    "Your wings shrink to whelpling size.",
    "Your wings shrink and can no longer bear your weight."},
-  TILEG_MUT_BIG_WINGS,
+  TILEG_MUT_DEMONIC_WINGS,
 },
 
 // Vanara only
@@ -886,7 +886,7 @@ static const mutation_def mut_data[] =
   {"Your prehensile tail can wear a ring and helps you dodge. (EV +3)", "", ""},
   {"A long, grasping tail grows from your spine.", "", ""},
   {"Your tail withers away.", "", ""},
-  TILEG_MUT_GENERIC_GOOD_MUTATION,
+  TILEG_MUT_PREHENSILE_TAIL,
 },
 
 // Vanara only
@@ -896,7 +896,27 @@ static const mutation_def mut_data[] =
   {"Your fur shines with a golden light. (AC +3, EV +3, SInv)", "", ""},
   {"Your fur turns a brilliant gold, and your eyes grow keen.", "", ""},
   {"Your fur loses its golden sheen.", "", ""},
-  TILEG_MUT_SHAGGY_FUR,
+  TILEG_MUT_GOLDEN_FUR,
+},
+
+// Hollowkin only
+{ MUT_NO_MAGIC, 0, 1, mutflag::bad,
+  "no magic",
+
+  {"You have no magic. You cannot cast or learn spells, and have no MP.", "", ""},
+  {"Your magic drains away to nothing.", "", ""},
+  {"Magic flows into you.", "", ""},
+  TILEG_MUT_NO_MAGIC,
+},
+
+// Hollowkin only
+{ MUT_DEVOUT, 0, 1, mutflag::good,
+  "devout",
+
+  {"Your devotion burns brightly. (+50% piety)", "", ""},
+  {"Your devotion burns brightly.", "", ""},
+  {"Your devotion dims.", "", ""},
+  TILEG_MUT_DEVOUT,
 },
 
 // Draconian/gargoyle only
@@ -1593,7 +1613,7 @@ static const mutation_def mut_data[] =
    "Your golden scales recede somewhat.",
    "Your golden scales recede somewhat."},
 
-    TILEG_MUT_YELLOW_SCALES,
+    TILEG_MUT_GOLDEN_SCALES,
 },
 
 { MUT_SHARP_SCALES, 0, 3, mutflag::good | mutflag::substance | mutflag::anatomy | mutflag::scales,

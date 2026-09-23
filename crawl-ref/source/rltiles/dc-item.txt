@@ -672,6 +672,7 @@ april_hat1 THELM_HAT_APRIL1
 april_hat2 THELM_HAT_APRIL2
 
 %rim 0
+crown THELM_CROWN
 hat1 THELM_HAT
 hat_archer
 %syn THELM_ARCHER

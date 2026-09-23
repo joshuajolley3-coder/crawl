@@ -42,6 +42,13 @@ static bool _banned_combination(job_type job, species_type species)
     if (job == JOB_SHAPESHIFTER && species::undead_type(species) == US_UNDEAD)
         return true;
 
+    // The Hollowkin can't use magic, so they can't take spellcasting jobs.
+    if (species::mutation_level(species, MUT_NO_MAGIC)
+        && !get_job_spells(job).empty())
+    {
+        return true;
+    }
+
     return false;
 }
 

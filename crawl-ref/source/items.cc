@@ -3828,6 +3828,8 @@ colour_t item_def::armour_colour() const
         case ARM_HAT:
         case ARM_HELMET:
             return MAGENTA;
+        case ARM_CROWN:
+            return YELLOW;
         case ARM_BOOTS:
             return BLUE;
         case ARM_GLOVES:

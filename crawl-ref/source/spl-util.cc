@@ -1323,6 +1323,11 @@ string spell_uselessness_reason(spell_type spell, bool temp, bool prevent,
 
     if (!skip_casting_checks)
     {
+        // Only the player's own casting: wands and god abilities that work
+        // through spells skip these checks, so the Hollowkin can still use them.
+        if (you.has_mutation(MUT_NO_MAGIC))
+            return "you have no magic.";
+
         string c_check = casting_uselessness_reason(spell, temp);
         if (!c_check.empty())
             return c_check;
