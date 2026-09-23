@@ -88,5 +88,20 @@ check(cn > 0, "crowns can be generated")
 check(cplus > hplus + 0.5, "crowns are more enchanted than hats")
 check(cegos > hegos, "crowns get egos more often than hats")
 
+say("== Lightsaber \"Vaapad\" ==")
+dgn.create_item(22, 22, 'lightsaber "Vaapad" pre_id')
+local saber = nil
+for _, it in ipairs(dgn.items_at(22, 22)) do
+    if string.find(it.name(), "Vaapad", 1, true) then saber = it end
+end
+check(saber ~= nil, "Vaapad can be generated")
+if saber then
+    say(string.format("  %s: plus %s, ego %s, artefact %s",
+        saber.name(), tostring(saber.plus), tostring(saber.ego_type),
+        tostring(saber.artefact)))
+    check(saber.plus == 10, "is +10")
+    check(saber.ego_type == "electrocution", "has the electrocution brand")
+end
+
 say(fails == 0 and "ALL CHECKS PASSED" or (fails .. " CHECK(S) FAILED"))
 assert(fails == 0, fails .. " checks failed")

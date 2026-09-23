@@ -465,7 +465,7 @@ int player::halo_radius() const
                                                     / piety_breakpoint(5);
     }
 
-    if (you.unrand_equipped(UNRAND_EOS))
+    if (you.unrand_equipped(UNRAND_EOS) || you.unrand_equipped(UNRAND_VAAPAD))
         size = max(size, 3);
     else if (wearing_ego(OBJ_ARMOUR, SPARM_LIGHT))
         size = max(size, 3);
@@ -510,12 +510,16 @@ int monster::halo_radius() const
     int size = -1;
 
     item_def* wpn = mslot_item(MSLOT_WEAPON);
-    if (wpn && is_unrandom_artefact(*wpn, UNRAND_EOS))
+    if (wpn && (is_unrandom_artefact(*wpn, UNRAND_EOS)
+                || is_unrandom_artefact(*wpn, UNRAND_VAAPAD)))
+    {
         size = max(size, 3);
+    }
 
     item_def* alt_wpn = mslot_item(MSLOT_ALT_WEAPON);
     if (mons_wields_two_weapons(*this) && alt_wpn
-        && is_unrandom_artefact(*alt_wpn, UNRAND_EOS))
+        && (is_unrandom_artefact(*alt_wpn, UNRAND_EOS)
+            || is_unrandom_artefact(*alt_wpn, UNRAND_VAAPAD)))
     {
         size = max(size, 3);
     }

@@ -2663,10 +2663,7 @@ int species_apt(skill_type skill, species_type species)
         for (const species_skill_aptitude &ssa : species_skill_aptitudes)
         {
             ASSERT(_spec_skills[ssa.species][ssa.skill] == sentinel);
-            // Every species gets +1 to every skill it can train.
-            _spec_skills[ssa.species][ssa.skill] =
-                ssa.aptitude == UNUSABLE_SKILL ? UNUSABLE_SKILL
-                                               : ssa.aptitude + 1;
+            _spec_skills[ssa.species][ssa.skill] = ssa.aptitude;
         }
         spec_skills_initialised = true;
     }

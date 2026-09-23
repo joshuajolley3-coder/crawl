@@ -3876,6 +3876,7 @@ bool item_affects_agrid(const item_def& item)
         switch (item.unrand_idx)
         {
             case UNRAND_EOS:
+            case UNRAND_VAAPAD:
             case UNRAND_BRILLIANCE:
             case UNRAND_VAINGLORY:
             case UNRAND_SHADOWS:

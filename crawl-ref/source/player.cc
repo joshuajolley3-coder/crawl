@@ -5443,8 +5443,11 @@ bool invis_allowed(bool quiet, string *fail_reason, bool include_temp)
     {
         vector<string> sources;
 
-        if (include_temp && you.unrand_equipped(UNRAND_EOS))
+        if (include_temp && (you.unrand_equipped(UNRAND_EOS)
+                             || you.unrand_equipped(UNRAND_VAAPAD)))
+        {
             sources.push_back("weapon");
+        }
 
         if (include_temp && you.unrand_equipped(UNRAND_VAINGLORY))
             sources.push_back("crown");

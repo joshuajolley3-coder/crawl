@@ -2128,6 +2128,21 @@ STR:     +4
 DEX:     +4
 BOOL:    rMut
 
+ENUM:    VAAPAD
+NAME:    lightsaber "Vaapad"
+APPEAR:  humming violet blade
+OBJ:     OBJ_WEAPONS/WPN_DOUBLE_SWORD
+PLUS:    +10
+COLOUR:  LIGHTMAGENTA
+TILE:    urand_vaapad
+TILE_EQ: VAAPAD
+BRAND:   SPWPN_ELECTROCUTION
+INSCRIP: Light,
+BOOL:    elec
+DESCRIP: Light: It surrounds you with a glowing violet halo, revealing
+ invisible creatures and making everything within it other than you easier to
+ hit, but reducing your stealth.
+
 # This entry must always be last.
 ENUM:   DUMMY2
 NAME:   DUMMY UNRANDART 2

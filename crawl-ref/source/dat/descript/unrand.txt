@@ -736,6 +736,15 @@ Throatcutter was used for a long series of increasingly sordid deeds thereafter.
 Blood, murder and betrayal stain its history and blade both, and little trace now
 remains of the blade which once stood between danger and the innocent.
 %%%%
+lightsaber "Vaapad"
+
+A blade of pure violet light, humming with barely contained energy. It is
+named for the most dangerous form of its art: one that lets its wielder draw
+upon the darkness in a foe and turn it back upon them, walking the edge
+without falling. Its last known master was a grim, bald-headed warrior of a
+distant order who ended more than one argument with the words "This party's
+over."
+%%%%
 Ruyi Jingu Bang
 
 The "as-you-will gold-banded staff" of the Monkey King, once used by an
