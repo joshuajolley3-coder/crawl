@@ -1,0 +1,75 @@
+##############################################################################
+# battlefield.des: The Abandoned Battlefield, a one-level branch off D:10-14.
+#
+# An open field of old war dead. You arrive at a ruined camp; broken trench
+# lines and flooded shell craters cross the field; Veyrak the Unburied holds
+# a ruined keep at the far end with the army's hoard.
+#
+# Glyphs used by every map here:
+#   {  arrival (becomes the exit back to the Dungeon)
+#   c  ruined fortification wall        W  flooded crater (shallow water)
+#   1  fallen soldier (draugr/zombie)   2  skeletal warrior
+#   3  wight / phantom                  4  wraith
+#   5  rarer, nastier dead              6  dancing weapon (a haunted blade)
+#   V  Veyrak                           g  Veyrak's honour guard
+#   d  the gear and bones of the dead   *  good loot   |  superb loot
+#   L  a guaranteed artefact
+#   R  one rare consumable              G  war memorial statue
+##############################################################################
+
+{{
+function battlefield_setup(e)
+  e.tags("no_monster_gen no_item_gen no_pool_fixup")
+  e.orient("encompass")
+  e.place("Field")
+  e.mons("human draugr / orc draugr w:15 / ogre draugr w:5 / " ..
+         "human zombie w:5 / orc zombie w:5 / troll draugr w:2")
+  e.mons("skeletal warrior")
+  e.mons("wight / phantom")
+  e.mons("wraith")
+  e.mons("bog body w:5 / flayed ghost w:3 / shadow wraith w:1")
+  e.mons("dancing weapon")
+  e.kmons("V = Veyrak")
+  e.kmons("g = skeletal warrior")
+  e.item("human skeleton w:30 / orc skeleton w:15 / ogre skeleton w:5 / " ..
+         "any weapon mundane w:12 / any armour mundane w:8")
+  e.kitem("R = potion of empowerment w:3 / scroll of true name w:3 / " ..
+          "potion of experience w:2 / scroll of acquirement w:2 / " ..
+          "potion of god's eyes w:1")
+  e.kitem("L = any weapon randart / any armour randart / any jewellery randart")
+  e.subst("d = d:3 .:7")
+end
+}}
+
+default-depth: Field
+
+NAME:   battlefield_trenches
+: battlefield_setup(_G)
+MAP
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxx........................d..d..........d............................xxxxx
+xxcccccccccc.......c.....d.d.d1...c..............3............d.........xxxx
+xxc........c.......c..............c..............c.........cccccccccccccccxx
+x.c....d...........c.........1....c.............dc....d...dc.............cxx
+x....{.............c.3....W...d...c.d.....d......c.........c.2...........c.x
+x.c........c.......c.....WWW......cc..............c........c....cccccccc.c.x
+x.c......d.c....d..c...d..Wd......cc......W......cc........c....c....|Lc.c.x
+x.cccc.ccccc.......cc....4...2........4.WWWWW....c.d......d.....c.g....c.c.x
+x..............d....c........1..........WWWWW....c............*....V.*Rc.c.x
+x..................c...1..........c....1WWWWW....cc.............c.g....cdc.x
+x............d.....cc.............cc......W...1..c..4......c....c....*Lc.c.x
+x.......G........d.c..............c..............cc........cd...cccccccc.c.x
+x..................c......d.......c..........d.............cd2...........c.x
+x.......d..........c...1..........c..2.......3...cc........c....d.d......c.x
+x.............1....c........1....1c..5......d....c.........ccccccccccccccc.x
+x.............d....c...2W.........c............1.c.........................x
+x..................c..WWWWW.......ccd..........1.c.........d.......d.......x
+x................d....WWWWW........c.....d.......c.......W.................x
+x................d.c..WWWWW......dcc....W6..3.d.........WWW................x
+x.....d............c....W.......d......WWW.......c.......W.....d...........x
+x...dd..........................1.......W........cc.5............d........xx
+x..................c..............c..............cc......d............d..xxx
+xx..........................d.....cc.............c...........d..........xxxx
+xxx........................................d..d.......dd...............xxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+ENDMAP

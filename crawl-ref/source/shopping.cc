@@ -491,6 +491,10 @@ unsigned int item_value(item_def item, bool ident)
                 valued += 500;
                 break;
 
+            case POT_GODS_EYES:
+                valued += 700;
+                break;
+
             case POT_POSITIVE_MUTATION:
                 valued += 150;
                 break;

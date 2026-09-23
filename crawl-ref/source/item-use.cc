@@ -2733,11 +2733,17 @@ public:
     }
 };
 
+/// How many hit dice stronger than the reader a monster may be and still be
+/// bound by a scroll of enslavement.
+static const int ENSLAVE_HD_MARGIN = 5;
+
 /// Can a scroll of enslavement bind this monster? Not uniques, lords,
-/// ghosts, the Orb's guardians, or anything carrying a rune.
+/// ghosts, the Orb's guardians, anything carrying a rune, or anything far
+/// more powerful than the reader.
 static bool _can_enslave(const monster &mon)
 {
     if (mon.wont_attack() || !you.can_see(mon) || mon.is_firewood()
+        || mon.get_hit_dice() > you.experience_level + ENSLAVE_HD_MARGIN
         || mons_is_or_was_unique(mon)
         || mons_is_tentacle_or_tentacle_segment(mon.type)
         || mon.type == MONS_PANDEMONIUM_LORD

@@ -2532,6 +2532,7 @@ static map<potion_type, item_rarity_type> _potion_rarity = {
     { POT_EXPERIENCE,   RARITY_VERY_RARE },
     { POT_POSITIVE_MUTATION, RARITY_RARE },
     { POT_EMPOWERMENT,  RARITY_VERY_RARE },
+    { POT_GODS_EYES,    RARITY_VERY_RARE },
 };
 
 static map<scroll_type, item_rarity_type> _scroll_rarity = {

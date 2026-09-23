@@ -605,6 +605,9 @@ BRANCH_EXIT(DNGN_EXIT_CRYPT, "staircase back to the Vaults", "exit_crypt"),
 BRANCH_ENTRANCE(DNGN_ENTER_TEMPLE, "staircase to the Ecumenical Temple", "enter_temple"),
 BRANCH_EXIT(DNGN_EXIT_TEMPLE, "staircase back to the Dungeon", "exit_temple"),
 
+BRANCH_ENTRANCE(DNGN_ENTER_BATTLEFIELD, "passage to the Abandoned Battlefield", "enter_battlefield"),
+BRANCH_EXIT(DNGN_EXIT_BATTLEFIELD, "passage back to the Dungeon", "exit_battlefield"),
+
 BRANCH_ENTRANCE(DNGN_ENTER_SNAKE, "staircase to the Snake Pit", "enter_snake_pit"),
 BRANCH_EXIT(DNGN_EXIT_SNAKE, "staircase back to the Lair", "exit_snake_pit"),
 

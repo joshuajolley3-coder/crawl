@@ -1083,7 +1083,7 @@ armour_type pick_random_body_armour_type(int item_level)
                              ARM_ICE_DRAGON_ARMOUR);
 
     }
-    else if (x_chance_in_y(item_level + 3, 600))
+    else if (x_chance_in_y(item_level + 3, 1500))
     {
         // Beast hide robes: an uncommon upgrade to the humble robe.
         return ARM_BEAST_HIDE_ROBE;
@@ -1380,8 +1380,12 @@ static void _generate_potion_item(item_def& item, int force_type,
         for (int i = 0; i < NUM_POTIONS; ++i)
         {
             const potion_type pot = (potion_type) i;
-            const int weight = _potion_weight(consumable_rarity(OBJ_POTIONS,
-                                                                pot));
+            int weight = _potion_weight(consumable_rarity(OBJ_POTIONS, pot));
+            // Pure upsides are kept scarcer than their rarity band alone.
+            if (pot == POT_POSITIVE_MUTATION)
+                weight = 12;
+            else if (pot == POT_GODS_EYES)
+                weight = 1;
             if (weight)
             {
                 const pair<potion_type, int> weight_pair = { pot, weight };
@@ -1446,8 +1450,10 @@ static void _generate_scroll_item(item_def& item, int force_type, int agent)
                 continue;
             }
 
-            const int weight = _scroll_weight(consumable_rarity(OBJ_SCROLLS,
-                                                                scr));
+            int weight = _scroll_weight(consumable_rarity(OBJ_SCROLLS, scr));
+            // Acquirement-tier power: rarer than the very-rare band.
+            if (scr == SCR_TRUE_NAME || scr == SCR_ENSLAVEMENT)
+                weight = 5;
             if (weight)
             {
                 const pair<scroll_type, int> weight_pair = { scr, weight };

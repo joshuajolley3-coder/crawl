@@ -1159,6 +1159,12 @@ potion of empowerment
 An extraordinarily rare draught that permanently strengthens body and mind
 alike, raising strength, intelligence and dexterity by one each.
 %%%%
+potion of god's eyes
+
+A vanishingly rare draught said to be distilled from the tears of a dead god.
+Whoever drinks it permanently gains the power to see invisible things, and
+their will is hardened against hostile magic.
+%%%%
 potion of positive mutation
 
 A potion that reshapes the drinker's body for the better, granting one or two
@@ -1484,8 +1490,9 @@ scroll of enslavement
 
 A very rare scroll that permanently binds one hostile creature in sight to its
 reader's will. Named creatures, lords of Pandemonium, the guardians of the Orb
-and those carrying runes are beyond its power. If read without knowing what it
-is, it seizes a creature at random.
+and those carrying runes are beyond its power, as is any creature far mightier
+than the reader (more than five levels beyond their experience level). If read
+without knowing what it is, it seizes a creature at random.
 %%%%
 scroll of true name
 

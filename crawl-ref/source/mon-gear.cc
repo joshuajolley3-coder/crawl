@@ -988,6 +988,12 @@ int make_mons_weapon(monster_type type, int level, bool melee_only)
             { 1, 2, 8 },
             { { SPWPN_PAIN, 1 } },
         } },
+        { MONS_VEYRAK, {
+            { { WPN_GREAT_SWORD,        2 },
+              { WPN_EXECUTIONERS_AXE,   1 }, },
+            { 1, 3, 5 },
+            { { SPWPN_DRAINING,      1 } },
+        } },
         { MONS_ANCIENT_CHAMPION, {
             { { WPN_GREAT_MACE,         1 },
               { WPN_BATTLEAXE,          1 },
@@ -2185,6 +2191,12 @@ int make_mons_armour(monster_type type, int level)
             level = ISPEC_GOOD_ITEM;
         item.base_type = OBJ_ARMOUR;
         item.sub_type  = random_choose(ARM_CHAIN_MAIL, ARM_PLATE_ARMOUR);
+        break;
+
+    case MONS_VEYRAK:
+        level = ISPEC_GOOD_ITEM;
+        item.base_type = OBJ_ARMOUR;
+        item.sub_type  = ARM_PLATE_ARMOUR;
         break;
 
     case MONS_GASTRONOK:

@@ -926,7 +926,7 @@ static const mutation_def mut_data[] =
   {"You can smother one foe at a time in your hollow silence.", "", ""},
   {"The hollow inside you learns to swallow the voices of others.", "", ""},
   {"Your hollow silence fades.", "", ""},
-  TILEG_MUT_NO_MAGIC,
+  TILEG_MUT_HOLLOW_SILENCE,
 },
 
 // Beastkin only
@@ -936,7 +936,7 @@ static const mutation_def mut_data[] =
   {"Shopkeepers refuse to serve your kind.", "", ""},
   {"You feel unwelcome in polite company.", "", ""},
   {"You feel welcome again.", "", ""},
-  TILEG_MUT_FORLORN,
+  TILEG_MUT_SHUNNED,
 },
 
 // Beastkin only: the wolf path. Level = evolution stage.
@@ -953,7 +953,7 @@ static const mutation_def mut_data[] =
 
   {"Your lupine features fade.", "Your lupine features fade.",
    "Your lupine features fade."},
-  TILEG_MUT_SHAGGY_FUR,
+  TILEG_MUT_BEAST_WOLF,
 },
 
 // Beastkin only: the cat path. Level = evolution stage.
@@ -970,7 +970,7 @@ static const mutation_def mut_data[] =
 
   {"Your feline features fade.", "Your feline features fade.",
    "Your feline features fade."},
-  TILEG_MUT_GENERIC_GOOD_MUTATION,
+  TILEG_MUT_BEAST_CAT,
 },
 
 // Beastkin only: the bird path. Level = evolution stage.
@@ -987,7 +987,7 @@ static const mutation_def mut_data[] =
 
   {"Your avian features fade.", "Your avian features fade.",
    "Your avian features fade."},
-  TILEG_MUT_BIG_WINGS,
+  TILEG_MUT_BEAST_BIRD,
 },
 
 // Draconian/gargoyle only

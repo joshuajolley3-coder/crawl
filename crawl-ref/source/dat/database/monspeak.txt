@@ -3981,6 +3981,27 @@ VISUAL:@The_monster@ tugs at @possessive@ hair.
 
 VISUAL:@The_monster@ twirls gently on the spot.
 %%%%
+############ VEYRAK ### Undead warlord of the Abandoned Battlefield
+Veyrak
+
+@The_monster@ roars, "Hold the line! HOLD THE LINE!"
+
+@The_monster@ bellows, "No one leaves this field. No one ever has."
+
+@The_monster@ rasps, "Another soldier for my army."
+
+@The_monster@ says, "The war is not over. It is never over."
+
+@The_monster@ shouts, "Rise, my brothers! We have a guest!"
+
+VISUAL:@The_monster@ raises @possessive@ blade in salute to the dead.
+%%%%
+Veyrak killed
+
+@The_monster@ rasps, "At last... the field... is quiet."
+
+@The_monster@ whispers, "Tell them... we held..."
+%%%%
 Donald marionette
 
 @The_monster@ says, "Don't use me like a cheap sock puppet. I hate that."

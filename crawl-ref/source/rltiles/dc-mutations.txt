@@ -248,6 +248,11 @@ golden_fur GOLDEN_FUR
 prehensile_tail PREHENSILE_TAIL
 no_magic NO_MAGIC
 devout DEVOUT
+hollow_silence HOLLOW_SILENCE
+shunned SHUNNED
+beast_wolf BEAST_WOLF
+beast_cat BEAST_CAT
+beast_bird BEAST_BIRD
 inviolate_magic INVIOLATE_MAGIC
 steam_res STEAM_RES
 shaggy_fur_1 SHAGGY_FUR

@@ -242,6 +242,14 @@ Grum
 
 A tough-looking gnoll, wearing the pelt of one of his former war dogs.
 %%%%
+Veyrak
+
+Veyrak the Unburied, last warlord of a war no one remembers. His army was
+destroyed to the last soldier, yet he refused to lie down, and so neither can
+they. Still crowned and clad in blackened plate, he rallies the restless dead
+of his battlefield and calls wraiths up from the churned earth to smother any
+who trespass.
+%%%%
 Grunn
 
 A brutally twisted undead gnoll in the eternal service of Ereshkigal, lord of

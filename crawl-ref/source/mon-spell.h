@@ -2677,6 +2677,14 @@ static const mon_spellbook mspell_list[] =
       }
     },
 
+    // The warlord of the Abandoned Battlefield rallies and raises his dead.
+    {  MST_VEYRAK,
+      {
+       { SPELL_BATTLECRY, 30, MON_SPELL_VOCAL },
+       { SPELL_HAUNT, 18, MON_SPELL_MAGICAL },
+      }
+    },
+
     // A monster that doesn't show up anywhere, for Arena testing.
     {  MST_TEST_SPAWNER,
       {

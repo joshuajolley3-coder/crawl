@@ -58,6 +58,7 @@ enum potion_type
 #endif
     POT_POSITIVE_MUTATION,
     POT_EMPOWERMENT,
+    POT_GODS_EYES,
     NUM_POTIONS
 };
 
@@ -83,6 +84,7 @@ const vector<potion_type> potion_types =
     POT_LIGNIFY,
     POT_POSITIVE_MUTATION,
     POT_EMPOWERMENT,
+    POT_GODS_EYES,
 };
 
 #if TAG_MAJOR_VERSION == 34

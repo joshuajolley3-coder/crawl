@@ -1842,6 +1842,7 @@ static const vector<branch_type> branch_generation_order =
     BRANCH_SWAMP,
     BRANCH_VAULTS,
     BRANCH_CRYPT,
+    BRANCH_BATTLEFIELD,
     BRANCH_DEPTHS,
     BRANCH_VESTIBULE,
     BRANCH_ELF,

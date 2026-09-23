@@ -454,6 +454,16 @@ const Branch branches[NUM_BRANCHES] =
       {}
     },
 
+    // A single, open level of old war dead, off D:10-14.
+    { BRANCH_BATTLEFIELD, BRANCH_DUNGEON, 10, 14, 1, 13,
+      brflag::dangerous_end,
+      DNGN_ENTER_BATTLEFIELD, DNGN_EXIT_BATTLEFIELD, NUM_FEATURES,
+      "Battlefield", "the Abandoned Battlefield", "Field",
+      "The stench of old death hangs over this forsaken battlefield.",
+      BROWN, BROWN,
+      '&', {}, branch_noise::quiet, DEFAULT_MON_DIE_SIZE,
+      {} },
+
 };
 
 /*

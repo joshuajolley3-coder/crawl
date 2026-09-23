@@ -729,6 +729,7 @@ const char* potion_type_name(int potiontype)
     case POT_LIGNIFY:           return "lignification";
     case POT_POSITIVE_MUTATION: return "positive mutation";
     case POT_EMPOWERMENT:       return "empowerment";
+    case POT_GODS_EYES:         return "god's eyes";
 
     // FIXME: Remove this once known-items no longer uses this as a sentinel.
     default:
@@ -2939,6 +2940,7 @@ bool is_good_item(const item_def &item)
         {
         case POT_EXPERIENCE:
         case POT_EMPOWERMENT:
+        case POT_GODS_EYES:
             return true;
         default:
             return false;

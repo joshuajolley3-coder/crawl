@@ -1208,6 +1208,17 @@ POP_DEPTHS,
   {  1,  1,   25, FLAT, MONS_SEWAGE_SOVEREIGN },
   {  1,  1,   25, FLAT, MONS_SCRAPSHELL_CHIMERA },
 },
+
+{ // Battlefield: the restless dead of an old war.
+  {  1,  1,  300, FLAT, MONS_SKELETAL_WARRIOR },
+  {  1,  1,  250, FLAT, MONS_WRAITH },
+  {  1,  1,  200, FLAT, MONS_PHANTOM },
+  {  1,  1,  150, FLAT, MONS_WIGHT },
+  {  1,  1,  120, FLAT, MONS_BOG_BODY },
+  {  1,  1,   60, FLAT, MONS_DANCING_WEAPON },
+  {  1,  1,   40, FLAT, MONS_FLAYED_GHOST },
+  {  1,  1,   25, FLAT, MONS_SHADOW_WRAITH },
+},
 };
 
 COMPILE_CHECK(ARRAYSZ(population) == NUM_BRANCHES);
@@ -1363,6 +1374,7 @@ static const vector<pop_entry> population_water[] =
     GENERIC_WATER_POP, // Crucible
     GENERIC_WATER_POP, // Necropolis
     GENERIC_WATER_POP, // Gulch
+    GENERIC_WATER_POP, // Battlefield
 };
 COMPILE_CHECK(ARRAYSZ(population_water) == NUM_BRANCHES);
 
@@ -1468,6 +1480,7 @@ static const vector<pop_entry> population_lava[] =
     GENERIC_LAVA_POP, // Crucible
     GENERIC_LAVA_POP, // Necropolis
     GENERIC_LAVA_POP, // Gulch
+    GENERIC_LAVA_POP, // Battlefield
 };
 
 COMPILE_CHECK(ARRAYSZ(population_lava) == NUM_BRANCHES);

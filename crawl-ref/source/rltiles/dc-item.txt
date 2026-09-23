@@ -1212,7 +1212,8 @@ i-good-mutation POT_REMOVEME9
 i-attraction POT_REMOVEME10
 # end TAG_MAJOR_VERSION
 i-good-mutation POT_POSITIVE_MUTATION
-i-restore-abilities POT_EMPOWERMENT POT_ID_LAST
+i-empowerment POT_EMPOWERMENT
+i-gods-eyes POT_GODS_EYES POT_ID_LAST
 # start TAG_MAJOR_VERSION == 35
 # i-lignify POT_LIGNIFY POT_ID_LAST
 # end TAG_MAJOR_VERSION

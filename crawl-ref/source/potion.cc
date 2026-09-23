@@ -919,6 +919,33 @@ public:
     }
 };
 
+/// God's eyes: permanently see invisible and strengthen your will.
+class PotionGodsEyes : public PotionEffect
+{
+private:
+    PotionGodsEyes() : PotionEffect(POT_GODS_EYES) { }
+    DISALLOW_COPY_AND_ASSIGN(PotionGodsEyes);
+public:
+    static const PotionGodsEyes &instance()
+    {
+        static PotionGodsEyes inst; return inst;
+    }
+
+    bool effect(bool = true, int = 40, bool = true) const override
+    {
+        mpr("Your eyes burn with divine light, and the world lies bare before "
+            "you!");
+        bool changed = false;
+        if (!you.get_mutation_level(MUT_ACUTE_VISION, false))
+            changed |= perma_mutate(MUT_ACUTE_VISION, 1, "god's eyes");
+        if (you.get_mutation_level(MUT_STRONG_WILLED, false) < 3)
+            changed |= perma_mutate(MUT_STRONG_WILLED, 1, "god's eyes");
+        if (!changed)
+            mpr("...but you already see all that the gods can show you.");
+        return true;
+    }
+};
+
 class PotionMoonshine : public PotionEffect
 {
 private:
@@ -966,6 +993,7 @@ static const unordered_map<potion_type, const PotionEffect*, std::hash<int>> pot
     { POT_LIGNIFY, &PotionLignify::instance(), },
     { POT_POSITIVE_MUTATION, &PotionPositiveMutation::instance(), },
     { POT_EMPOWERMENT, &PotionEmpowerment::instance(), },
+    { POT_GODS_EYES, &PotionGodsEyes::instance(), },
 };
 
 const PotionEffect* get_potion_effect(potion_type pot)

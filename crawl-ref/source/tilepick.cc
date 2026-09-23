@@ -341,6 +341,10 @@ tileidx_t tileidx_feature_base(dungeon_feature_type feat)
 #endif
     case DNGN_ENTER_TEMPLE:
         return TILE_DNGN_ENTER_TEMPLE;
+    case DNGN_ENTER_BATTLEFIELD:
+        return TILE_DNGN_ENTER_BATTLEFIELD;
+    case DNGN_EXIT_BATTLEFIELD:
+        return TILE_DNGN_EXIT_BATTLEFIELD;
     case DNGN_ENTER_ORC:
         return TILE_DNGN_ENTER_ORC;
     case DNGN_ENTER_ELF:
@@ -4813,6 +4817,8 @@ tileidx_t tileidx_branch(const branch_type br)
         return TILE_DNGN_ALTAR_OKAWARU;
     case BRANCH_CRUCIBLE:
         return TILE_DNGN_ALTAR_MAKHLEB;
+    case BRANCH_BATTLEFIELD:
+        return TILE_DNGN_ENTER_BATTLEFIELD;
     default:
         return TILEG_ERROR;
     }
