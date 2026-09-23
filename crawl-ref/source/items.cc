@@ -3786,6 +3786,8 @@ colour_t item_def::missile_colour() const
             return WHITE;
         case MI_THROWING_KNIFE:
             return LIGHTGREY;
+        case MI_SAND_BAG:
+            return BROWN;
         case MI_JAVELIN:
             return RED;
         case MI_THROWING_NET:

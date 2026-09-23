@@ -23,6 +23,13 @@ Chaos Knight
 Chaos Knights are playthings of the unpredictable Xom, and are subject to the
 god's constantly changing moods.
 %%%%
+Brawler
+
+Brawlers are pit fighters and tavern champions who never bothered with
+weapons. They start with leather armour, a potion of heal wounds and a few bags
+of sand to throw in their foes' eyes, and fight dirty: their fists hit harder
+the stronger they are (+1 unarmed damage for every 4 Strength above 10).
+%%%%
 Wrathful Monk
 
 Wrathful Monks are ascetic warriors sworn to Vashtar, the Unending War. They

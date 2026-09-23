@@ -139,3 +139,4 @@ int resonance_damage_mod(int dam, bool random);
 
 int unarmed_base_damage(bool random);
 int unarmed_base_damage_bonus(bool random);
+int brawler_unarmed_bonus();

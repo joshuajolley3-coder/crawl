@@ -56,5 +56,6 @@ enum job_type
     JOB_REAVER,
     JOB_FORGEWRIGHT,
     JOB_WRATHFUL_MONK,
+    JOB_BRAWLER,
 
     // Auto-generated enums start here

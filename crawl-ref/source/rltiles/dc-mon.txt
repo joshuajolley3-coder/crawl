@@ -770,6 +770,7 @@ burial_acolyte MONS_BURIAL_ACOLYTE
 hell_knight MONS_HELL_KNIGHT
 death_knight MONS_DEATH_KNIGHT
 necromancer MONS_NECROMANCER
+suspicious_figure MONS_SUSPICIOUS_FIGURE
 arcanist MONS_ARCANIST
 occultist MONS_OCCULTIST
 vault_guard MONS_VAULT_GUARD
@@ -1086,6 +1087,7 @@ erolcha_phased MONS_EROLCHA_PHASED
 lodul MONS_LODUL
 %sdir mon/humanoids
 oni MONS_ONI
+vashtari_champion MONS_VASHTARI_CHAMPION
 oni_incarcerator MONS_ONI_INCARCERATOR
 %rim 1
 ogre MONS_OGRE

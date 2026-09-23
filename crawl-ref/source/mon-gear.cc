@@ -988,6 +988,17 @@ int make_mons_weapon(monster_type type, int level, bool melee_only)
             { 1, 2, 8 },
             { { SPWPN_PAIN, 1 } },
         } },
+        { MONS_VASHTARI_CHAMPION, {
+            { { WPN_GREAT_SWORD,        2 },
+              { WPN_BATTLEAXE,          2 },
+              { WPN_EXECUTIONERS_AXE,   1 },
+              { WPN_GREAT_MACE,         1 }, },
+            { 1, 1, 4 },
+            { { SPWPN_HEAVY,         2 },
+              { SPWPN_FLAMING,       1 },
+              { SPWPN_DRAINING,      1 },
+              { NUM_SPECIAL_WEAPONS, 3 } },
+        } },
         { MONS_VEYRAK, {
             { { WPN_GREAT_SWORD,        2 },
               { WPN_EXECUTIONERS_AXE,   1 }, },
@@ -2191,6 +2202,11 @@ int make_mons_armour(monster_type type, int level)
             level = ISPEC_GOOD_ITEM;
         item.base_type = OBJ_ARMOUR;
         item.sub_type  = random_choose(ARM_CHAIN_MAIL, ARM_PLATE_ARMOUR);
+        break;
+
+    case MONS_VASHTARI_CHAMPION:
+        item.base_type = OBJ_ARMOUR;
+        item.sub_type  = random_choose(ARM_SCALE_MAIL, ARM_CHAIN_MAIL);
         break;
 
     case MONS_VEYRAK:

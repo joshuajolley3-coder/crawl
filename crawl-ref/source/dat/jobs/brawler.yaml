@@ -1,0 +1,25 @@
+enum: JOB_BRAWLER
+name: "Brawler"
+short_name: Bl
+category: Warrior
+category_priority: 75
+str: 8
+int: 0
+dex: 4
+equipment:
+  - "leather armour"
+  - "bag of sand q:4"
+  - "potion of heal wounds"
+recommended_species:
+  - troll
+  - minotaur
+  - vanara
+  - beastkin
+  - oni
+  - mountain dwarf
+skills:
+  fighting: 3
+  unarmed combat: 3
+  dodging: 3
+  throwing: 1
+create_enum: false

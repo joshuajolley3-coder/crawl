@@ -37,6 +37,7 @@
 #include "misc.h"
 #include "mon-behv.h"
 #include "mon-cast.h"
+#include "mon-death.h"
 #include "mon-pick.h"
 #include "mon-place.h"
 #include "mon-tentacle.h"
@@ -1706,12 +1707,60 @@ static bool _vashtar_retribution()
 {
     const god_type god = GOD_VASHTAR;
 
-    if (coinflip())
+    // While you owe him blood, he often sends a collector for it.
+    if (you.props.exists(VASHTAR_BLOOD_DEBT_KEY) && one_chance_in(3))
+    {
+        bool collector_here = false;
+        for (monster_iterator mi; mi; ++mi)
+            if (mi->props.exists(VASHTAR_COLLECTOR_KEY))
+                collector_here = true;
+        if (!collector_here && vashtar_send_collector())
+        {
+            simple_god_message(" sends a champion to collect your blood "
+                               "debt!", false, god);
+            return true;
+        }
+    }
+
+    // From XL 14, Vashtar may send one of his six-armed champions.
+    const int roll = random2(you.experience_level >= 14 ? 4 : 3);
+
+    if (roll == 0)
     {
         simple_god_message(" drinks deep of your strength!", false, god);
         you.weaken(nullptr, 25);
         drain_player(random_range(50, 100), false, true, false);
         return true;
+    }
+
+    if (roll == 1)
+    {
+        // Vashtar's war cry drives every foe in sight into a battle-frenzy.
+        int frenzied = 0;
+        for (monster_near_iterator mi(you.pos(), LOS_NO_TRANS); mi; ++mi)
+        {
+            if (mi->wont_attack() || !mi->can_go_berserk())
+                continue;
+            mi->go_berserk(false);
+            ++frenzied;
+        }
+        if (frenzied)
+        {
+            simple_god_message("'s war cry drives your foes into a killing "
+                               "frenzy!", false, god);
+            return true;
+        }
+        // Nobody to enrage: send demons instead.
+    }
+
+    if (roll == 3)
+    {
+        if (create_monster(_wrath_mon_data(MONS_VASHTARI_CHAMPION, god), false))
+        {
+            simple_god_message(" sends one of his six-armed champions to take "
+                               "your head!", false, god);
+            return true;
+        }
     }
 
     const int wanted = 1 + random2(1 + you.experience_level / 7);
@@ -1731,6 +1780,171 @@ static bool _vashtar_retribution()
                                  : "'s war demons fail to arrive.",
                        false, god);
     return true;
+}
+
+/**
+ * Send one of Vashtar's blood collectors after the player: a Vashtari
+ * champion, cut down to size for weaker characters so the fight is winnable.
+ */
+monster *vashtar_send_collector()
+{
+    mgen_data mg = mgen_data::hostile_at(MONS_VASHTARI_CHAMPION, true,
+                                         you.pos())
+                       .set_range(3, you.current_vision);
+    mg.god = GOD_VASHTAR;
+    monster *collector = create_monster(mg, false);
+    if (!collector)
+        return nullptr;
+
+    collector->props[VASHTAR_COLLECTOR_KEY] = true;
+    const int full_hd = collector->get_hit_dice();
+    const int hd = min(full_hd, max(8, you.experience_level + 2));
+    if (hd < full_hd)
+    {
+        collector->set_hit_dice(hd);
+        collector->max_hit_points = max(20, collector->max_hit_points * hd / full_hd);
+        collector->hit_points = collector->max_hit_points;
+    }
+    return collector;
+}
+
+/// Take back one tithe (2 points of the stat it went to). False if none left.
+static bool _vashtar_reclaim_one_tithe()
+{
+    const int tithes = vashtar_tithes_taken();
+    if (tithes <= 0)
+        return false;
+
+    stat_type stat = STAT_STR;
+    CrawlVector *paid = you.props.exists(VASHTAR_TITHE_STATS_KEY)
+        ? &you.props[VASHTAR_TITHE_STATS_KEY].get_vector() : nullptr;
+    if (paid && !paid->empty())
+    {
+        stat = static_cast<stat_type>((*paid)[paid->size() - 1].get_int());
+        paid->pop_back();
+    }
+    else
+    {
+        // Tithes paid before we recorded which stat: take the highest.
+        for (stat_type s : { STAT_INT, STAT_DEX })
+            if (you.base_stats[s] > you.base_stats[stat])
+                stat = s;
+    }
+    modify_stat(stat, -2, false);
+    you.props[VASHTAR_TITHES_KEY] = tithes - 1;
+    return true;
+}
+
+void vashtar_collector_hits_you(monster &collector)
+{
+    if (!you.props.exists(VASHTAR_BLOOD_DEBT_KEY))
+        return;
+    if (_vashtar_reclaim_one_tithe())
+    {
+        mprf(MSGCH_WARN, "%s tears the blood you tithed from your body!",
+             collector.name(DESC_THE).c_str());
+    }
+    if (vashtar_tithes_taken() <= 0)
+    {
+        you.props.erase(VASHTAR_BLOOD_DEBT_KEY);
+        you.props.erase(VASHTAR_TITHES_KEY);
+        you.props.erase(VASHTAR_TITHE_STATS_KEY);
+        simple_god_message(" has taken back every drop you owed.", false,
+                           GOD_VASHTAR);
+    }
+}
+
+/// The blood debt ends in the player's favour: they keep the tithed stats.
+void vashtar_blood_debt_broken(const char *how)
+{
+    if (!you.props.exists(VASHTAR_BLOOD_DEBT_KEY))
+        return;
+    you.props.erase(VASHTAR_BLOOD_DEBT_KEY);
+    mprf(MSGCH_GOD, "%s Vashtar's claim on your blood is broken; what you "
+                    "tithed is yours to keep.", how);
+}
+
+/**
+ * Abandoning Vashtar: he tears back the blood you tithed (each Blood Tithe's
+ * +2 stat), and the weapons he gave you as spoils of war rise up against you.
+ * Destroying a rebel weapon leaves it on the floor to be reclaimed.
+ */
+void vashtar_abandonment()
+{
+    const god_type god = GOD_VASHTAR;
+    simple_god_message(" roars: \"Coward! You swore your blood to war, and I "
+                       "will have it back!\"", false, god);
+
+    // The blood you tithed is now a debt. Vashtar sends a collector for it;
+    // slay the collector, or outlast his wrath, and the blood is yours.
+    if (vashtar_tithes_taken() > 0)
+    {
+        you.props[VASHTAR_BLOOD_DEBT_KEY] = true;
+        if (vashtar_send_collector())
+        {
+            simple_god_message(" sends a champion to tear back the blood you "
+                               "owe! Defeat it, and you keep what you have.",
+                               false, god);
+        }
+    }
+
+    // The spoils of war rebel.
+    vector<int> spoils;
+    for (int slot = 0; slot < ENDOFPACK; ++slot)
+    {
+        const item_def &item = you.inv[slot];
+        if (item.defined() && item.base_type == OBJ_WEAPONS
+            && item.quantity == 1 && !is_range_weapon(item)
+            && origin_as_god_gift(item) == god)
+        {
+            spoils.push_back(slot);
+        }
+    }
+
+    int rebels = 0;
+    for (int slot : spoils)
+    {
+        item_def &wpn = you.inv[slot];
+        mgen_data mg = mgen_data::hostile_at(MONS_DANCING_WEAPON, true,
+                                             you.pos())
+                           .set_range(1, 3);
+        mg.god = god;
+        monster *dancer = create_monster(mg, false);
+        if (!dancer)
+            continue;
+
+        const int idx = get_mitm_slot();
+        if (idx == NON_ITEM)
+        {
+            monster_die(*dancer, KILL_RESET, NON_MONSTER, true);
+            continue;
+        }
+        if (item_is_equipped(wpn))
+            unequip_item(wpn, false);
+
+        if (dancer->inv[MSLOT_WEAPON] != NON_ITEM)
+            destroy_item(dancer->inv[MSLOT_WEAPON]);
+        env.item[idx] = wpn;
+        env.item[idx].flags &= ~ISFLAG_THROWN;
+        env.item[idx].set_holding_monster(*dancer);
+        dancer->inv[MSLOT_WEAPON] = idx;
+
+        ghost_demon stats;
+        stats.init_dancing_weapon(env.item[idx], 100 + you.experience_level * 6);
+        dancer->set_ghost(stats);
+        dancer->ghost_demon_init();
+        dancer->colour = env.item[idx].get_colour();
+
+        mprf(MSGCH_WARN, "%s tears itself from you and turns on you!",
+             wpn.name(DESC_YOUR).c_str());
+        dec_inv_item_quantity(slot, 1);
+        ++rebels;
+    }
+    if (rebels)
+    {
+        simple_god_message(" laughs: \"My gifts were never yours to keep.\"",
+                           false, god);
+    }
 }
 
 static bool _uskayaw_retribution()

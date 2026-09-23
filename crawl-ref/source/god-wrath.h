@@ -7,7 +7,13 @@
 
 #include "god-type.h"
 
+class monster;
+
 bool divine_retribution(god_type god, bool no_bonus = false, bool force = false);
+void vashtar_abandonment();
+void vashtar_collector_hits_you(monster &collector);
+void vashtar_blood_debt_broken(const char *how);
+monster *vashtar_send_collector();
 void reduce_xp_penance(god_type god, int amount);
 
 void gozag_incite(monster *mon);

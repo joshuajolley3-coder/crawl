@@ -417,6 +417,7 @@ enum dungeon_feature_type
 #endif
     DNGN_ENTER_BATTLEFIELD,
     DNGN_EXIT_BATTLEFIELD,
+    DNGN_BLOOD_ALTAR,
 
     NUM_FEATURES
 };

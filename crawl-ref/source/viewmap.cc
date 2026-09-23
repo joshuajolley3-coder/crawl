@@ -152,6 +152,7 @@ bool is_feature(char32_t feature, const coord_def& where)
                 && !feat_is_altar(grid)
                 && grid != DNGN_ENTER_SHOP
                 && grid != DNGN_PURIFIED_MUTATION_CATALYST
+                && grid != DNGN_BLOOD_ALTAR
                 && grid != DNGN_TRANSPORTER;
     case '^':
         return feat_is_trap(grid);
@@ -393,7 +394,8 @@ class feature_list
         if (feat == DNGN_TRAP_SHAFT)
             return G_DOWN;
         if (feat_is_altar(feat) || feat == DNGN_ENTER_SHOP
-            || feat == DNGN_PURIFIED_MUTATION_CATALYST)
+            || feat == DNGN_PURIFIED_MUTATION_CATALYST
+            || feat == DNGN_BLOOD_ALTAR)
         {
             return G_OTHER;
         }

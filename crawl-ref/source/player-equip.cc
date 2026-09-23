@@ -491,6 +491,16 @@ bool can_equip_item(const item_def& item, bool temp, string* veto_reason,
                               uppercase_first(god_name(you.religion)).c_str()))
     }
 
+    // Excalibur answers only to the strong, the quick and the wise.
+    if (is_unrandom_artefact(item, UNRAND_EXCALIBUR)
+        && (you.strength() < EXCALIBUR_STR || you.dex() < EXCALIBUR_DEX
+            || you.intel() < EXCALIBUR_INT))
+    {
+        NO_EQUIP(make_stringf("You are not yet worthy to wield Excalibur. "
+                              "(It needs Str %d, Dex %d and Int %d.)",
+                              EXCALIBUR_STR, EXCALIBUR_DEX, EXCALIBUR_INT))
+    }
+
     vector<equipment_slot> slots = get_all_item_slots(item);
 
     // For each base slot that this item strictly requires, check if the player

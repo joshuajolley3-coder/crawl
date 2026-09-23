@@ -2685,6 +2685,14 @@ static const mon_spellbook mspell_list[] =
       }
     },
 
+    // Vashtar's six-armed champions: war cries and battle-fury.
+    {  MST_VASHTARI_CHAMPION,
+      {
+       { SPELL_BATTLECRY, 20, MON_SPELL_VOCAL },
+       { SPELL_BERSERKER_RAGE, 20, MON_SPELL_PRIEST },
+      }
+    },
+
     // A monster that doesn't show up anywhere, for Arena testing.
     {  MST_TEST_SPAWNER,
       {

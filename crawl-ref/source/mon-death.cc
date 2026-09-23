@@ -33,6 +33,7 @@
 #include "evoke.h"
 #include "fineff.h"
 #include "god-abil.h"
+#include "god-wrath.h"
 #include "god-companions.h"
 #include "god-conduct.h"
 #include "god-passive.h" // convert_orcs
@@ -3069,6 +3070,10 @@ item_def* monster_die(monster& mons, killer_type killer,
         vashtar_death_effects(mons,
                               your_kill || _is_pet_kill(killer, killer_index));
     }
+
+    // Slaying one of Vashtar's blood collectors breaks his claim on you.
+    if (actually_died && mons.props.exists(VASHTAR_COLLECTOR_KEY))
+        vashtar_blood_debt_broken("With the collector's death,");
 
     // Print standard death messages, handle god conducts and piety gain, and
     // perform other killer_type specific actions (like handling banishment).

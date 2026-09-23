@@ -1,0 +1,23 @@
+name: "Vashtari champion"
+glyph: {char: "C", colour: lightred}
+flags: [fighter, speaks, warm_blood, two_weapons, see_invis]
+exp: 2300
+will: 100
+attacks:
+ - {type: hit, damage: 30}
+ - {type: hit, damage: 30}
+ - {type: punch, damage: 18}
+ - {type: punch, damage: 18}
+hd: 17
+hp_10x: 1300
+ac: 10
+ev: 10
+spells: vashtari_champion
+has_corpse: true
+corpse_tile: ogre
+shout: roar
+intelligence: human
+uses: weapons_armour
+size: large
+shape: humanoid
+god: Vashtar

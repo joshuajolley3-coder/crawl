@@ -6932,6 +6932,13 @@ int player::armour_class_scaled(int scale) const
     if (duration[DUR_WAR_PAINT])
         AC += 400;
 
+    // The rightful king: the Regalia and Excalibur together.
+    if (you.unrand_equipped(UNRAND_KINGS_REGALIA)
+        && you.unrand_equipped(UNRAND_EXCALIBUR))
+    {
+        AC += 500;
+    }
+
     if (duration[DUR_SPWPN_PROTECTION])
     {
         AC += 700;

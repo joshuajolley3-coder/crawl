@@ -1834,11 +1834,20 @@ int unarmed_base_damage(bool random)
     return damage;
 }
 
+/// Brawlers' Dirty Fighting: +1 unarmed damage per 4 Strength above 10.
+int brawler_unarmed_bonus()
+{
+    if (you.char_class != JOB_BRAWLER)
+        return 0;
+    return max(0, (you.strength() - 10) / 4);
+}
+
 int unarmed_base_damage_bonus(bool random)
 {
     if (you.form_uses_xl())
         return 0;
+    const int brawl = brawler_unarmed_bonus();
     if (random)
-        return you.skill_rdiv(SK_UNARMED_COMBAT);
-    return you.skill(SK_UNARMED_COMBAT);
+        return you.skill_rdiv(SK_UNARMED_COMBAT) + brawl;
+    return you.skill(SK_UNARMED_COMBAT) + brawl;
 }

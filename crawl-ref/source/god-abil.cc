@@ -7476,6 +7476,8 @@ bool vashtar_blood_tithe()
 
     simple_god_message(" drinks your offering and remakes your flesh.");
     modify_stat(stat, 2, false);
+    // Remembered, so Vashtar knows what to take back if you leave him.
+    you.props[VASHTAR_TITHE_STATS_KEY].get_vector().push_back((int)stat);
     if (extra > 0)
         lose_piety(extra);
     take_note(Note(NOTE_GOD_GIFT, you.religion));

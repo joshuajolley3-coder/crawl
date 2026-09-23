@@ -1609,6 +1609,9 @@ void shop()
         mprf("The shopkeeper of %s refuses to serve your kind!",
              shopname.c_str());
         ShopMenu(shop, level_pos::current(), false).show();
+        // Still count the shop as visited, so autoexplore doesn't keep
+        // walking back to it.
+        StashTrack.get_shop(shop.pos) = ShopInfo(shop);
         return;
     }
 

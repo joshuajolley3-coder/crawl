@@ -3139,6 +3139,8 @@ static bool _item_matches(const item_def &item, fire_type types, bool manual)
         return true;
     if ((types & FIRE_KNIFE) && item.sub_type == MI_THROWING_KNIFE)
         return true;
+    if ((types & FIRE_SAND) && item.sub_type == MI_SAND_BAG)
+        return true;
 
     return false;
 }

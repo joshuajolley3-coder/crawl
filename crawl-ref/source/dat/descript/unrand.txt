@@ -745,6 +745,25 @@ without falling. Its last known master was a grim, bald-headed warrior of a
 distant order who ended more than one argument with the words "This party's
 over."
 %%%%
+Excalibur
+
+The sword of a once and future king, drawn from stone and returned to still
+water, and somehow washed up in the depths of the Dungeon. Its long blade
+burns with holy light against the unholy and the undead, and something of its
+lost scabbard lingers in it still: no wound its bearer takes bleeds for long.
+
+Only one strong, quick and wise enough may draw it: its wielder needs at least
+25 Strength, 15 Dexterity and 10 Intelligence.
+%%%%
+the King's Regalia
+
+A heavy royal cloak of deep purple, trimmed with ermine and clasped with gold.
+It was made for a king who never came back from the wars, and it still carries
+his dignity: the elements slide off it, falsehood and hidden things are laid
+bare to its wearer, and no enchantment easily bends a royal will. It is not,
+however, made for skulking. Worn by one who also bears Excalibur, it settles on
+their shoulders like armour.
+%%%%
 Ruyi Jingu Bang
 
 The "as-you-will gold-banded staff" of the Monkey King, once used by an

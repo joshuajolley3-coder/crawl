@@ -29,6 +29,8 @@
 #include "god-conduct.h"
 #include "god-item.h"
 #include "god-passive.h" // passive_t::convert_orcs
+#include "god-abil.h" // VASHTAR_COLLECTOR_KEY
+#include "god-wrath.h" // vashtar_collector_hits_you
 #include "hints.h"
 #include "invent.h"
 #include "item-prop.h"
@@ -1117,6 +1119,13 @@ bool melee_attack::handle_phase_damaged()
 
     if (!attack::handle_phase_damaged())
         return false;
+
+    // Vashtar's blood collectors tear back tithed stats with each wound.
+    if (defender->is_player() && attacker->is_monster() && damage_done > 0
+        && attacker->as_monster()->props.exists(VASHTAR_COLLECTOR_KEY))
+    {
+        vashtar_collector_hits_you(*attacker->as_monster());
+    }
 
     if (attacker->is_player())
     {

@@ -37,6 +37,7 @@
 #include "arena.h"
 #include "artefact.h"
 #include "beam.h"
+#include "blood-altar.h"
 #include "branch.h"
 #include "chardump.h"
 #include "cio.h"
@@ -1364,7 +1365,8 @@ static bool _can_take_stairs(dungeon_feature_type ftype, bool down,
 {
     // Up and down both work for shops, portals, and altars.
     if (ftype == DNGN_ENTER_SHOP || feat_is_altar(ftype)
-        || ftype == DNGN_PURIFIED_MUTATION_CATALYST)
+        || ftype == DNGN_PURIFIED_MUTATION_CATALYST
+        || ftype == DNGN_BLOOD_ALTAR)
     {
         if (crawl_state.doing_prev_cmd_again)
         {
@@ -1378,6 +1380,8 @@ static bool _can_take_stairs(dungeon_feature_type ftype, bool down,
             shop();
         else if (ftype == DNGN_PURIFIED_MUTATION_CATALYST)
             use_mutation_catalyst();
+        else if (ftype == DNGN_BLOOD_ALTAR)
+            use_blood_altar();
         else
             try_god_conversion(feat_altar_god(ftype));
         // Even though we may have "succeeded", return false so we don't keep

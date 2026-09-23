@@ -38,6 +38,7 @@
 #include "fight.h"
 #include "files.h"
 #include "flood-find.h"
+#include "floor-theme.h"
 #include "ghost.h"
 #include "god-passive.h"
 #include "item-name.h"
@@ -456,6 +457,10 @@ static bool _build_level_vetoable(bool enable_random_maps)
     // Copy uniq tags for previous floors in this branch
     env.branch_uniq_map_tags = branch_uniq_map_tags[you.where_are_you];
     dgn_reset_level(enable_random_maps);
+
+    // Maybe give this Dungeon floor a monster theme (frost, fire...). Done
+    // first, so vaults' random monsters follow the theme too.
+    roll_floor_theme();
 
     if (player_in_branch(BRANCH_TEMPLE))
         _setup_temple_altars(you.props);
@@ -2936,6 +2941,7 @@ static void _build_dungeon_level()
 
         // Place items.
         _builder_items();
+        place_floor_theme_loot();
 
         _fixup_walls();
     }

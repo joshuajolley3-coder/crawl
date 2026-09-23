@@ -2749,7 +2749,8 @@ static bool _can_enslave(const monster &mon)
         || mon.type == MONS_PANDEMONIUM_LORD
         || mon.type == MONS_PLAYER_GHOST
         || mon.type == MONS_PLAYER_ILLUSION
-        || mon.type == MONS_ORB_GUARDIAN)
+        || mon.type == MONS_ORB_GUARDIAN
+        || mon.type == MONS_SUSPICIOUS_FIGURE)
     {
         return false;
     }

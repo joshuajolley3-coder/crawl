@@ -500,6 +500,15 @@ an empty mutation catalyst
 
 A complex arcane still, cracked open and fully emptied of its contents.
 %%%%
+a blood-soaked altar
+
+A crude altar to no god in particular, its stone stained black with old blood.
+It thirsts. Anyone willing to give it a piece of their life (7.5% of their
+maximum health, forever) may ask for gold, a gift of flesh (a beneficial
+mutation), or a weapon steeped in evil. Once sated, it crumbles to dust.
+
+The Shining One, Zin and Elyvilon are appalled by such offerings.
+%%%%
 ########################################################################
 ### Branch entrances and exits
 ########################################################################

@@ -238,6 +238,7 @@ white
 %syn WHITE
 #unrand
 ratskin RATSKIN_CLOAK
+kings_regalia KINGS_REGALIA
 dragonskin DRAGONSKIN_CLOAK
 fungal_fisticloak_back FUNGAL_FISTICLOAK_BACK
 
@@ -667,6 +668,7 @@ singing_sword SINGING_SWORD
 zonguldrok ZONGULDROK
 sword_of_power SWORD_OF_POWER
 vaapad VAAPAD
+excalibur EXCALIBUR
 ruyi_jingu_bang RUYI_JINGU_BANG
 knife_of_accuracy KNIFE_OF_ACCURACY
 vampires_tooth VAMPIRES_TOOTH

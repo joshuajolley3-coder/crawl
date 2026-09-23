@@ -47,6 +47,7 @@
 #include "evoke.h"
 #include "exercise.h"
 #include "files.h"
+#include "floor-theme.h"
 #include "god-abil.h"
 #include "god-companions.h"
 #include "god-conduct.h"
@@ -1330,6 +1331,8 @@ void player_reacts()
 
     if (you.form == transformation::eel_hands && one_chance_in(500))
         _do_eel_flavour_msg();
+
+    floor_theme_ambience();
 
     _handle_fugue(you.time_taken);
     if (you.has_mutation(MUT_WARMUP_STRIKES))

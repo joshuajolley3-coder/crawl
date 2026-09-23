@@ -441,6 +441,7 @@ effect/boomerang3 MI_BOOMERANG3
 
 %rim 1
 throwing_knife MI_THROWING_KNIFE
+bag_of_sand MI_SAND_BAG
 dart1 MI_DART
 %enchant_variation MI_DART shiny runed glowing randart
 dart2 MI_DART_MAGIC

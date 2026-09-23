@@ -942,6 +942,16 @@ void mark_corrupted_level(level_id li)
     level_annotations[li] += "corrupted";
 }
 
+// Label a themed floor (e.g. "Frost floor") in the dungeon overview.
+void mark_themed_level(level_id li, const string &label)
+{
+    if (level_annotation_has(label, li))
+        return;
+    if (!level_annotations[li].empty())
+        level_annotations[li] += ", ";
+    level_annotations[li] += label;
+}
+
 ////////////////////////////////////////////////////////////////////////
 
 static void _update_unique_annotation(level_id level)

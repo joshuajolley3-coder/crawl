@@ -20,6 +20,7 @@ void unnotice_feature(const level_pos &pos);
 string overview_description_string(bool display);
 void enter_branch(branch_type branch, level_id from);
 void mark_corrupted_level(level_id li);
+void mark_themed_level(level_id li, const string &label);
 void seen_tracked_feature(dungeon_feature_type feat);
 void explored_tracked_feature(dungeon_feature_type feat);
 

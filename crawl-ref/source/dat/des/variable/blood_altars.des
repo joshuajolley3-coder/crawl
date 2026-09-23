@@ -1,0 +1,51 @@
+##############################################################################
+# blood_altars.des: small shrines holding a blood-soaked altar.
+#
+# Rare: roughly one in every twenty floors in the Dungeon and in the
+# darker branches has one.
+##############################################################################
+
+: crawl_require('dlua/vault.lua')
+
+{{
+function blood_altar_setup(e)
+  e.tags("transparent")
+  e.kfeat("_ = blood_altar")
+  e.depth("D:3-14, Lair, Orc, Swamp, Snake, Spider, Shoals, Elf, Crypt, Depths")
+  e.chance("5%")
+end
+}}
+
+NAME:   blood_altar_shrine_plain
+: blood_altar_setup(_G)
+MAP
+.....
+.c.c.
+.._..
+.c.c.
+.....
+ENDMAP
+
+NAME:   blood_altar_shrine_ring
+: blood_altar_setup(_G)
+MAP
+.......
+..ccc..
+.c...c.
+.c._.c.
+.c...c.
+..c.c..
+.......
+ENDMAP
+
+NAME:   blood_altar_shrine_hidden
+: blood_altar_setup(_G)
+MAP
+.........
+.ccccccc.
+.c.....c.
+.c.._..c.
+.c.....c.
+.ccc+ccc.
+.........
+ENDMAP

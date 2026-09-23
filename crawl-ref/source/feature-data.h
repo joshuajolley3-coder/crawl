@@ -700,6 +700,13 @@ FOUNTAIN(DNGN_RUNELIGHT, "runelight", "runelight", ETC_DISJUNCTION),
 },
 
 {
+    DNGN_BLOOD_ALTAR, "blood-soaked altar", "blood_altar",
+    DCHAR_ALTAR, NUM_DCHAR_TYPES,
+    COLOUR_AND_MAP(RED),
+    FFT_NOTABLE, MF_FEATURE,
+},
+
+{
     DNGN_CACHE_OF_BAKED_GOODS, "cache of baked goods", "cache_of_baked_goods",
     DCHAR_ITEM_SKELETON, NUM_DCHAR_TYPES,
     COLOUR_AND_MAP(YELLOW),

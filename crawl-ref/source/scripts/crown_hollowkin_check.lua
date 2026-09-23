@@ -60,9 +60,10 @@ local function ally_kill_piety(combo)
     end
     return you.piety() - start
 end
-local vanara = ally_kill_piety("VaWM")
-local hollowkin = ally_kill_piety("HkWM")
-say(string.format("  piety from 100 ally kills: Vanara +%d, Hollowkin +%d",
+-- Two runs each (piety gain is random), staying well under the piety cap.
+local vanara = ally_kill_piety("VaWM") + ally_kill_piety("VaWM")
+local hollowkin = ally_kill_piety("HkWM") + ally_kill_piety("HkWM")
+say(string.format("  piety from 2x100 ally kills: Vanara +%d, Hollowkin +%d",
     vanara, hollowkin))
 check(hollowkin > vanara * 1.2, "Hollowkin gain noticeably more piety")
 

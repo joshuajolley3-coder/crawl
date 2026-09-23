@@ -14,8 +14,15 @@
 #include "dungeon.h"
 #include "files.h"
 #include "god-wrath.h"
+#include "blood-altar.h"
+#include "floor-theme.h"
+#include "god-abil.h"
+#include "player-equip.h"
+#include "suspicious-figure.h"
+#include "player-stats.h"
 #include "item-prop.h"
 #include "item-use.h"
+#include "mon-util.h"
 #include "los.h"
 #include "maps.h"
 #include "message.h"
@@ -248,6 +255,125 @@ LUAFN(debug_dismiss_monsters)
     }
 
     return 0;
+}
+
+// Usage: floor_theme() -- returns the current floor's theme name ("" if none),
+// its monster names (a table), and whether the themed tiles were applied.
+LUAFN(debug_floor_theme)
+{
+    const floor_theme_type theme = current_floor_theme();
+    lua_pushstring(ls, floor_theme_name(theme));
+    lua_newtable(ls);
+    int i = 1;
+    for (monster_type m : floor_theme_monster_list(theme))
+    {
+        lua_pushstring(ls, mons_type_name(m, DESC_PLAIN).c_str());
+        lua_rawseti(ls, -2, i++);
+    }
+    lua_pushboolean(ls, floor_theme_tiles_applied());
+    return 3;
+}
+
+// Usage: set_floor_theme(n) -- force theme n (0 = none) on the current level.
+LUAFN(debug_set_floor_theme)
+{
+    const int t = luaL_safe_checkint(ls, 1);
+    if (t <= 0 || t >= NUM_FLOOR_THEMES)
+        env.properties.erase("floor_theme");
+    else
+        env.properties["floor_theme"].get_int() = t;
+    return 0;
+}
+
+// Test hooks for Vashtar: abandon_god(), vashtar_tithe(stat 0-2: Str/Int/Dex),
+// mark_vashtar_gift(slot).
+LUAFN(debug_abandon_god)
+{
+    UNUSED(ls);
+    excommunication(true);
+    return 0;
+}
+
+LUAFN(debug_vashtar_tithe)
+{
+    const stat_type stat = static_cast<stat_type>(luaL_safe_checkint(ls, 1));
+    modify_stat(stat, 2, false);
+    you.props[VASHTAR_TITHES_KEY] = vashtar_tithes_taken() + 1;
+    you.props[VASHTAR_TITHE_STATS_KEY].get_vector().push_back((int)stat);
+    return 0;
+}
+
+LUAFN(debug_mark_vashtar_gift)
+{
+    const int slot = luaL_safe_checkint(ls, 1);
+    if (slot >= 0 && slot < ENDOFPACK && you.inv[slot].defined())
+        you.inv[slot].orig_monnum = -GOD_VASHTAR;
+    return 0;
+}
+
+// Test hooks for this batch.
+// blood_offer(0 gold / 1 mutation / 2 evil gift) -- offer at a blood altar.
+LUAFN(debug_blood_offer)
+{
+    const int b = luaL_safe_checkint(ls, 1);
+    PLUARET(boolean, blood_altar_offer(static_cast<blood_boon>(b)));
+}
+
+static monster *_nearest_figure()
+{
+    for (monster_iterator mi; mi; ++mi)
+        if (mi->type == MONS_SUSPICIOUS_FIGURE)
+            return *mi;
+    return nullptr;
+}
+
+// figure_offers() -> swap offer name, blood item name, gold amount
+LUAFN(debug_figure_offers)
+{
+    monster *fig = _nearest_figure();
+    if (!fig)
+        return 0;
+    init_figure_offers(*fig);
+    lua_pushstring(ls, fig->props["figure_offer_swap"].get_item().name(DESC_A).c_str());
+    lua_pushstring(ls, fig->props["figure_offer_item"].get_item().name(DESC_A).c_str());
+    lua_pushinteger(ls, fig->props["figure_offer_gold"].get_int());
+    return 3;
+}
+
+// figure_deal(0 swap / 1 blood item / 2 blood gold, [slot for swap])
+LUAFN(debug_figure_deal)
+{
+    monster *fig = _nearest_figure();
+    if (!fig)
+        PLUARET(boolean, false);
+    const int deal = luaL_safe_checkint(ls, 1);
+    const int slot = lua_isnumber(ls, 2) ? luaL_safe_checkint(ls, 2) : -1;
+    PLUARET(boolean, take_figure_deal(*fig, static_cast<figure_deal>(deal), slot));
+}
+
+// can_equip(slot) -> bool, reason
+LUAFN(debug_can_equip)
+{
+    const int slot = luaL_safe_checkint(ls, 1);
+    string reason;
+    const bool ok = slot >= 0 && slot < ENDOFPACK && you.inv[slot].defined()
+                    && can_equip_item(you.inv[slot], true, &reason);
+    lua_pushboolean(ls, ok);
+    lua_pushstring(ls, reason.c_str());
+    return 2;
+}
+
+// kill_monster(name) -- kill the first monster with that name, as if slain.
+LUAFN(debug_kill_monster)
+{
+    const string name = luaL_checkstring(ls, 1);
+    for (monster_iterator mi; mi; ++mi)
+        if (mi->name(DESC_PLAIN, true) == name)
+        {
+            monster_die(**mi, KILL_YOU, NON_MONSTER);
+            PLUARET(boolean, true);
+        }
+    PLUARET(boolean, false);
 }
 
 // Usage: true_name(slot) -- speak the true name of the item in inventory
@@ -511,6 +637,16 @@ const struct luaL_Reg debug_dlib[] =
 { "dismiss_monsters", debug_dismiss_monsters},
 { "god_wrath", debug_god_wrath},
 { "true_name", debug_true_name },
+{ "floor_theme", debug_floor_theme },
+{ "set_floor_theme", debug_set_floor_theme },
+{ "abandon_god", debug_abandon_god },
+{ "vashtar_tithe", debug_vashtar_tithe },
+{ "mark_vashtar_gift", debug_mark_vashtar_gift },
+{ "blood_offer", debug_blood_offer },
+{ "figure_offers", debug_figure_offers },
+{ "figure_deal", debug_figure_deal },
+{ "can_equip", debug_can_equip },
+{ "kill_monster", debug_kill_monster },
 { "handle_monster_move", debug_handle_monster_move },
 { "save_uniques", debug_save_uniques },
 { "randomize_uniques", debug_randomize_uniques },

@@ -3401,6 +3401,8 @@ static string _feat_action_desc(const vector<command_type>& actions,
             }
             else if (cmd == CMD_GO_DOWNSTAIRS && feat == DNGN_PURIFIED_MUTATION_CATALYST)
                 return string("(>)imbibe");
+            else if (cmd == CMD_GO_DOWNSTAIRS && feat == DNGN_BLOOD_ALTAR)
+                return string("(>)offer blood");
             else if (cmd == CMD_GO_UPSTAIRS && feat_is_gate(feat))
                 return string("(<)exit");
             else

@@ -558,6 +558,7 @@ static special_missile_type _determine_missile_brand(const item_def& item,
     switch (item.sub_type)
     {
     case MI_THROWING_NET:
+    case MI_SAND_BAG:
     case MI_STONE:
     case MI_LARGE_ROCK:
         rc = SPMSL_NORMAL;
@@ -595,8 +596,8 @@ static special_missile_type _determine_missile_brand(const item_def& item,
 
 bool is_missile_brand_ok(int type, int brand, bool strict)
 {
-    // Rocks can't normally be branded.
-    if ((type == MI_STONE || type == MI_LARGE_ROCK)
+    // Rocks and bags of sand can't normally be branded.
+    if ((type == MI_STONE || type == MI_LARGE_ROCK || type == MI_SAND_BAG)
         && brand != SPMSL_NORMAL
         && strict)
     {
@@ -675,14 +676,15 @@ static void _generate_missile_item(item_def& item, int force_type,
         item.sub_type = force_type;
     else
     {
-        // Total weight: 112
+        // Total weight: 117
         item.sub_type =
             random_choose_weighted(60, MI_DART,
                                    17, MI_BOOMERANG,
                                    12, MI_THROWING_KNIFE,
                                    11,  MI_JAVELIN,
                                    6,  MI_THROWING_NET,
-                                   6,  MI_LARGE_ROCK);
+                                   6,  MI_LARGE_ROCK,
+                                   5,  MI_SAND_BAG);
     }
 
     // No fancy rocks -- break out before we get to special stuff.
@@ -699,6 +701,11 @@ static void _generate_missile_item(item_def& item, int force_type,
     else if (item.sub_type == MI_THROWING_NET) // no fancy nets, either
     {
         item.quantity = 1 + one_chance_in(4); // and only one, rarely two
+        return;
+    }
+    else if (item.sub_type == MI_SAND_BAG) // nor fancy sand
+    {
+        item.quantity = random_range(2, 4);
         return;
     }
 

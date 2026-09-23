@@ -271,6 +271,11 @@ void makhleb_crucible_kill(monster& victim);
 void simulate_time_passing(int turns);
 
 #define VASHTAR_TITHES_KEY "vashtar_tithes"
+#define VASHTAR_TITHE_STATS_KEY "vashtar_tithe_stats"
+// Set after abandoning Vashtar while holding his tithed blood.
+#define VASHTAR_BLOOD_DEBT_KEY "vashtar_blood_debt"
+// On a monster: this is one of Vashtar's blood collectors.
+#define VASHTAR_COLLECTOR_KEY "vashtar_collector"
 #define VASHTAR_TITHE_BASE_COST 40
 #define VASHTAR_TITHE_STEP_COST 15
 #define VASHTAR_MAX_TITHES 3

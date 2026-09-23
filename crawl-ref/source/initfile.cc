@@ -1239,6 +1239,8 @@ static fire_type _str_to_fire_types(const string &str)
         return FIRE_BOOMERANG;
     else if (str == "knife")
         return FIRE_KNIFE;
+    else if (str == "sand")
+        return FIRE_SAND;
     else if (str == "dart")
         return FIRE_DART;
     else if (str == "net")

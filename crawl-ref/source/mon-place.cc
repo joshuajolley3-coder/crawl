@@ -22,6 +22,7 @@
 #include "directn.h"
 #include "dungeon.h"
 #include "env.h"
+#include "floor-theme.h"
 #include "errors.h"
 #include "fprop.h"
 #include "gender-type.h"
@@ -381,6 +382,23 @@ monster_type pick_random_monster(level_id place,
         return pick_monster(place, arena_veto_random_monster);
 
     ASSERT(_is_random_monster(kind) || kind == MONS_NO_MONSTER);
+
+    // Themed Dungeon floors draw their monsters from the theme's list,
+    // falling back to the normal list if nothing there fits.
+    if (place.branch == BRANCH_DUNGEON && !crawl_state.game_is_sprint())
+    {
+        if (const vector<pop_entry> *themed = floor_theme_population())
+        {
+            mon_pick_vetoer veto =
+                  kind == RANDOM_MOBILE_MONSTER     ? mons_class_is_stationary
+                : kind == RANDOM_COMPATIBLE_MONSTER ? _is_incompatible_monster
+                : kind == RANDOM_BANDLESS_MONSTER   ? _is_banded_monster
+                                                    : nullptr;
+            const monster_type mon = pick_monster_from(*themed, place.depth, veto);
+            if (mon != MONS_0)
+                return mon;
+        }
+    }
 
     if (kind == RANDOM_MOBILE_MONSTER)
         return pick_monster(place, mons_class_is_stationary);

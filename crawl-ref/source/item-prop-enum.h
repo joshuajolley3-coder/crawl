@@ -386,6 +386,7 @@ enum missile_type
 #endif
 
     MI_THROWING_KNIFE,
+    MI_SAND_BAG,
 
     NUM_MISSILES,
 };

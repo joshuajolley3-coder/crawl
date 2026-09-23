@@ -848,6 +848,12 @@ A circlet of precious metal. It sits lightly enough to be worn over horns,
 antennae or a beak, and crowns are far more often enchanted, or imbued with
 power over the body and mind, than lesser headgear.
 %%%%
+bag of sand
+
+A small burlap sack packed with fine grit. Thrown, it bursts in the target's
+face and blinds anything with eyes for a while; the weaker the creature, the
+longer it stays blind. The bag is used up when it bursts.
+%%%%
 bastard sword
 
 A hand-and-a-half sword with a long, heavy blade and a grip long enough for a

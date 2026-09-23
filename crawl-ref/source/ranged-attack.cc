@@ -299,6 +299,37 @@ bool ranged_attack::handle_phase_hit()
         if (defender->is_player())
             xom_is_stimulated(50);
     }
+    else if (weapon->is_type(OBJ_MISSILES, MI_SAND_BAG))
+    {
+        // The bag bursts, throwing grit into the target's eyes -- if it has
+        // any. Weak foes stay blind for longer.
+        set_attack_verb(0);
+        announce_hit();
+        if (defender->is_player())
+        {
+            if (!you.res_blind())
+                blind_player(random_range(3, 6), BROWN);
+        }
+        else
+        {
+            monster *mon = defender->as_monster();
+            if (mon->res_blind() > 1)
+            {
+                if (needs_message)
+                    simple_monster_message(*mon, " is unbothered by the sand.");
+            }
+            else if (!mon->has_ench(ENCH_BLIND))
+            {
+                const int dur = max(1, div_rand_round(40, mon->get_hit_dice()))
+                                * BASELINE_DELAY;
+                if (mon->add_ench(mon_enchant(ENCH_BLIND, attacker,
+                                              random_range(dur, dur * 2))))
+                {
+                    simple_monster_message(*mon, " is blinded by the sand!");
+                }
+            }
+        }
+    }
     else
     {
         damage_done = calc_damage();

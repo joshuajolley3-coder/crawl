@@ -54,6 +54,7 @@
   {  5, 15,   50, SEMI, MONS_WYRMHOLE },\
   {  9, 13,   10, FLAT, MONS_ANCIENT_LICH },\
   {  9, 13,   10, FLAT, MONS_DREAD_LICH },\
+  {  2, 13,   70, SEMI, MONS_VASHTARI_CHAMPION },\
 }
 
 // This list must be in the same order as the branch-type enum values.
@@ -153,6 +154,7 @@ static const vector<pop_entry> population[] =
   { 13, 19,  365, SEMI, MONS_TENGU_WARRIOR },
   { 11, 19,  200, SEMI, MONS_VANARA_CHAMPION },
   { 12, 21,  180, SEMI, MONS_HOLLOWKIN_CHAMPION },
+  { 16, 27,   60, SEMI, MONS_VASHTARI_CHAMPION },
   { 13, 19,  205, SEMI, MONS_TENGU_CONJURER },
   { 13, 19,  285, SEMI, MONS_EFREET },
   { 13, 23,  675, SEMI, MONS_SHAPESHIFTER },

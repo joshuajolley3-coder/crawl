@@ -133,6 +133,11 @@ int get_player_equip_slot_count(equipment_slot slot, string* zero_reason = nullp
 FixedVector<int, NUM_EQUIP_SLOTS> get_total_player_equip_slots();
 const vector<equipment_slot>& get_alternate_slots(equipment_slot slot);
 
+// Stats needed to wield Excalibur.
+const int EXCALIBUR_STR = 25;
+const int EXCALIBUR_DEX = 15;
+const int EXCALIBUR_INT = 10;
+
 bool can_equip_item(const item_def& item, bool temp = false,
                     string* veto_reason = nullptr,
                     bool* god_forbids = nullptr);

@@ -1,0 +1,46 @@
+##############################################################################
+# suspicious_figure.des: a hooded trader waiting in a quiet corner.
+#
+# Rare (about one floor in twenty-five) in the Dungeon and the branches where a
+# shady dealer might plausibly lurk: the Mines, the Elven Halls, the Vaults
+# and the Depths.
+##############################################################################
+
+{{
+function suspicious_figure_setup(e)
+  e.tags("transparent")
+  e.kmons("F = suspicious figure att:neutral")
+  e.depth("D:4-14, Orc, Elf, Vaults, Depths")
+  e.chance("4%")
+end
+}}
+
+NAME:   suspicious_figure_alcove
+: suspicious_figure_setup(_G)
+MAP
+xxxxx
+x.F.x
+x...x
+xx.xx
+ENDMAP
+
+NAME:   suspicious_figure_pillar
+: suspicious_figure_setup(_G)
+MAP
+.....
+.c.c.
+..F..
+.c.c.
+.....
+ENDMAP
+
+NAME:   suspicious_figure_booth
+: suspicious_figure_setup(_G)
+MAP
+.......
+.xxxxx.
+.x.F.x.
+.x...x.
+.xx.xx.
+.......
+ENDMAP

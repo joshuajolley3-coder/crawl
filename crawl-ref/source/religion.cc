@@ -705,6 +705,10 @@ void dec_penance(god_type god, int val)
         mark_milestone("god.mollify",
                        "mollified " + god_name(god) + ".");
 
+        // Outlasting Vashtar's wrath also settles the blood debt.
+        if (god == GOD_VASHTAR)
+            vashtar_blood_debt_broken("You have weathered Vashtar's wrath.");
+
         if (god == GOD_IGNIS)
         {
             simple_god_message(", with one final cry of rage, "
@@ -3208,6 +3212,7 @@ void excommunication(bool voluntary, god_type new_god)
             you.duration[DUR_CLEAVE] = 0;
             mpr("Your thousand arms fade away.");
         }
+        vashtar_abandonment();
         break;
 
     case GOD_RU:

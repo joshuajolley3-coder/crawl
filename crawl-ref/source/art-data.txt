@@ -2143,6 +2143,35 @@ DESCRIP: Light: It surrounds you with a glowing violet halo, revealing
  invisible creatures and making everything within it other than you easier to
  hit, but reducing your stealth.
 
+ENUM:    EXCALIBUR
+NAME:    Excalibur
+APPEAR:  shining golden-hilted sword
+OBJ:     OBJ_WEAPONS/WPN_BASTARD_SWORD
+PLUS:    +9
+COLOUR:  ETC_GOLD
+TILE:    urand_excalibur
+TILE_EQ: EXCALIBUR
+BRAND:   SPWPN_HOLY_WRATH
+LIFE:    1
+WILL:    1
+REGEN:   1
+
+ENUM:    KINGS_REGALIA
+NAME:    the King's Regalia
+APPEAR:  ermine-trimmed royal cloak
+OBJ:     OBJ_ARMOUR/ARM_CLOAK
+PLUS:    +3
+COLOUR:  MAGENTA
+TILE:    urand_kings_regalia
+TILE_EQ: KINGS_REGALIA
+FIRE:    1
+COLD:    1
+WILL:    1
+BOOL:    seeinv
+STEALTH: -1
+INSCRIP: Rightful,
+DESCRIP: Rightful: While you also wield Excalibur, it grants +5 AC.
+
 ENUM:    XOMS_TREADS
 NAME:    Xom's Treads
 APPEAR:  shimmering rainbow boots

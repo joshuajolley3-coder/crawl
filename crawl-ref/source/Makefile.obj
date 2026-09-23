@@ -68,6 +68,9 @@ feature.o \
 fight.o \
 files.o \
 fineff.o \
+floor-theme.o \
+blood-altar.o \
+suspicious-figure.o \
 format.o \
 fprop.o \
 game-options.o \

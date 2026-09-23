@@ -356,7 +356,8 @@ command_type feat_stair_direction(dungeon_feature_type feat)
         return CMD_GO_UPSTAIRS;
     }
 
-    if (feat_is_altar(feat) || feat == DNGN_PURIFIED_MUTATION_CATALYST)
+    if (feat_is_altar(feat) || feat == DNGN_PURIFIED_MUTATION_CATALYST
+        || feat == DNGN_BLOOD_ALTAR)
         return CMD_GO_DOWNSTAIRS; // arbitrary; consistent with shops
 
     switch (feat)

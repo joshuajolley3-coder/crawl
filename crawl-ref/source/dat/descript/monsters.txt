@@ -242,6 +242,21 @@ Grum
 
 A tough-looking gnoll, wearing the pelt of one of his former war dogs.
 %%%%
+suspicious figure
+
+A hooded stranger lurking where few would think to look, face lost in shadow.
+It has no interest in fighting you: it deals in goods, and in a little of your
+blood. Its offers are honest, if not cheap. Walk up to it to hear them; it will
+make only one deal before vanishing.
+%%%%
+Vashtari champion
+
+One of the few warriors to have pleased Vashtar enough to be remade in his
+image. Six arms sprout from its broad shoulders: two swing great weapons, two
+hang ready to grapple, and two more clutch curved knives for anything that gets
+close. It fights with a joyless, perfect fury, and when its blood is up it
+roars war cries that drive its allies into a frenzy.
+%%%%
 Veyrak
 
 Veyrak the Unburied, last warlord of a war no one remembers. His army was

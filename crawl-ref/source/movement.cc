@@ -47,6 +47,7 @@
 #include "shout.h"
 #include "state.h"
 #include "stringutil.h"
+#include "suspicious-figure.h"
 #include "spl-damage.h"
 #include "spl-summoning.h"
 #include "target-compass.h"
@@ -1140,6 +1141,18 @@ void move_player_action(coord_def move)
     // When confused, adjust movement randomly (and maybe abort early)
     if (you.confused() && !_adjust_confused_movement(move))
         return;
+
+    // Walking into a (non-hostile) suspicious figure opens a trade.
+    if (monster *figure = monster_at(you.pos() + move))
+    {
+        if (figure->type == MONS_SUSPICIOUS_FIGURE
+            && figure->attitude != ATT_HOSTILE
+            && you.can_see(*figure) && !you.confused())
+        {
+            talk_to_suspicious_figure(*figure);
+            return;
+        }
+    }
 
     int num_steps = 1;
     // If this movement can rampage, check how many steps in total we want to move.

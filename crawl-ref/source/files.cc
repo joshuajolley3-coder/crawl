@@ -53,6 +53,7 @@
 #include "errors.h"
 #include "player-save-info.h"
 #include "fineff.h"
+#include "floor-theme.h"
 #include "ghost.h"
 #include "god-abil.h"
 #include "god-companions.h"
@@ -2459,6 +2460,10 @@ bool load_level(dungeon_feature_type stair_taken, load_mode_type load_mode,
         }
     }
 
+
+    // Themed Dungeon floors announce themselves when you arrive.
+    if (make_changes && load_mode == LOAD_ENTER_LEVEL)
+        announce_floor_theme(just_created_level);
 
     if (load_mode != LOAD_VISITOR)
     {

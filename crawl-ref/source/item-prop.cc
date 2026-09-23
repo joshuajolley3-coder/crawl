@@ -925,6 +925,8 @@ static const missile_def Missile_prop[] =
     { MI_THROWING_NET,  "throwing net",  0, 0,  30 },
     { MI_BOOMERANG,     "boomerang",     6, 20, 20 },
     { MI_THROWING_KNIFE, "throwing knife", 7, 15, 8 },
+    // Bursts on impact (always destroyed), throwing grit in the target's eyes.
+    { MI_SAND_BAG,      "bag of sand",   0, 1,  6 },
 
 #if TAG_MAJOR_VERSION == 34
     { MI_NEEDLE,        "needle",        0, 12, 2  },

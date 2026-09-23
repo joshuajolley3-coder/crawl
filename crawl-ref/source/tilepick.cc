@@ -567,6 +567,8 @@ tileidx_t tileidx_feature_base(dungeon_feature_type feat)
         return TILE_DNGN_WALL_FRIGID;
     case DNGN_PURIFIED_MUTATION_CATALYST:
         return TILE_DNGN_PURIFIED_MUTATION_CATALYST;
+    case DNGN_BLOOD_ALTAR:
+        return TILE_DNGN_BLOOD_ALTAR;
     default:
         return TILE_DNGN_ERROR;
     }
@@ -3145,6 +3147,7 @@ static tileidx_t _tileidx_missile_base(const item_def &item)
     case MI_LARGE_ROCK:   return TILE_MI_LARGE_ROCK;
     case MI_THROWING_NET: return TILE_MI_THROWING_NET;
     case MI_THROWING_KNIFE: return TILE_MI_THROWING_KNIFE;
+    case MI_SAND_BAG: return TILE_MI_SAND_BAG;
     case MI_BOOMERANG:
         switch (brand)
         {
@@ -3774,7 +3777,8 @@ tileidx_t tileidx_item_projectile(const item_def &item)
             case MI_THROWING_KNIFE: return TILE_MI_DART0;
             case MI_JAVELIN:        return TILE_MI_JAVELIN0;
             case MI_THROWING_NET:   return TILE_MI_THROWING_NET0;
-            case MI_STONE:          return TILE_MI_STONE0;
+            case MI_STONE:
+            case MI_SAND_BAG:       return TILE_MI_STONE0;
             case MI_LARGE_ROCK:     return TILE_MI_LARGE_ROCK0;
             case MI_BOOMERANG:      return TILE_MI_BOOMERANG0;
         }
@@ -4882,6 +4886,8 @@ static tileidx_t _tileidx_player_job_base(const job_type job)
             return TILEG_JOB_CINDER_ACOLYTE;
         case JOB_WRATHFUL_MONK:
             return TILEG_JOB_WRATHFUL_MONK;
+        case JOB_BRAWLER:
+            return TILEG_JOB_BRAWLER;
         default:
             return TILEG_ERROR;
     }
