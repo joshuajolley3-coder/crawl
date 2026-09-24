@@ -1,0 +1,53 @@
+enum: SP_ANGEL
+monster: MONS_HUMAN
+name: Angel
+short_name: An
+adjective: Angelic
+difficulty: Intermediate
+difficulty_priority: 55
+aptitudes:
+  xp: -1
+  hp: 1
+  mp_mod: 0
+  wl: 3
+  fighting: 1
+  long_blades: 1
+  maces_and_flails: 1
+  polearms: 1
+  shields: 1
+  stealth: -1
+  hexes: -1
+  necromancy: -3
+  invocations: 2
+str: 9
+int: 8
+dex: 8
+levelup_stat_frequency: 4
+levelup_stats:
+  - str
+  - int
+mutations:
+  1:
+    MUT_ACUTE_VISION: 1
+    MUT_NEGATIVE_ENERGY_RESISTANCE: 1
+  7:
+    MUT_BIG_WINGS: 1
+  12:
+    MUT_NEGATIVE_ENERGY_RESISTANCE: 1
+fake_mutations:
+  - long: You serve the holy trio. If you forsake them, you will fall.
+    short: servant of heaven
+recommended_jobs:
+  - fighter
+  - gladiator
+  - monk
+  - hunter
+  - hedge wizard
+  - conjurer
+recommended_weapons:
+  - long blades
+  - maces and flails
+  - polearms
+
+orc_name: Orc Seraph
+orcification_msg: Your halo flickers as your teeth grow into tusks and your ears lengthen to points.

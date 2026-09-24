@@ -574,6 +574,10 @@ tileidx_t tilep_species_to_base_tile(int sp, int level)
         return TILEP_BASE_VANARA;
     case SP_HOLLOWKIN:
         return TILEP_BASE_HOLLOWKIN;
+    case SP_ANGEL:
+        return TILEP_BASE_ANGEL;
+    case SP_FALLEN_ANGEL:
+        return TILEP_BASE_FALLEN_ANGEL;
     case SP_BEASTKIN:
         // Beastkin change shape as they take on an animal path.
         if (sp == you.species)

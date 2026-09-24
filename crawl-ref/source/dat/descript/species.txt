@@ -77,6 +77,27 @@ birdman who commands the wind. They evolve further every six levels.
 Without gods or merchants to lean on, Beastkin rely on their bodies: they heal
 quickly, grow strong fast, and take naturally to fighting and dodging.
 %%%%
+Angel
+
+Winged servants of heaven, sent down into the dungeon in the name of the holy
+trio. Every Angel begins already sworn to one of them - the Shining One, Zin or
+Elyvilon - and chooses which when they arrive. Their eyes see through any
+invisibility, their light shrugs off draining, and by the seventh level their
+wings will carry them over water and lava alike. They fight well, take
+naturally to invocations, and shun necromancy.
+
+Should an Angel ever forsake the holy trio, by abandoning their faith or being
+cast out of it, they fall: they become a Fallen Angel, stronger and darker,
+drawn to death magic and hexes, but never again welcome at a good god's altar.
+%%%%
+Fallen Angel
+
+An Angel who has forsaken the holy trio. Their feathers have blackened to
+soot, and a cold fire has replaced their grace. Fallen Angels keep their
+wings and their sight, resist negative energy better than ever and later
+fire, and take readily to necromancy and hexes. The good gods will never
+accept them again, but darker gods are glad of their service.
+%%%%
 Hollowkin
 
 The ash-grey Hollowkin are born with a hollow where their magic should be. They cannot

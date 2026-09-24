@@ -40,6 +40,10 @@ beastkin BEASTKIN
 beastkin_wolf BEASTKIN_WOLF
 beastkin_cat BEASTKIN_CAT
 beastkin_bird BEASTKIN_BIRD
+angel_m ANGEL
+angel_f
+fallen_angel_m FALLEN_ANGEL
+fallen_angel_f
 gnome_f GNOME
 gnome_m
 halfling_m HALFLING

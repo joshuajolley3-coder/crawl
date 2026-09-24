@@ -1708,9 +1708,10 @@ bool mut_is_compatible(mutation_type mut, bool base_only)
         if (mut == MUT_SPIT_POISON && !you.has_innate_mutation(MUT_SPIT_POISON))
             return false;
 
-        // Only Draconians (and gargoyles) can get wings.
+        // Only Draconians (and gargoyles and angels) can get wings.
         if (mut == MUT_BIG_WINGS
-                && !species::is_draconian(you.species) && you.species != SP_GARGOYLE)
+                && !species::is_draconian(you.species) && you.species != SP_GARGOYLE
+                && you.species != SP_ANGEL && you.species != SP_FALLEN_ANGEL)
         {
             return false;
         }

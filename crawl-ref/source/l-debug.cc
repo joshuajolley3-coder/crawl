@@ -392,6 +392,29 @@ LUAFN(debug_drink)
                      && drink(&you.inv[slot]));
 }
 
+// join_god("Zin") -> bool, reason: join a god as if at its altar.
+LUAFN(debug_join_god)
+{
+    const god_type god = str_to_god(luaL_checkstring(ls, 1));
+    if (god == GOD_NO_GOD || god == NUM_GODS)
+    {
+        lua_pushboolean(ls, false);
+        lua_pushstring(ls, "no such god");
+        return 2;
+    }
+    const string reason = cannot_join_god_reason(god, true);
+    if (!reason.empty())
+    {
+        lua_pushboolean(ls, false);
+        lua_pushstring(ls, reason.c_str());
+        return 2;
+    }
+    join_religion(god);
+    lua_pushboolean(ls, you_worship(god));
+    lua_pushstring(ls, "");
+    return 2;
+}
+
 // wear(slot) -> bool: put on the armour in that inventory slot, instantly.
 LUAFN(debug_wear)
 {
@@ -693,6 +716,7 @@ const struct luaL_Reg debug_dlib[] =
 { "can_equip", debug_can_equip },
 { "drink", debug_drink },
 { "wear", debug_wear },
+{ "join_god", debug_join_god },
 { "kill_monster", debug_kill_monster },
 { "handle_monster_move", debug_handle_monster_move },
 { "save_uniques", debug_save_uniques },

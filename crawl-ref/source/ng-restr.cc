@@ -39,6 +39,18 @@ static bool _banned_combination(job_type job, species_type species)
         return true;
     }
 
+    // Angels begin in the service of the holy trio, so they can't take a job
+    // that comes with another god, or one steeped in necromancy.
+    if (species == SP_ANGEL
+        && (job == JOB_BERSERKER
+            || job == JOB_CHAOS_KNIGHT
+            || job == JOB_CINDER_ACOLYTE
+            || job == JOB_WRATHFUL_MONK
+            || job == JOB_NECROMANCER))
+    {
+        return true;
+    }
+
     if (job == JOB_SHAPESHIFTER && species::undead_type(species) == US_UNDEAD)
         return true;
 

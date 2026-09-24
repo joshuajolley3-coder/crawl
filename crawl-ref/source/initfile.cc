@@ -827,7 +827,7 @@ const vector<GameOption*> game_options::build_options_list()
         new FixedpGameOption(SIMPLE_NAME(tile_viewport_scale), 0.0, 0.2, 16.0),
         new FixedpGameOption(SIMPLE_NAME(tile_map_scale), 0.0, 0.2, 16.0),
 #else
-        new FixedpGameOption(SIMPLE_NAME(tile_viewport_scale), 1.3, 0.2, 16.0),
+        new FixedpGameOption(SIMPLE_NAME(tile_viewport_scale), 1.6, 0.2, 16.0),
         new FixedpGameOption(SIMPLE_NAME(tile_map_scale), 0.6, 0.2, 16.0),
 #endif
         new BoolGameOption(SIMPLE_NAME(tile_show_player_species), false,

@@ -355,6 +355,14 @@ base/octopode1 SP_RECOMMENDED_OCTOPODE
 %compose base/beastkin
 %compose body/animal_skin
 %finish SP_RECOMMENDED_BEASTKIN
+%start
+%compose base/angel_m
+%compose body/robe_white
+%finish SP_RECOMMENDED_ANGEL
+%start
+%compose base/fallen_angel_m
+%compose body/robe_black
+%finish SP_RECOMMENDED_FALLEN_ANGEL
 %syn LAST_RECOMMENDED_SPECIES
 
 %sdir gui/backgrounds
@@ -390,4 +398,6 @@ enum:SP_RECOMMENDED_COGLIN SP_COGLIN
 enum:SP_RECOMMENDED_VANARA SP_VANARA
 enum:SP_RECOMMENDED_HOLLOWKIN SP_HOLLOWKIN
 enum:SP_RECOMMENDED_BEASTKIN SP_BEASTKIN
+enum:SP_RECOMMENDED_ANGEL SP_ANGEL
+enum:SP_RECOMMENDED_FALLEN_ANGEL SP_FALLEN_ANGEL
 %syn LAST_SPECIES

@@ -84,5 +84,7 @@ enum species_type
     SP_VANARA,
     SP_HOLLOWKIN,
     SP_BEASTKIN,
+    SP_ANGEL,
+    SP_FALLEN_ANGEL,
 
     // Auto-generated enums start here

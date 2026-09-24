@@ -14,6 +14,8 @@
 #include "items.h"
 #include "item-use.h"
 #include "jobs.h"
+#include "libutil.h"
+#include "menu.h"
 #include "message.h"
 #include "mutation.h"
 #include "ng-init.h"
@@ -237,6 +239,47 @@ static void _give_offhand_weapon()
         newgame_make_item(OBJ_WEAPONS, WPN_DAGGER);
 }
 
+/// Angels begin in the service of one of the holy trio; let them choose.
+static god_type _angel_choose_god()
+{
+    static const god_type gods[] =
+        { GOD_SHINING_ONE, GOD_ZIN, GOD_ELYVILON };
+    static const char *choices[] =
+    {
+        "The Shining One - a crusader's god of honour and holy fire, who "
+            "hates stabbing and poison.",
+        "Zin             - the god of law and purity, who shields the "
+            "faithful and scorns mutation and chaos.",
+        "Elyvilon        - the healer, who rewards mercy and pacifying "
+            "foes, and lends great healing power.",
+    };
+
+    if (crawl_state.script || crawl_state.test || crawl_state.seen_hups)
+        return gods[random2(3)];
+
+    while (true)
+    {
+        Menu menu(MF_SINGLESELECT | MF_UNCANCEL | MF_ARROWS_SELECT
+                  | MF_INIT_HOVER);
+        MenuEntry *title = new MenuEntry("You are an Angel. Which of the holy "
+                                         "trio do you serve?", MEL_TITLE);
+        title->colour = YELLOW;
+        menu.set_title(title);
+        for (int i = 0; i < 3; ++i)
+        {
+            MenuEntry *me = new MenuEntry(choices[i], MEL_ITEM, 1,
+                                          index_to_letter(i));
+            me->data = (void *) &gods[i];
+            menu.add_entry(me);
+        }
+        vector<MenuEntry*> sel = menu.show();
+        if (!sel.empty() && sel[0]->data)
+            return *static_cast<const god_type *>(sel[0]->data);
+        if (crawl_state.seen_hups)
+            return gods[random2(3)];
+    }
+}
+
 void give_items_skills(const newgame_def& ng)
 {
     // Set available equipment slots for the player before trying to give them
@@ -296,6 +339,12 @@ void give_items_skills(const newgame_def& ng)
 
     default:
         break;
+    }
+
+    if (you.species == SP_ANGEL && you_worship(GOD_NO_GOD))
+    {
+        you.religion = _angel_choose_god();
+        you.raw_piety = 35;
     }
 
     if (you.char_class == JOB_CHAOS_KNIGHT)

@@ -3024,7 +3024,9 @@ tileidx_t tileidx_player_shadow()
         case SP_HUMAN:
         case SP_VANARA:
         case SP_HOLLOWKIN:
-        case SP_BEASTKIN:       return TILEP_MONS_PLAYER_SHADOW_HUMAN;
+        case SP_BEASTKIN:
+        case SP_ANGEL:
+        case SP_FALLEN_ANGEL:   return TILEP_MONS_PLAYER_SHADOW_HUMAN;
         case SP_KOBOLD:         return TILEP_MONS_PLAYER_SHADOW_KOBOLD;
         case SP_MERFOLK:        return TILEP_MONS_PLAYER_SHADOW_MERFOLK;
         case SP_MINOTAUR:       return TILEP_MONS_PLAYER_SHADOW_MINOTAUR;
@@ -4958,6 +4960,10 @@ static tileidx_t _tileidx_player_species_base(const species_type species)
             return TILEG_SP_HOLLOWKIN;
         case SP_BEASTKIN:
             return TILEG_SP_BEASTKIN;
+        case SP_ANGEL:
+            return TILEG_SP_ANGEL;
+        case SP_FALLEN_ANGEL:
+            return TILEG_SP_FALLEN_ANGEL;
         case SP_DJINNI:
             return TILEG_SP_DJINNI;
 #if TAG_MAJOR_VERSION == 34

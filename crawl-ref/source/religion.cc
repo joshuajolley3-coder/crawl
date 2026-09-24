@@ -64,6 +64,7 @@
 #include "piety-info.h"
 #include "player-equip.h"
 #include "player-stats.h"
+#include "species.h"
 #include "prompt.h"
 #include "randbook.h"
 #include "shopping.h"
@@ -2883,6 +2884,23 @@ int excom_xp_docked()
          - exp_needed(min<int>(you.max_level, max_xl));
 }
 
+/// An Angel forsakes the holy trio and becomes a Fallen Angel.
+static void _angel_fall(god_type old_god)
+{
+    mprf(MSGCH_GOD, old_god, "%s casts you out of heaven!",
+         god_name(old_god).c_str());
+    mprf(MSGCH_MUTATION, "You fall. Your halo gutters out, your feathers "
+                         "blacken to soot, and a cold, bitter fire kindles "
+                         "where your grace used to be.");
+    change_species_to(SP_FALLEN_ANGEL);
+    // What grace kept in check now drives you.
+    modify_stat(STAT_STR, 2, false);
+    modify_stat(STAT_DEX, 1, false);
+    take_note(Note(NOTE_MESSAGE, 0, 0, "Fell from grace and became a "
+                                       "Fallen Angel."));
+    mark_milestone("species.fall", "fell from grace.");
+}
+
 void excommunication(bool voluntary, god_type new_god)
 {
     const god_type old_god = you.religion;
@@ -3226,6 +3244,14 @@ void excommunication(bool voluntary, god_type new_god)
 
     _set_wrath_penance(old_god);
 
+    // An Angel who forsakes the holy trio falls. Moving between the three
+    // good gods is still service to heaven, and doesn't count.
+    if (you.species == SP_ANGEL && is_good_god(old_god)
+        && !is_good_god(new_god))
+    {
+        _angel_fall(old_god);
+    }
+
 #ifdef USE_TILE_LOCAL
     tiles.layout_statcol();
     redraw_screen();
@@ -3369,6 +3395,7 @@ string cannot_join_god_reason(god_type which_god, bool include_temp, bool check_
     // messages for e.g. temporary forms further down.
     if (you.has_mutation(MUT_FORLORN)
         || (is_good_god(which_god) && you.undead_or_demonic(false))
+        || (is_good_god(which_god) && you.species == SP_FALLEN_ANGEL)
         || (you.has_mutation(MUT_INNATE_CASTER)
             && (which_god == GOD_SIF_MUNA
                 || which_god == GOD_VEHUMET

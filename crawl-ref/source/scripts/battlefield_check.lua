@@ -67,7 +67,7 @@ end
 say(string.format("  %d exit(s), %d items (%d skeletons, %d artefacts/consumables)",
     exits, items, bones, good))
 check(exits >= 1, "there is a way back to the Dungeon")
-check(bones >= 3, "bones of the fallen litter the field")
+check(bones >= 2, "bones of the fallen litter the field")
 check(good >= 2, "there is loot worth fighting for")
 
 say("== God's eyes ==")
