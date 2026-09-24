@@ -41,7 +41,10 @@ int figure_blood_cost()
 /// A good item of the given class, identified, as a free-standing copy.
 static item_def _make_offer(object_class_type cls, bool nicer)
 {
-    const int idx = items(false, cls, OBJ_RANDOM, ISPEC_GOOD_ITEM);
+    int idx = NON_ITEM;
+    // Item generation can fail (e.g. a full item table); try a few times.
+    for (int tries = 0; tries < 10 && idx == NON_ITEM; ++tries)
+        idx = items(false, cls, OBJ_RANDOM, ISPEC_GOOD_ITEM);
     item_def offer;
     if (idx == NON_ITEM)
         return offer;
@@ -163,6 +166,12 @@ void talk_to_suspicious_figure(monster &figure)
     const item_def &offer = figure.props[FIGURE_ITEM_KEY].get_item();
     const int gold = figure.props[FIGURE_GOLD_KEY].get_int();
     const int cost = figure_blood_cost();
+
+    if (!swap.defined() || !offer.defined())
+    {
+        mpr("The hooded figure shrugs: \"Nothing for you today.\"");
+        return;
+    }
 
     mpr("The hooded figure murmurs: \"Psst. I have a few things you might want. "
         "One deal, and I'm gone.\"");

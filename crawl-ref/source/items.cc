@@ -3840,6 +3840,7 @@ colour_t item_def::armour_colour() const
             return LIGHTBLUE;
         case ARM_LEATHER_ARMOUR:
         case ARM_BEAST_HIDE_ROBE:
+        case ARM_ROCK_PLATE_ARMOUR:
             return BROWN;
         case ARM_KITE_SHIELD:
         case ARM_TOWER_SHIELD:

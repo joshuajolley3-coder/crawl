@@ -59,6 +59,11 @@ enum potion_type
     POT_POSITIVE_MUTATION,
     POT_EMPOWERMENT,
     POT_GODS_EYES,
+    POT_TITANS_BLOOD,
+    POT_QUICKSILVER,
+    POT_SAGACITY,
+    POT_VITALITY,
+    POT_ARCANA,
     NUM_POTIONS
 };
 
@@ -85,6 +90,11 @@ const vector<potion_type> potion_types =
     POT_POSITIVE_MUTATION,
     POT_EMPOWERMENT,
     POT_GODS_EYES,
+    POT_TITANS_BLOOD,
+    POT_QUICKSILVER,
+    POT_SAGACITY,
+    POT_VITALITY,
+    POT_ARCANA,
 };
 
 #if TAG_MAJOR_VERSION == 34

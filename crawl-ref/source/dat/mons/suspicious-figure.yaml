@@ -1,6 +1,6 @@
 name: "suspicious figure"
 glyph: {char: "@", colour: darkgrey}
-flags: [speaks, warm_blood, see_invis, no_poly_to]
+flags: [speaks, warm_blood, see_invis, no_poly_to, stationary, no_exp_gain, no_threat]
 exp: 0
 will: invuln
 attacks:

@@ -22,6 +22,9 @@
 #include "player-stats.h"
 #include "item-prop.h"
 #include "item-use.h"
+#include "items.h"
+#include "item-name.h"
+#include "potion.h"
 #include "mon-util.h"
 #include "los.h"
 #include "maps.h"
@@ -363,6 +366,48 @@ LUAFN(debug_can_equip)
     return 2;
 }
 
+// drink(slot) -> bool: quaff the potion in that inventory slot.
+// drink("titan's blood") -> bool: quaff a potion of that type directly.
+LUAFN(debug_drink)
+{
+    if (lua_type(ls, 1) == LUA_TSTRING)
+    {
+        const string want = lua_tostring(ls, 1);
+        for (int i = 0; i < NUM_POTIONS; ++i)
+        {
+            const potion_type pot = static_cast<potion_type>(i);
+            if (item_type_removed(OBJ_POTIONS, pot) || want != potion_type_name(pot))
+                continue;
+            const PotionEffect *effect = get_potion_effect(pot);
+            PLUARET(boolean, you.can_drink(false)
+                             && effect->can_quaff(nullptr, false)
+                             && effect->quaff(true));
+        }
+        return luaL_error(ls, "no such potion: %s", want.c_str());
+    }
+    const int slot = luaL_safe_checkint(ls, 1);
+    PLUARET(boolean, slot >= 0 && slot < ENDOFPACK
+                     && you.inv[slot].defined()
+                     && you.inv[slot].base_type == OBJ_POTIONS
+                     && drink(&you.inv[slot]));
+}
+
+// wear(slot) -> bool: put on the armour in that inventory slot, instantly.
+LUAFN(debug_wear)
+{
+    const int slot = luaL_safe_checkint(ls, 1);
+    if (slot < 0 || slot >= ENDOFPACK || !you.inv[slot].defined()
+        || !can_equip_item(you.inv[slot], true))
+    {
+        PLUARET(boolean, false);
+    }
+    const equipment_slot eq = get_armour_slot(you.inv[slot]);
+    if (item_def *old = you.equipment.get_first_slot_item(eq))
+        unequip_item(*old, false);
+    equip_item(eq, slot, false);
+    PLUARET(boolean, item_is_equipped(you.inv[slot]));
+}
+
 // kill_monster(name) -- kill the first monster with that name, as if slain.
 LUAFN(debug_kill_monster)
 {
@@ -646,6 +691,8 @@ const struct luaL_Reg debug_dlib[] =
 { "figure_offers", debug_figure_offers },
 { "figure_deal", debug_figure_deal },
 { "can_equip", debug_can_equip },
+{ "drink", debug_drink },
+{ "wear", debug_wear },
 { "kill_monster", debug_kill_monster },
 { "handle_monster_move", debug_handle_monster_move },
 { "save_uniques", debug_save_uniques },

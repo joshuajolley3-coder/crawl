@@ -1171,6 +1171,33 @@ A vanishingly rare draught said to be distilled from the tears of a dead god.
 Whoever drinks it permanently gains the power to see invisible things, and
 their will is hardened against hostile magic.
 %%%%
+potion of titan's blood
+
+A very rare elixir, thick and dark as molten iron, said to have been bled from
+the titans who first raised the dungeon's walls. Drinking it permanently
+increases strength by three.
+%%%%
+potion of quicksilver
+
+A very rare elixir of shimmering liquid metal. It runs through the drinker's
+limbs and stays there, permanently increasing dexterity by three.
+%%%%
+potion of sagacity
+
+A very rare elixir brewed by long-dead sages to preserve their learning.
+Drinking it permanently increases intelligence by three.
+%%%%
+potion of vitality
+
+A very rare elixir that strengthens the body's very foundations, permanently
+increasing maximum health by ten.
+%%%%
+potion of arcana
+
+A very rare elixir distilled from pure magical essence. Drinking it
+permanently increases maximum magic by four. It is of no use to those who
+draw their spells from their own lifeblood.
+%%%%
 potion of positive mutation
 
 A potion that reshapes the drinker's body for the better, granting one or two
@@ -1391,12 +1418,24 @@ A ring that increases the strength of its wearer.
 ring of wizardry
 
 A ring that increases the success rate of its wearer's magical spells.
+%%%%rock plate armour
+
+A crushingly heavy suit hewn from slabs of living rock, the heaviest armour
+there is. Few can move freely in it, but stone cares nothing for fire or
+frost, and its wearer is protected from both.
 %%%%
+
 robe
 
 A large, loose-fitting, wide-sleeved outer garment made of light cloth. It
 offers little protection against physical harm, but does not hinder evasion or
 spellcasting.
+%%%%
+rock plate armour
+
+A crushingly heavy suit hewn from slabs of living rock, the heaviest armour
+there is. Few can move freely in it, but stone cares nothing for fire or
+frost, and its wearer is protected from both.
 %%%%
 rune of zot
 

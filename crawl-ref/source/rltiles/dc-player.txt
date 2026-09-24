@@ -453,6 +453,7 @@ robe_red2 ROBE_FOLLY
 
 animal_skin ANIMAL_SKIN
 beast_hide_robe BEAST_HIDE_ROBE
+rock_plate ROCK_PLATE
 zhor ZHOR
 neck NECK
 belt1 BELT1

@@ -299,6 +299,7 @@ tileidx_t tilep_equ_armour(const item_def &item)
 
     case ARM_ANIMAL_SKIN:           tile = TILEP_BODY_ANIMAL_SKIN; break;
     case ARM_BEAST_HIDE_ROBE:       tile = TILEP_BODY_BEAST_HIDE_ROBE; break;
+    case ARM_ROCK_PLATE_ARMOUR:     tile = TILEP_BODY_ROCK_PLATE; break;
     case ARM_TROLL_LEATHER_ARMOUR:  tile = TILEP_BODY_TROLL_LEATHER; break;
 
     default:                        tile = 0;

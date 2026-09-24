@@ -1077,7 +1077,8 @@ armour_type pick_random_body_armour_type(int item_level)
                              ARM_SWAMP_DRAGON_ARMOUR,
                              ARM_PEARL_DRAGON_ARMOUR,
                              ARM_SHADOW_DRAGON_ARMOUR,
-                             ARM_QUICKSILVER_DRAGON_ARMOUR);
+                             ARM_QUICKSILVER_DRAGON_ARMOUR,
+                             ARM_ROCK_PLATE_ARMOUR);
     }
     else if (x_chance_in_y(11 + item_level, 8000))
     {
@@ -1391,8 +1392,12 @@ static void _generate_potion_item(item_def& item, int force_type,
             // Pure upsides are kept scarcer than their rarity band alone.
             if (pot == POT_POSITIVE_MUTATION)
                 weight = 12;
-            else if (pot == POT_GODS_EYES)
+            else if (pot == POT_GODS_EYES || pot == POT_TITANS_BLOOD
+                     || pot == POT_QUICKSILVER || pot == POT_SAGACITY
+                     || pot == POT_VITALITY || pot == POT_ARCANA)
+            {
                 weight = 1;
+            }
             if (weight)
             {
                 const pair<potion_type, int> weight_pair = { pot, weight };

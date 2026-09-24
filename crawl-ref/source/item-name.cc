@@ -730,6 +730,11 @@ const char* potion_type_name(int potiontype)
     case POT_POSITIVE_MUTATION: return "positive mutation";
     case POT_EMPOWERMENT:       return "empowerment";
     case POT_GODS_EYES:         return "god's eyes";
+    case POT_TITANS_BLOOD:      return "titan's blood";
+    case POT_QUICKSILVER:       return "quicksilver";
+    case POT_SAGACITY:          return "sagacity";
+    case POT_VITALITY:          return "vitality";
+    case POT_ARCANA:            return "arcana";
 
     // FIXME: Remove this once known-items no longer uses this as a sentinel.
     default:
@@ -2941,7 +2946,13 @@ bool is_good_item(const item_def &item)
         case POT_EXPERIENCE:
         case POT_EMPOWERMENT:
         case POT_GODS_EYES:
+        case POT_TITANS_BLOOD:
+        case POT_QUICKSILVER:
+        case POT_SAGACITY:
+        case POT_VITALITY:
             return true;
+        case POT_ARCANA:
+            return !you.has_mutation(MUT_HP_CASTING);
         default:
             return false;
         CASE_REMOVED_POTIONS(item.sub_type)

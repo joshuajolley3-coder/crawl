@@ -3237,6 +3237,9 @@ static tileidx_t _tileidx_armour_base(const item_def &item)
     case ARM_BEAST_HIDE_ROBE:
         return TILE_ARM_BEAST_HIDE_ROBE;
 
+    case ARM_ROCK_PLATE_ARMOUR:
+        return TILE_ARM_ROCK_PLATE_ARMOUR;
+
 #if TAG_MAJOR_VERSION == 34
     case ARM_CAP:
         return TILE_THELM_CAP;

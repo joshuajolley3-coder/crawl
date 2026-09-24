@@ -159,6 +159,11 @@ static const armour_def Armour_prop[] =
         SLOT_BODY_ARMOUR, SIZE_SMALL, SIZE_MEDIUM, true, 100, HEAVY_BODY_EGOS },
     { ARM_CRYSTAL_PLATE_ARMOUR, "crystal plate armour",  14, -230,   600,
         SLOT_BODY_ARMOUR, SIZE_SMALL, SIZE_MEDIUM, false, 100 },
+    // Slabs of living rock, the heaviest armour there is. Stone shrugs off
+    // both flame and frost.
+    { ARM_ROCK_PLATE_ARMOUR,    "rock plate armour",     16, -280,   800,
+        SLOT_BODY_ARMOUR, SIZE_SMALL, SIZE_MEDIUM, false, 37, {},
+        ARMF_RES_FIRE | ARMF_RES_COLD },
 
 #if TAG_MAJOR_VERSION == 34
     { ARM_TROLL_HIDE, "removed troll hide",              0,    0,      0,
@@ -2535,6 +2540,11 @@ static map<potion_type, item_rarity_type> _potion_rarity = {
     { POT_POSITIVE_MUTATION, RARITY_RARE },
     { POT_EMPOWERMENT,  RARITY_VERY_RARE },
     { POT_GODS_EYES,    RARITY_VERY_RARE },
+    { POT_TITANS_BLOOD, RARITY_VERY_RARE },
+    { POT_QUICKSILVER,  RARITY_VERY_RARE },
+    { POT_SAGACITY,     RARITY_VERY_RARE },
+    { POT_VITALITY,     RARITY_VERY_RARE },
+    { POT_ARCANA,       RARITY_VERY_RARE },
 };
 
 static map<scroll_type, item_rarity_type> _scroll_rarity = {

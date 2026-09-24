@@ -521,6 +521,7 @@ robe_art1 ARM_ROBE_RANDART
 robe_art2
 
 beast_hide_robe ARM_BEAST_HIDE_ROBE
+rock_plate ARM_ROCK_PLATE_ARMOUR
 
 leather_armour1 ARM_LEATHER_ARMOUR
 %enchant_variation ARM_LEATHER_ARMOUR shiny runed glowing
@@ -1214,7 +1215,12 @@ i-attraction POT_REMOVEME10
 # end TAG_MAJOR_VERSION
 i-good-mutation POT_POSITIVE_MUTATION
 i-empowerment POT_EMPOWERMENT
-i-gods-eyes POT_GODS_EYES POT_ID_LAST
+i-gods-eyes POT_GODS_EYES
+i-titans-blood POT_TITANS_BLOOD
+i-quicksilver POT_QUICKSILVER
+i-sagacity POT_SAGACITY
+i-vitality POT_VITALITY
+i-arcana POT_ARCANA POT_ID_LAST
 # start TAG_MAJOR_VERSION == 35
 # i-lignify POT_LIGNIFY POT_ID_LAST
 # end TAG_MAJOR_VERSION

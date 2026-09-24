@@ -117,6 +117,7 @@ enum armour_type
 
     ARM_CROWN,
     ARM_BEAST_HIDE_ROBE,
+    ARM_ROCK_PLATE_ARMOUR,
 
     NUM_ARMOURS
 };

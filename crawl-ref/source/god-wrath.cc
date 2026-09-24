@@ -1865,8 +1865,10 @@ void vashtar_blood_debt_broken(const char *how)
 }
 
 /**
- * Abandoning Vashtar: he tears back the blood you tithed (each Blood Tithe's
- * +2 stat), and the weapons he gave you as spoils of war rise up against you.
+ * Abandoning Vashtar: the blood you tithed (each Blood Tithe's +2 stat)
+ * becomes a debt his collectors tear back one blow at a time, unless you kill
+ * a collector or outlast his wrath; and the weapons he gave you as spoils of
+ * war rise up against you.
  * Destroying a rebel weapon leaves it on the floor to be reclaimed.
  */
 void vashtar_abandonment()

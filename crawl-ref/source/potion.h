@@ -7,6 +7,11 @@
 
 #include "potion-type.h"
 
+// Permanent gains from the rare elixir potions (titan's blood etc.).
+const int ELIXIR_STAT_GAIN = 3;
+const int ELIXIR_HP_GAIN   = 10;
+const int ELIXIR_MP_GAIN   = 4;
+
 class PotionEffect
 {
 private:

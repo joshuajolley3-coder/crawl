@@ -946,6 +946,122 @@ public:
     }
 };
 
+/// Elixirs: rare potions that each permanently raise one attribute.
+class PotionStatElixir : public PotionEffect
+{
+protected:
+    PotionStatElixir(potion_type pot, stat_type st, const char *msg)
+        : PotionEffect(pot), stat(st), message(msg) { }
+    DISALLOW_COPY_AND_ASSIGN(PotionStatElixir);
+public:
+    bool effect(bool = true, int = 40, bool = true) const override
+    {
+        mpr(message);
+        modify_stat(stat, ELIXIR_STAT_GAIN, false);
+        return true;
+    }
+private:
+    stat_type stat;
+    const char *message;
+};
+
+class PotionTitansBlood : public PotionStatElixir
+{
+private:
+    PotionTitansBlood()
+        : PotionStatElixir(POT_TITANS_BLOOD, STAT_STR,
+                           "The blood of titans thunders through your veins!")
+    { }
+public:
+    static const PotionTitansBlood &instance()
+    {
+        static PotionTitansBlood inst; return inst;
+    }
+};
+
+class PotionQuicksilver : public PotionStatElixir
+{
+private:
+    PotionQuicksilver()
+        : PotionStatElixir(POT_QUICKSILVER, STAT_DEX,
+                           "Liquid silver races down your limbs.")
+    { }
+public:
+    static const PotionQuicksilver &instance()
+    {
+        static PotionQuicksilver inst; return inst;
+    }
+};
+
+class PotionSagacity : public PotionStatElixir
+{
+private:
+    PotionSagacity()
+        : PotionStatElixir(POT_SAGACITY, STAT_INT,
+                           "Ancient wisdom settles into your mind.")
+    { }
+public:
+    static const PotionSagacity &instance()
+    {
+        static PotionSagacity inst; return inst;
+    }
+};
+
+class PotionVitality : public PotionEffect
+{
+private:
+    PotionVitality() : PotionEffect(POT_VITALITY) { }
+    DISALLOW_COPY_AND_ASSIGN(PotionVitality);
+public:
+    static const PotionVitality &instance()
+    {
+        static PotionVitality inst; return inst;
+    }
+
+    bool effect(bool = true, int = 40, bool = true) const override
+    {
+        you.hp_max_adj_perm += ELIXIR_HP_GAIN;
+        calc_hp();
+        inc_hp(ELIXIR_HP_GAIN);
+        mprf(MSGCH_INTRINSIC_GAIN, "Your body swells with lasting vitality. "
+             "(+%d max HP)", ELIXIR_HP_GAIN);
+        return true;
+    }
+};
+
+class PotionArcana : public PotionEffect
+{
+private:
+    PotionArcana() : PotionEffect(POT_ARCANA) { }
+    DISALLOW_COPY_AND_ASSIGN(PotionArcana);
+public:
+    static const PotionArcana &instance()
+    {
+        static PotionArcana inst; return inst;
+    }
+
+    bool can_quaff(string *reason = nullptr, bool temp = true) const override
+    {
+        if (you.has_mutation(MUT_HP_CASTING))
+        {
+            if (reason)
+                *reason = "You have no magical reserves to deepen.";
+            return false;
+        }
+        return PotionEffect::can_quaff(reason, temp);
+    }
+
+    bool effect(bool = true, int = 40, bool = true) const override
+    {
+        you.mp_max_adj += ELIXIR_MP_GAIN;
+        calc_mp();
+        inc_mp(ELIXIR_MP_GAIN);
+        mprf(MSGCH_INTRINSIC_GAIN, "Your magical reserves deepen for good. "
+             "(+%d max MP)", ELIXIR_MP_GAIN);
+        return true;
+    }
+};
+
 class PotionMoonshine : public PotionEffect
 {
 private:
@@ -994,6 +1110,11 @@ static const unordered_map<potion_type, const PotionEffect*, std::hash<int>> pot
     { POT_POSITIVE_MUTATION, &PotionPositiveMutation::instance(), },
     { POT_EMPOWERMENT, &PotionEmpowerment::instance(), },
     { POT_GODS_EYES, &PotionGodsEyes::instance(), },
+    { POT_TITANS_BLOOD, &PotionTitansBlood::instance(), },
+    { POT_QUICKSILVER, &PotionQuicksilver::instance(), },
+    { POT_SAGACITY, &PotionSagacity::instance(), },
+    { POT_VITALITY, &PotionVitality::instance(), },
+    { POT_ARCANA, &PotionArcana::instance(), },
 };
 
 const PotionEffect* get_potion_effect(potion_type pot)

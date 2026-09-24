@@ -495,6 +495,14 @@ unsigned int item_value(item_def item, bool ident)
                 valued += 700;
                 break;
 
+            case POT_TITANS_BLOOD:
+            case POT_QUICKSILVER:
+            case POT_SAGACITY:
+            case POT_VITALITY:
+            case POT_ARCANA:
+                valued += 450;
+                break;
+
             case POT_POSITIVE_MUTATION:
                 valued += 150;
                 break;
