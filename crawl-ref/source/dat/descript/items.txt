@@ -511,6 +511,13 @@ There are six known traits:
 
 As far as anyone knows, all beasts have exactly two of these traits.
 %%%%
+pair of brass knuckles
+
+Heavy brass rings joined by a grip bar, worn over the fingers and wielded in
+place of a weapon. They use Unarmed Combat skill: every blow lands with the full
+force of your fists, and your skill with them, plus the weight of the brass.
+They are quick and accurate, and may be enchanted and branded like any weapon.
+%%%%
 broad axe
 
 An axe with langets, spikes, a lengthed haft and a single-bladed crescent head.
@@ -921,6 +928,14 @@ Sigils of fire burn deep within this gem, symbol of the eternal compact between
 naga and salamander. Their bond is that of the poison which scourges the impure
 and the flame which burns away impurity.
 %%%%
+iron bagh nakh
+
+The 'tiger's claws': four hooked iron blades on a bar, held in the fist with a
+ring over the first and last fingers and wielded in place of a weapon. It uses
+Unarmed Combat skill: every blow lands with the full force of your fists, and
+your skill with them, while the claws rake for more. It hits a little harder than
+brass knuckles, but less accurately.
+%%%%
 javelin
 
 A lightweight penetrating spear, designed for throwing. It will pass through the
@@ -982,6 +997,13 @@ melee attacks in this form will give a stacking bonus to your damage and
 accuracy, and slaying enough of them in a row will cause you to unleash a
 vicious howl that makes any still alive cower in fear - and leaves them
 susceptible to a devastating leaping takedown.
+%%%%
+mask
+
+A carved and painted face of bone, worn over one's own. It offers no protection at
+all, but its wearer can turn its terrible visage upon their foes (Evoke
+Terrifying Visage), frightening all who fail to resist. It fits any head that a
+hat would.
 %%%%
 mace
 

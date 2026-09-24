@@ -7542,3 +7542,106 @@ void vashtar_death_effects(const monster &mons, bool your_or_ally_kill)
     if (you.duration[DUR_CLEAVE])
         you.increase_duration(DUR_CLEAVE, 2, 30);
 }
+
+/// Tonalli: Obsidian Edge. Blows (and shots) strike truer and deeper.
+void tonalli_obsidian_edge()
+{
+    mprf(MSGCH_DURATION, you.duration[DUR_OBSIDIAN_EDGE]
+         ? "Your obsidian edge is honed anew."
+         : "Tonalli edges your blows with volcanic glass!");
+    you.increase_duration(DUR_OBSIDIAN_EDGE,
+                          15 + random2avg(you.skill(SK_INVOCATIONS, 2), 2), 50);
+}
+
+/// Obsidian Edge's slaying bonus.
+int tonalli_obsidian_slaying()
+{
+    if (!you.duration[DUR_OBSIDIAN_EDGE])
+        return 0;
+    return 3 + you.skill(SK_INVOCATIONS) / 6;
+}
+
+/// Tonalli: call a feathered serpent to fight beside you for a while.
+spret tonalli_feathered_serpent(bool fail)
+{
+    if (!player_summon_check(MONS_FEATHERED_SERPENT))
+        return spret::abort;
+
+    fail_check();
+
+    mgen_data mg(MONS_FEATHERED_SERPENT, BEH_FRIENDLY, you.pos(), MHITYOU,
+                 MG_AUTOFOE, GOD_TONALLI);
+    const int dur = (30 + random2avg(you.skill(SK_INVOCATIONS, 2), 2))
+                    * BASELINE_DELAY;
+    mg.set_summoned(&you, MON_SUMM_AID, dur);
+    if (monster *serpent = create_monster(mg))
+    {
+        simple_god_message(" sends a feathered serpent down from the sun!");
+        // It grows with your devotion.
+        const int hd = min(20, 8 + you.skill(SK_INVOCATIONS) / 2);
+        if (hd > serpent->get_hit_dice())
+        {
+            serpent->set_hit_dice(hd);
+            serpent->max_hit_points = serpent->hit_points = hit_points(hd * 60);
+        }
+    }
+    else
+        canned_msg(MSG_NOTHING_HAPPENS);
+    return spret::success;
+}
+
+/// Can this monster's heart be offered? Returns the reason if not.
+string tonalli_heart_offering_reason(const monster *mon)
+{
+    if (!mon || !you.can_see(*mon))
+        return "There is nothing there.";
+    if (grid_distance(you.pos(), mon->pos()) > 1)
+        return "You must stand beside your offering.";
+    if (mon->wont_attack() || mon->is_firewood())
+        return "Tonalli wants the hearts of foes.";
+    if (!(mon->holiness() & (MH_NATURAL | MH_HOLY | MH_DEMONIC)))
+        return make_stringf("%s has no heart to offer.",
+                            mon->name(DESC_THE).c_str());
+    if (mon->hit_points * 3 > mon->max_hit_points)
+        return make_stringf("%s is not yet weak enough to offer.",
+                            mon->name(DESC_THE).c_str());
+    return "";
+}
+
+/// Tonalli: tear the heart from an adjacent, badly wounded foe.
+spret tonalli_heart_offering(const coord_def &where, bool fail)
+{
+    monster *mon = monster_at(where);
+    const string reason = tonalli_heart_offering_reason(mon);
+    if (!reason.empty())
+    {
+        mpr(reason);
+        return spret::abort;
+    }
+
+    fail_check();
+
+    mprf("You tear out %s heart and raise it to the sun!",
+         mon->name(DESC_ITS).c_str());
+    monster_die(*mon, KILL_YOU, NON_MONSTER);
+    simple_god_message(" drinks the offering, and burns within you!");
+    inc_hp(max(1, you.hp_max / 4));
+    inc_mp(max(1, you.max_magic_points / 4));
+    return spret::success;
+}
+
+/**
+ * Tonalli's reactions to a monster dying: hearts feed the sun, and the sun
+ * feeds you.
+ */
+void tonalli_death_effects(const monster &mons, bool your_or_ally_kill)
+{
+    if (!you_worship(GOD_TONALLI) || !your_or_ally_kill || piety_rank() < 1)
+        return;
+    if (!(mons.holiness() & (MH_NATURAL | MH_HOLY | MH_DEMONIC)))
+        return;
+    if (you.hp < you.hp_max && !you.duration[DUR_DEATHS_DOOR])
+        inc_hp(1 + random2(1 + mons.get_hit_dice() / 2));
+    if (you.magic_points < you.max_magic_points && one_chance_in(2))
+        inc_mp(1);
+}

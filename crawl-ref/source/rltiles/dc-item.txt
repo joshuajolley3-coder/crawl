@@ -149,6 +149,8 @@ double_sword2 WPN_DOUBLE_SWORD_MAGIC
 %enchant_variation WPN_DOUBLE_SWORD randart
 double_sword3 WPN_DOUBLE_SWORD_RANDART
 bastard_sword WPN_BASTARD_SWORD
+brass_knuckles WPN_BRASS_KNUCKLES
+bagh_nakh WPN_BAGH_NAKH
 triple_sword WPN_TRIPLE_SWORD
 %enchant_variation WPN_TRIPLE_SWORD shiny runed glowing
 triple_sword2 WPN_TRIPLE_SWORD_MAGIC
@@ -522,6 +524,7 @@ robe_art2
 
 beast_hide_robe ARM_BEAST_HIDE_ROBE
 rock_plate ARM_ROCK_PLATE_ARMOUR
+mask ARM_MASK
 
 leather_armour1 ARM_LEATHER_ARMOUR
 %enchant_variation ARM_LEATHER_ARMOUR shiny runed glowing

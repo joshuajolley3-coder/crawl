@@ -133,6 +133,12 @@ tileidx_t tilep_equ_weapon(const item_def &item)
     case WPN_BASTARD_SWORD:
         tile = TILEP_HAND1_BASTARD_SWORD;
         break;
+    case WPN_BRASS_KNUCKLES:
+        tile = TILEP_HAND1_BRASS_KNUCKLES;
+        break;
+    case WPN_BAGH_NAKH:
+        tile = TILEP_HAND1_BAGH_NAKH;
+        break;
     case WPN_TRIPLE_SWORD:
         tile = TILEP_HAND1_TRIPLE_SWORD;
         break;
@@ -379,13 +385,19 @@ tileidx_t tilep_equ_helm(const item_def &item)
     case ARM_CROWN:
         tile = TILEP_HELM_CROWN;
         break;
+
+    case ARM_MASK:
+        tile = TILEP_HELM_MASK;
+        break;
     }
     return tile ? tileidx_enchant_equ(item, tile) : 0;
 }
 
 tileidx_t tilep_equ_gloves(const item_def &item)
 {
-    if (item.base_type != OBJ_ARMOUR || item.sub_type != ARM_GLOVES)
+    if (item.base_type != OBJ_ARMOUR)
+        return 0;
+    if (item.sub_type != ARM_GLOVES)
         return 0;
 
     if (item.props.exists(WORN_TILE_KEY))

@@ -278,6 +278,8 @@ static forbidden_map divine_prohibitions[] =
     forbidden_map(),
     // GOD_VASHTAR,
     forbidden_map(),
+    // GOD_TONALLI,
+    forbidden_map(),
 };
 
 /// A definition of the way in which a god dislikes a conduct being taken.
@@ -483,6 +485,8 @@ static peeve_map divine_peeves[] =
     // GOD_IGNIS,
     peeve_map(),
     // GOD_VASHTAR,
+    peeve_map(),
+    // GOD_TONALLI,
     peeve_map(),
 };
 
@@ -991,6 +995,8 @@ static like_map divine_likes[] =
             } },
         }
     ),
+    // GOD_TONALLI,
+    DEFAULT_KILL_CONDUCT,
 };
 
 /**

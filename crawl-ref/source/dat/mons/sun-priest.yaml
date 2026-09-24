@@ -1,0 +1,21 @@
+name: "sun priest"
+glyph: {char: "@", colour: lightgreen}
+flags: [speaks, warm_blood]
+resists: {fire: 1}
+exp: 1000
+will: 80
+attacks:
+ - {type: hit, damage: 12}
+hd: 12
+hp_10x: 550
+ac: 3
+ev: 12
+spells: sun_priest
+has_corpse: true
+corpse_tile: human
+shout: shout
+intelligence: human
+uses: weapons_armour
+size: medium
+shape: humanoid
+god: Tonalli

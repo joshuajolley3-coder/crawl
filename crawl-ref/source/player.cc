@@ -1048,7 +1048,7 @@ monster_type player_mons(bool transform)
 
 void update_vision_range()
 {
-    you.normal_vision = LOS_DEFAULT_RANGE;
+    you.normal_vision = PLAYER_BASE_VISION;
 
     // Daystalker gives +1 base LOS. (currently capped to one level for
     // console reasons, a modular hud might someday permit more levels)
@@ -1097,6 +1097,8 @@ void update_vision_range()
     }
 
     ASSERT(you.current_vision >= 0);
+    you.normal_vision = min<int>(you.normal_vision, LOS_MAX_RANGE);
+    you.current_vision = min<int>(you.current_vision, LOS_MAX_RANGE);
     set_los_radius(you.current_vision);
 }
 
@@ -4109,6 +4111,7 @@ int player::slaying(bool throwing, bool random) const
 
     ret += 3 * augmentation_amount();
     ret += you.get_mutation_level(MUT_SHARP_SCALES);
+    ret += tonalli_obsidian_slaying();
 
     if (you.has_mutation(MUT_MEEK))
         ret -= 1 + you.get_mutation_level(MUT_MEEK) * 2;
@@ -5885,8 +5888,8 @@ player::player()
 
     octopus_king_rings = 0x00;
 
-    normal_vision    = LOS_DEFAULT_RANGE;
-    current_vision   = LOS_DEFAULT_RANGE;
+    normal_vision    = PLAYER_BASE_VISION;
+    current_vision   = PLAYER_BASE_VISION;
 
     rampage_hints.clear();
 

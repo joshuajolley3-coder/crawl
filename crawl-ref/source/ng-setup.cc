@@ -341,12 +341,6 @@ void give_items_skills(const newgame_def& ng)
         break;
     }
 
-    if (you.species == SP_ANGEL && you_worship(GOD_NO_GOD))
-    {
-        you.religion = _angel_choose_god();
-        you.raw_piety = 35;
-    }
-
     if (you.char_class == JOB_CHAOS_KNIGHT)
         newgame_make_item(OBJ_WEAPONS, ng.weapon, 1, 0, SPWPN_CHAOS);
     else if (you.char_class == JOB_CINDER_ACOLYTE)
@@ -613,6 +607,18 @@ static void _setup_generic(const newgame_def& ng,
 
     // This function depends on stats and mutations being finalised.
     give_items_skills(ng);
+
+    // Angels choose which of the holy trio they serve. This is done here,
+    // not in give_items_skills(), which also builds the new-game preview doll
+    // and would ask again for every preview.
+    if (you.species == SP_ANGEL && you_worship(GOD_NO_GOD))
+    {
+        you.religion = _angel_choose_god();
+        you.raw_piety = 20;
+        you.worshipped[you.religion] = 1;
+        you.piety_max[you.religion] = you.raw_piety;
+        set_god_ability_slots();
+    }
 
     roll_demonspawn_mutations();
     if (you.has_mutation(MUT_MULTILIVED))

@@ -23,6 +23,13 @@
 #include "item-prop.h"
 #include "item-use.h"
 #include "items.h"
+#include "ability.h"
+#include "database.h"
+#include "describe.h"
+#include "skills.h"
+#include "cloud.h"
+#include "fight.h"
+#include "weather.h"
 #include "item-name.h"
 #include "potion.h"
 #include "mon-util.h"
@@ -415,6 +422,130 @@ LUAFN(debug_join_god)
     return 2;
 }
 
+// god_pools("Vashtar") -> in the Temple / random altar pool, can be an
+// unknown god's faded altar.
+LUAFN(debug_god_pools)
+{
+    const god_type god = str_to_god(luaL_checkstring(ls, 1));
+    const vector<god_type> temple = temple_god_list();
+    lua_pushboolean(ls, find(temple.begin(), temple.end(), god) != temple.end());
+    lua_pushboolean(ls, god_can_be_ecumenical(god));
+    return 2;
+}
+
+// set_piety(n): set the current god's piety.
+LUAFN(debug_set_piety)
+{
+    you.raw_piety = max(0, min(MAX_PIETY, luaL_safe_checkint(ls, 1)));
+    you.piety_max[you.religion] = max<int>(you.piety_max[you.religion],
+                                           you.raw_piety);
+    set_god_ability_slots();
+    return 0;
+}
+
+// has_ability("Sun Lance") -> bool: is it among your current abilities?
+LUAFN(debug_has_ability)
+{
+    const string want = luaL_checkstring(ls, 1);
+    for (const talent &tal : your_talents(false))
+        if (ability_name(tal.which) == want)
+            PLUARET(boolean, true);
+    PLUARET(boolean, false);
+}
+
+// unarmed_bonus() -> the flat bonus added to your unarmed damage.
+LUAFN(debug_unarmed_bonus)
+{
+    PLUARET(number, unarmed_base_damage_bonus(false));
+}
+
+// melee_rating() -> the damage rating of your wielded weapon (or fists), as
+// shown on the item description screen; also its wielded weapon's skill.
+LUAFN(debug_melee_rating)
+{
+    int rating = 0;
+    // melee_rating(true): rate bare fists instead of the wielded weapon.
+    const item_def *wpn = lua_toboolean(ls, 1) ? nullptr : you.weapon();
+    damage_rating(wpn, &rating);
+    lua_pushnumber(ls, rating);
+    lua_pushstring(ls, skill_name(wpn ? item_attack_skill(*wpn)
+                                      : SK_UNARMED_COMBAT));
+    return 2;
+}
+
+// has_desc(key) -> bool: does the description database have this entry?
+LUAFN(debug_has_desc)
+{
+    PLUARET(boolean, !trimmed_string(getLongDescription(luaL_checkstring(ls, 1))).empty());
+}
+
+// has_start_desc(key) -> bool: species/background description exists?
+LUAFN(debug_has_start_desc)
+{
+    PLUARET(boolean, !trimmed_string(getGameStartDescription(luaL_checkstring(ls, 1))).empty());
+}
+
+// item_desc_keys(x, y) -> { {key, has_desc}, ... } for the items on a square,
+// using the same lookup name the item description screen uses.
+LUAFN(debug_item_desc_keys)
+{
+    const coord_def p(luaL_safe_checkint(ls, 1), luaL_safe_checkint(ls, 2));
+    lua_newtable(ls);
+    int i = 1;
+    for (stack_iterator si(p); si; ++si)
+    {
+        // Named artefacts are described by their own unrand.txt entry.
+        const string key = is_unrandom_artefact(*si)
+            ? get_artefact_name(*si, true)
+            : si->name(DESC_DBNAME, true, false, false);
+        lua_newtable(ls);
+        lua_pushstring(ls, key.c_str());
+        lua_rawseti(ls, -2, 1);
+        lua_pushboolean(ls, !trimmed_string(getLongDescription(key)).empty());
+        lua_rawseti(ls, -2, 2);
+        lua_rawseti(ls, -2, i++);
+    }
+    return 1;
+}
+
+// set_skill("Unarmed Combat", 20): set a skill level directly.
+LUAFN(debug_set_skill)
+{
+    const skill_type sk = str_to_skill(luaL_checkstring(ls, 1));
+    if (sk == SK_NONE)
+        return luaL_error(ls, "no such skill");
+    set_skill_level(sk, luaL_safe_checkint(ls, 2));
+    return 0;
+}
+
+// weather() -> name; set_weather(n); shape_weather(); weather_ticks(n) ->
+// clouds in sight afterward.
+LUAFN(debug_weather)
+{
+    lua_pushstring(ls, weather_name(current_weather()));
+    return 1;
+}
+
+LUAFN(debug_set_weather)
+{
+    set_weather(static_cast<weather_type>(luaL_safe_checkint(ls, 1)));
+    return 0;
+}
+
+LUAWRAP(debug_shape_weather, shape_level_for_weather())
+
+LUAFN(debug_weather_ticks)
+{
+    const int n = luaL_safe_checkint(ls, 1);
+    for (int i = 0; i < n; ++i)
+        weather_tick();
+    int clouds = 0;
+    for (rectangle_iterator ri(1); ri; ++ri)
+        if (cloud_at(*ri))
+            ++clouds;
+    PLUARET(number, clouds);
+}
+
 // wear(slot) -> bool: put on the armour in that inventory slot, instantly.
 LUAFN(debug_wear)
 {
@@ -424,7 +555,8 @@ LUAFN(debug_wear)
     {
         PLUARET(boolean, false);
     }
-    const equipment_slot eq = get_armour_slot(you.inv[slot]);
+    const equipment_slot eq = you.inv[slot].base_type == OBJ_WEAPONS
+                              ? SLOT_WEAPON : get_armour_slot(you.inv[slot]);
     if (item_def *old = you.equipment.get_first_slot_item(eq))
         unequip_item(*old, false);
     equip_item(eq, slot, false);
@@ -717,6 +849,19 @@ const struct luaL_Reg debug_dlib[] =
 { "drink", debug_drink },
 { "wear", debug_wear },
 { "join_god", debug_join_god },
+{ "god_pools", debug_god_pools },
+{ "set_piety", debug_set_piety },
+{ "has_ability", debug_has_ability },
+{ "unarmed_bonus", debug_unarmed_bonus },
+{ "melee_rating", debug_melee_rating },
+{ "set_skill", debug_set_skill },
+{ "has_desc", debug_has_desc },
+{ "has_start_desc", debug_has_start_desc },
+{ "item_desc_keys", debug_item_desc_keys },
+{ "weather", debug_weather },
+{ "set_weather", debug_set_weather },
+{ "shape_weather", debug_shape_weather },
+{ "weather_ticks", debug_weather_ticks },
 { "kill_monster", debug_kill_monster },
 { "handle_monster_move", debug_handle_monster_move },
 { "save_uniques", debug_save_uniques },

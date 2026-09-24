@@ -1842,6 +1842,17 @@ int brawler_unarmed_bonus()
     return max(0, (you.strength() - 10) / 4);
 }
 
+/// A fist weapon hits with the full force of your fists (and your Unarmed
+/// Combat skill), plus its own damage.
+int fist_weapon_damage(const item_def &weapon, bool random)
+{
+    const int wdam = brand_adjust_weapon_damage(property(weapon, PWPN_DAMAGE),
+                                                get_weapon_brand(weapon),
+                                                random);
+    return wdam + unarmed_base_damage(random)
+           + unarmed_base_damage_bonus(random);
+}
+
 int unarmed_base_damage_bonus(bool random)
 {
     if (you.form_uses_xl())

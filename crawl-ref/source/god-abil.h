@@ -288,3 +288,11 @@ void vashtar_war_paint();
 void vashtar_fury();
 void vashtar_thousand_arms();
 void vashtar_death_effects(const monster &mons, bool your_or_ally_kill);
+
+// Tonalli
+void tonalli_obsidian_edge();
+int tonalli_obsidian_slaying();
+spret tonalli_feathered_serpent(bool fail);
+string tonalli_heart_offering_reason(const monster *mon);
+spret tonalli_heart_offering(const coord_def &where, bool fail);
+void tonalli_death_effects(const monster &mons, bool your_or_ally_kill);

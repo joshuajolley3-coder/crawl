@@ -215,6 +215,10 @@ static const armour_def Armour_prop[] =
         SLOT_HELMET,      SIZE_LITTLE, SIZE_LARGE, true },
 #endif
 
+    // A carved mask: no protection, but it can be evoked to terrify foes.
+    { ARM_MASK,                 "mask",                   0,   0,  150,
+        SLOT_HELMET,      SIZE_TINY, SIZE_LARGE, true, 0 },
+
     { ARM_HAT,                  "hat",                    0,   0,   40,
         SLOT_HELMET,      SIZE_TINY, SIZE_LARGE, true, 0, {
             { SPARM_WILLPOWER,     3 },
@@ -434,6 +438,19 @@ static const vector<brand_weight_tuple> M_AND_F_BRANDS = {
     { SPWPN_DISTORTION,      1 },
     { SPWPN_ANTIMAGIC,       1 },
     { SPWPN_PAIN,            1 },
+};
+
+/// brand weights for fist weapons (brass knuckles, bagh nakh)
+static const vector<brand_weight_tuple> FIST_BRANDS = {
+    { SPWPN_NORMAL,         33 },
+    { SPWPN_VENOM,          12 },
+    { SPWPN_FLAMING,        10 },
+    { SPWPN_FREEZING,       10 },
+    { SPWPN_ELECTROCUTION,  10 },
+    { SPWPN_PROTECTION,     10 },
+    { SPWPN_DRAINING,        7 },
+    { SPWPN_VAMPIRISM,       5 },
+    { SPWPN_SPEED,           3 },
 };
 
 /// brand weights for club-type weapons
@@ -688,6 +705,14 @@ static const weapon_def Weapon_prop[] =
     { WPN_SCIMITAR,              "scimitar",              12, 0, 14,
         SK_LONG_BLADES,  SIZE_LITTLE, SIZE_LITTLE,
         DAMV_SLICING, 6, 20, 60, LBL_BRANDS },
+    // Fist weapons use Unarmed Combat: a hit lands with the full force of your
+    // fists (and your skill with them) plus the weapon's own damage.
+    { WPN_BRASS_KNUCKLES,        "brass knuckles",         4,  2, 10,
+        SK_UNARMED_COMBAT, SIZE_LITTLE, SIZE_LITTLE,
+        DAMV_CRUSHING, 4, 10, 40, FIST_BRANDS },
+    { WPN_BAGH_NAKH,             "iron bagh nakh",         5,  0, 10,
+        SK_UNARMED_COMBAT, SIZE_LITTLE, SIZE_LITTLE,
+        DAMV_SLICING, 3, 10, 50, FIST_BRANDS },
     // The heaviest sword that can still be swung in one hand.
     { WPN_BASTARD_SWORD,         "bastard sword",         14, -3, 15,
         SK_LONG_BLADES,  SIZE_LITTLE, SIZE_MEDIUM,
@@ -1254,6 +1279,14 @@ void set_equip_desc(item_def &item, iflags_t flags)
 bool is_hard_helmet(const item_def &item)
 {
     return item.is_type(OBJ_ARMOUR, ARM_HELMET);
+}
+
+/// Is this a fist weapon (brass knuckles, bagh nakh), which hits with the
+/// force of the wielder's fists?
+bool is_fist_weapon(const item_def &item)
+{
+    return item.is_type(OBJ_WEAPONS, WPN_BRASS_KNUCKLES)
+           || item.is_type(OBJ_WEAPONS, WPN_BAGH_NAKH);
 }
 
 //

@@ -436,6 +436,8 @@ static vector<ability_def> &_get_ability_list()
             4, 100, 0, 6, {}, abflag::none },
         { ABIL_EVOKE_OLGREB, "Evoke the Staff of Olgreb",
             4, 0, 0, -1, {}, abflag::none },
+        { ABIL_EVOKE_MASK, "Evoke Terrifying Visage",
+            0, 0, 0, -1, {fail_basis::evo, 40, 2}, abflag::none },
 
         // INVOCATIONS:
         // Zin
@@ -769,6 +771,17 @@ static vector<ability_def> &_get_ability_list()
         { ABIL_VASHTAR_THOUSAND_ARMS, "Thousand Arms",
             0, 0, 15, -1, {fail_basis::invo, 80, 4, 25}, abflag::none },
 
+        // Tonalli
+        { ABIL_TONALLI_OBSIDIAN_EDGE, "Obsidian Edge",
+            2, 0, 2, -1, {fail_basis::invo, 30, 6, 20}, abflag::none },
+        { ABIL_TONALLI_SUN_LANCE, "Sun Lance",
+            4, 0, 3, LOS_MAX_RANGE, {fail_basis::invo, 40, 5, 20}, abflag::none },
+        { ABIL_TONALLI_FEATHERED_SERPENT, "Feathered Serpent",
+            0, 0, 8, -1, {fail_basis::invo, 60, 4, 25}, abflag::none },
+        { ABIL_TONALLI_HEART_OFFERING, "Heart Offering",
+            0, 0, 0, 1, {fail_basis::invo, 50, 5, 20},
+            abflag::target | abflag::not_self },
+
         { ABIL_HOLLOW_SILENCE, "Hollow Silence",
             0, 0, 0, LOS_MAX_RANGE, {}, abflag::target | abflag::not_self },
         { ABIL_BEAST_CALL_PACK, "Call the Pack",
@@ -885,6 +898,8 @@ static int _ability_zap_pow(ability_type abil)
             return you.experience_level;
         case ABIL_MAKHLEB_DESTRUCTION:
             return _makhleb_destruction_power();
+        case ABIL_TONALLI_SUN_LANCE:
+            return 30 + you.skill(SK_INVOCATIONS, 5);
         default:
             ASSERT(ability_to_zap(abil) == NUM_ZAPS);
             return 0;
@@ -906,6 +921,31 @@ ability_flags get_ability_flags(ability_type ability)
 bool string_matches_ability_name(const string& key)
 {
     return ability_by_name(key) != ABIL_NON_ABILITY;
+}
+
+#define MASK_READY_KEY "mask_ready_time"
+/// The mask can be evoked once every this many turns.
+static const int MASK_COOLDOWN_TURNS = 50;
+
+/// Turns until the mask's Terrifying Visage can be used again (0 if ready).
+int mask_cooldown_turns()
+{
+    if (!you.props.exists(MASK_READY_KEY))
+        return 0;
+    const int left = you.props[MASK_READY_KEY].get_int() - you.elapsed_time;
+    return left > 0 ? div_round_up(left, BASELINE_DELAY) : 0;
+}
+
+void start_mask_cooldown()
+{
+    you.props[MASK_READY_KEY] = you.elapsed_time
+                                + MASK_COOLDOWN_TURNS * BASELINE_DELAY;
+}
+
+/// Terrifying Visage's power: grows with Evocations skill.
+int mask_terror_power()
+{
+    return 30 + you.skill(SK_EVOCATIONS, 6);
 }
 
 static bool _invis_causes_drain()
@@ -2464,6 +2504,18 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
         }
         return true;
 
+    case ABIL_EVOKE_MASK:
+        if (const int turns = mask_cooldown_turns())
+        {
+            if (!quiet)
+            {
+                mprf("Your mask is still gathering its dread. (%d more turn%s)",
+                     turns, turns == 1 ? "" : "s");
+            }
+            return false;
+        }
+        return true;
+
     case ABIL_GOZAG_POTION_PETITION:
         return gozag_setup_potion_petition(quiet);
 
@@ -2930,6 +2982,9 @@ unique_ptr<targeter> find_ability_targeter(ability_type ability)
 
     case ABIL_ELYVILON_PACIFY:
         return make_unique<targeter_pacify>();
+
+    case ABIL_TONALLI_HEART_OFFERING:
+        return make_unique<targeter_smite>(&you, 1, 0, 0);
 
     default:
         break;
@@ -3612,6 +3667,16 @@ static spret _do_ability(const ability_def& abil, bool fail, dist *target,
         if (!_evoke_staff_of_olgreb(target))
             return spret::abort;
         break;
+
+    case ABIL_EVOKE_MASK:
+    {
+        mpr("You turn your mask's terrible visage upon your foes!");
+        const spret res = mass_enchantment(ENCH_FEAR, mask_terror_power(),
+                                           fail);
+        if (res == spret::success)
+            start_mask_cooldown();
+        return res;
+    }
 
     // DEMONIC POWERS:
     case ABIL_DAMNATION:
@@ -4312,6 +4377,21 @@ static spret _do_ability(const ability_def& abil, bool fail, dist *target,
         vashtar_thousand_arms();
         break;
 
+    case ABIL_TONALLI_OBSIDIAN_EDGE:
+        fail_check();
+        tonalli_obsidian_edge();
+        break;
+
+    case ABIL_TONALLI_SUN_LANCE:
+        return zapping(ZAP_BOLT_OF_FIRE, _ability_zap_pow(abil.ability), beam,
+                       true, "You hurl a lance of sunfire!", fail);
+
+    case ABIL_TONALLI_FEATHERED_SERPENT:
+        return tonalli_feathered_serpent(fail);
+
+    case ABIL_TONALLI_HEART_OFFERING:
+        return tonalli_heart_offering(target->target, fail);
+
     case ABIL_RENOUNCE_RELIGION:
         if (yesno("Really renounce your faith, foregoing its fabulous benefits?",
                   false, 'n')
@@ -4675,6 +4755,9 @@ bool player_has_ability(ability_type abil, bool include_unusable)
     case ABIL_EVOKE_OLGREB:
         return you.unrand_equipped(UNRAND_OLGREB)
                && !you.has_mutation(MUT_NO_ARTIFICE);
+    case ABIL_EVOKE_MASK:
+        return you.wearing(OBJ_ARMOUR, ARM_MASK)
+               && !you.has_mutation(MUT_NO_ARTIFICE);
     default:
         // removed abilities handled here
         return false;
@@ -4739,6 +4822,7 @@ vector<talent> your_talents(bool include_unusable, bool ignore_piety)
             ABIL_EVOKE_TURN_INVISIBLE,
             ABIL_EVOKE_DISPATER,
             ABIL_EVOKE_OLGREB,
+            ABIL_EVOKE_MASK,
 #ifdef WIZARD
             ABIL_WIZ_BUILD_TERRAIN,
             ABIL_WIZ_SET_TERRAIN,

@@ -51,12 +51,14 @@ static const floor_theme_def theme_defs[NUM_FLOOR_THEMES] =
     { "", "", {}, {}, "", "", BLACK, BLACK, {} },
 
     { "Frost",
-      "Your breath fogs the moment you arrive. Frost furs every wall, the floor is slick with black ice, and somewhere in the stillness something is scraping its claws across the rime.",
-      { "The cold bites again as you return.",
-        "Ice has crept further across the floor since you left.",
-        "Your breath hangs in the frozen air." },
-      { "Frost crackles underfoot.", "A distant crack of shifting ice echoes through the halls.",
-        "Snow drifts down from somewhere far above.", "Your fingers ache with the cold." },
+      "The air bites with a sudden cold. Frost glitters on the walls, and your breath hangs white before you.",
+      { "The cold closes around you again.",
+        "Your breath clouds in the chill air.",
+        "Frost has crept a little further across the walls." },
+      { "Frost crackles underfoot.",
+        "Somewhere, ice shifts and cracks.",
+        "A cold draught finds its way down your collar.",
+        "Your fingers ache with the cold." },
       "floor_icy", "wall_icy_stone", LIGHTCYAN, WHITE,
       {
         {  3,  7,  350, PEAK, MONS_WHITE_IMP },
@@ -74,12 +76,14 @@ static const floor_theme_def theme_defs[NUM_FLOOR_THEMES] =
       } },
 
     { "Fire",
-      "A wall of heat meets you as you arrive. The stone glows a dull red, the air shimmers and tastes of ash, and cinders drift past on a wind that smells of burning.",
-      { "The heat of the floor washes over you again.",
-        "Ash is still falling here.",
-        "The stones are still hot underfoot." },
-      { "Embers swirl past on a hot draught.", "Somewhere, something roars like a furnace.",
-        "Sweat stings your eyes.", "A wall hisses and pops as the heat splits the stone." },
+      "A dry, baking heat rolls over you. The stone is warm underfoot, and the air smells of smoke.",
+      { "The heat washes over you again.",
+        "The air here still smells of smoke.",
+        "The stone is still warm underfoot." },
+      { "Embers drift past on a hot draught.",
+        "Somewhere, something roars like a furnace.",
+        "Sweat stings your eyes.",
+        "A wall ticks and cracks as it cools." },
       "floor_rough_red", "wall_volcanic", RED, LIGHTRED,
       {
         {  3,  7,  400, PEAK, MONS_FIRE_BAT },
@@ -96,12 +100,14 @@ static const floor_theme_def theme_defs[NUM_FLOOR_THEMES] =
       } },
 
     { "Death",
-      "The air is cold and still and smells of the grave. Bones are set into the very walls, the dust is thick with old ashes, and in the silence you hear slow footsteps that do not tire.",
-      { "The grave-stench closes around you again.",
-        "The dead have not rested while you were gone.",
+      "The air is cold, still and heavy with the smell of old graves. Somewhere in the dark, bones shift.",
+      { "The grave-smell closes around you again.",
+        "The silence here feels watchful.",
         "Something here remembers you." },
-      { "You hear the dry rattle of bones in the dark.", "A cold breath touches the back of your neck.",
-        "Somewhere, something shuffles closer.", "A faint moan drifts through the halls." },
+      { "Bones rattle somewhere in the dark.",
+        "A cold breath touches the back of your neck.",
+        "Something shuffles, far off.",
+        "A faint moan drifts through the halls." },
       "floor_crypt", "wall_undead", DARKGREY, WHITE,
       {
         {  3,  6,  250, FLAT, MONS_BURIAL_ACOLYTE },
@@ -121,12 +127,14 @@ static const floor_theme_def theme_defs[NUM_FLOOR_THEMES] =
       } },
 
     { "Arcane",
-      "Raw magic hums in the air, making your hair stand on end. Shelves of dusty tomes and strange flasks line the walls, the floor is etched with glowing sigils, and from somewhere comes the murmur of incantations.",
-      { "The hum of raw magic rises to greet you.",
-        "The sigils underfoot flare as you return.",
-        "Someone is still chanting here." },
-      { "A stray spark of magic crackles past your ear.", "You hear the rustle of turning pages.",
-        "The air tastes of ozone and old ink.", "A distant voice chants in a language you do not know." },
+      "The hairs on your arms stand on end. The air hums faintly, and old sigils glimmer in the stone.",
+      { "The hum of magic rises to meet you.",
+        "The sigils in the stone flicker as you pass.",
+        "Somewhere, someone is still chanting." },
+      { "A stray spark crackles past your ear.",
+        "You hear the rustle of turning pages.",
+        "The air tastes of ozone and old ink.",
+        "A distant voice chants in a tongue you do not know." },
       "floor_crystal_squares", "wall_stone_magic_shelf", MAGENTA, LIGHTMAGENTA,
       {
         {  3,  8,  400, PEAK, MONS_ORC_WIZARD },
@@ -147,12 +155,14 @@ static const floor_theme_def theme_defs[NUM_FLOOR_THEMES] =
       } },
 
     { "Venom",
-      "The air is hot, wet and thick with rot. Moss carpets the stone, carved serpents coil across the walls, and every shadow seems to hiss.",
-      { "The fetid air settles on you again.",
-        "Something slithers away as you return.",
+      "Warm, wet air wraps around you, thick with moss and rot. Something hisses in the dark.",
+      { "The damp, rotten air settles on you again.",
+        "Something slithers out of sight as you return.",
         "The hissing has not stopped." },
-      { "Something hisses in the dark.", "A drop of something green falls from the ceiling.",
-        "You hear the dry skitter of many legs.", "The air stings your throat." },
+      { "Something hisses in the dark.",
+        "A drop of something green falls from above.",
+        "You hear the dry skitter of many legs.",
+        "The air stings your throat." },
       "floor_moss", "wall_snake", GREEN, LIGHTGREEN,
       {
         {  3,  7,  400, PEAK, MONS_ADDER },
@@ -172,12 +182,14 @@ static const floor_theme_def theme_defs[NUM_FLOOR_THEMES] =
       } },
 
     { "Warband",
-      "Drums are beating somewhere ahead. The floor is churned and bloodied, crude banners hang from the walls, and the air stinks of smoke, sweat and war.",
-      { "The war drums pick up again as you return.",
-        "The warband has not left.",
-        "You hear rough laughter somewhere ahead." },
-      { "War drums thunder in the distance.", "Somewhere, steel rings against steel.",
-        "You hear rough voices arguing over spoils.", "A war horn sounds, far away." },
+      "Drums are beating somewhere ahead. The floor is churned and trampled, crude banners hang from the walls, and the air smells of smoke and sweat.",
+      { "The drums start up again as you return.",
+        "The warband has not moved on.",
+        "Rough laughter echoes from somewhere ahead." },
+      { "War drums thud in the distance.",
+        "Somewhere, steel rings against steel.",
+        "Rough voices argue over spoils.",
+        "A horn sounds, far away." },
       "floor_cobble_blood", "wall_brick_brown", BROWN, RED,
       {
         {  3,  6,  300, FLAT, MONS_GOBLIN },
@@ -201,12 +213,14 @@ static const floor_theme_def theme_defs[NUM_FLOOR_THEMES] =
       } },
 
     { "Storm",
-      "A gust nearly knocks you from your feet. Thunder rolls through the halls, static crawls over your skin, and a howling wind drives flickers of lightning between the dark stones.",
-      { "The storm howls around you again.",
+      "A cold wind gusts through the halls, and the air prickles with static.",
+      { "The wind howls around you again.",
         "Thunder greets your return.",
-        "The wind has not dropped." },
-      { "Thunder rumbles overhead.", "Static prickles across your skin.",
-        "A gust of wind howls down the corridor.", "Lightning flickers somewhere nearby." },
+        "The air still prickles with static." },
+      { "Thunder rumbles through the stone.",
+        "Static crawls across your skin.",
+        "A gust howls down the corridor.",
+        "Lightning flickers somewhere nearby." },
       "floor_black_cobalt", "wall_cobalt_rock", BLUE, LIGHTBLUE,
       {
         {  3,  8,  350, PEAK, MONS_SKY_BEAST },
@@ -376,13 +390,24 @@ void announce_floor_theme(bool first_visit)
     if (theme == FLOOR_THEME_NONE)
         return;
 
+    // A hint at who lives here, and that something nearby may help.
+    static const char *hints[NUM_FLOOR_THEMES] =
+    {
+        "",
+        "Whatever lives here has made the cold its home.",
+        "Whatever lives here thrives in the heat.",
+        "The dead do not rest easily here.",
+        "Someone here has been meddling with magic.",
+        "This place is crawling with venomous things.",
+        "A warband has made its camp here.",
+        "The storm has drawn creatures of wind and lightning.",
+    };
+
     const floor_theme_def &def = theme_defs[theme];
     if (first_visit)
     {
         mprf(MSGCH_PLAIN, "%s", def.intro);
-        mprf(MSGCH_WARN, "This is a %s floor: its creatures are all of one "
-                         "kind. Something here may help you resist them.",
-             def.name);
+        mprf(MSGCH_WARN, "%s", hints[theme]);
         mark_themed_level(level_id::current(),
                           make_stringf("%s floor", def.name));
     }

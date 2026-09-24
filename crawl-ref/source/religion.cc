@@ -458,6 +458,18 @@ const vector<vector<god_power>> & get_all_god_powers()
             { 6, ABIL_VASHTAR_THOUSAND_ARMS,
                  "strike every foe around you, fed by each kill" },
         },
+
+        // Tonalli
+        {
+            { 1, "draw strength from the hearts of the slain" },
+            { 1, ABIL_TONALLI_OBSIDIAN_EDGE, "edge your blows with obsidian" },
+            { 2, "", "", "You are resistant to fire." },
+            { 3, ABIL_TONALLI_SUN_LANCE, "hurl a lance of sunfire" },
+            { 4, ABIL_TONALLI_FEATHERED_SERPENT,
+                 "call a feathered serpent to fight beside you" },
+            { 5, ABIL_TONALLI_HEART_OFFERING,
+                 "tear out the heart of a dying foe" },
+        },
     };
     static bool god_powers_init = false;
 
@@ -2195,6 +2207,7 @@ string god_name(god_type which_god, bool long_name)
     case GOD_WU_JIAN:       return "Wu Jian";
     case GOD_IGNIS:         return "Ignis";
     case GOD_VASHTAR:       return "Vashtar";
+    case GOD_TONALLI:       return "Tonalli";
     case GOD_JIYVA: // This is handled at the beginning of the function
     case GOD_ECUMENICAL:    return "an unknown god";
     case NUM_GODS:          return "Buggy";
@@ -3233,6 +3246,14 @@ void excommunication(bool voluntary, god_type new_god)
         vashtar_abandonment();
         break;
 
+    case GOD_TONALLI:
+        if (you.duration[DUR_OBSIDIAN_EDGE])
+        {
+            you.duration[DUR_OBSIDIAN_EDGE] = 0;
+            mpr("Your obsidian edge crumbles away.");
+        }
+        break;
+
     case GOD_RU:
         if (!you.props[AVAILABLE_SAC_KEY].get_vector().empty())
             ru_reset_sacrifice_timer();
@@ -4119,13 +4140,21 @@ god_type choose_god(god_type def_god)
                                bind(god_name, placeholders::_1, false));
 }
 
+/// Could a faded altar of an unknown god turn out to belong to this god?
+bool god_can_be_ecumenical(god_type god)
+{
+    // Tonalli answers only at his own altar, in the Ancient Temple.
+    return god != GOD_TONALLI && !is_unavailable_god(god)
+           && player_can_join_god(god, false);
+}
+
 static void _choose_ecu_gods(CrawlVector &gods)
 {
     vector<god_type> possible_gods;
     for (int i = GOD_NO_GOD + 1; i < NUM_GODS; ++i)
     {
         const god_type god = static_cast<god_type>(i);
-        if (!is_unavailable_god(god) && player_can_join_god(god, false))
+        if (god_can_be_ecumenical(god))
             possible_gods.push_back(god);
     }
     shuffle_array(possible_gods); // inefficient but who cares
@@ -4329,6 +4358,9 @@ int god_colour(god_type god) // mv - added
     case GOD_VASHTAR:
         return RED;
 
+    case GOD_TONALLI:
+        return LIGHTGREEN;
+
     case GOD_GOZAG:
     case GOD_XOM:
     case GOD_IGNIS:
@@ -4462,6 +4494,9 @@ colour_t god_message_altar_colour(god_type god)
 
     case GOD_VASHTAR:
         return random_choose(RED, LIGHTRED, DARKGREY);
+
+    case GOD_TONALLI:
+        return random_choose(LIGHTGREEN, YELLOW, LIGHTRED);
 
     default:
         return YELLOW;
@@ -4876,6 +4911,8 @@ static bool _is_temple_god(god_type god)
     case GOD_BEOGH:
     case GOD_JIYVA:
     case GOD_IGNIS:
+    // Tonalli is found only in the Ancient Temple.
+    case GOD_TONALLI:
         return false;
 
     default:

@@ -19,8 +19,10 @@ check(you.piety() > 0, "starts with some piety")
 check(you.see_invisible(), "sees invisible")
 check(you.res_draining() >= 1, "resists negative energy")
 check(not you.flying(), "can't fly yet at XL 1")
-you.set_xl(7)
-check(you.flying(), "flies from XL 7")
+you.set_xl(9)
+check(not you.flying(), "still can't fly at XL 9")
+you.set_xl(10)
+check(you.flying(), "flies from XL 10")
 
 say("== Moving between the holy trio ==")
 local target = you.god() == "Zin" and "Elyvilon" or "Zin"

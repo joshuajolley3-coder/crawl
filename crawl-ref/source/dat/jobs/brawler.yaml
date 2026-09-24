@@ -8,6 +8,7 @@ int: 0
 dex: 4
 equipment:
   - "leather armour"
+  - "pair of brass knuckles"
   - "bag of sand q:4"
   - "potion of heal wounds"
 recommended_species:

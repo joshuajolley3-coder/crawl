@@ -35,6 +35,7 @@ enum god_type
     GOD_WU_JIAN,
     GOD_IGNIS,
     GOD_VASHTAR,
+    GOD_TONALLI,
     NUM_GODS,                         // always after last god
 
     GOD_RANDOM = 100,

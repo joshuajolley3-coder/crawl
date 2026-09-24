@@ -102,3 +102,7 @@ void swap_ability_slots(int index1, int index2, bool silent = false);
 
 spell_type draconian_breath_to_spell(ability_type abil);
 int draconian_breath_power(int shapeshifting_skill = -1);
+
+int mask_cooldown_turns();
+void start_mask_cooldown();
+int mask_terror_power();

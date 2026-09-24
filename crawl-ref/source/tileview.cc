@@ -303,6 +303,11 @@ void tile_default_flv(branch_type br, tile_flavour &flv)
         flv.floor = TILE_FLOOR_MUD;
         return;
 
+    case BRANCH_ANCIENT_TEMPLE:
+        flv.wall  = TILE_WALL_STONE_MOSSY;
+        flv.floor = TILE_FLOOR_SPROUTING_RUIN;
+        return;
+
     case BRANCH_WIZLAB:
         flv.wall  = TILE_WALL_NORMAL;
         flv.floor = TILE_FLOOR_NORMAL;

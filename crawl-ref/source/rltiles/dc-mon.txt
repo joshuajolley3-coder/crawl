@@ -1088,6 +1088,9 @@ lodul MONS_LODUL
 %sdir mon/humanoids
 oni MONS_ONI
 vashtari_champion MONS_VASHTARI_CHAMPION
+humans/jaguar_warrior MONS_JAGUAR_WARRIOR
+humans/sun_priest MONS_SUN_PRIEST
+../animals/feathered_serpent MONS_FEATHERED_SERPENT
 oni_incarcerator MONS_ONI_INCARCERATOR
 %rim 1
 ogre MONS_OGRE

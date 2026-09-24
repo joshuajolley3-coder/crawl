@@ -345,6 +345,10 @@ tileidx_t tileidx_feature_base(dungeon_feature_type feat)
         return TILE_DNGN_ENTER_BATTLEFIELD;
     case DNGN_EXIT_BATTLEFIELD:
         return TILE_DNGN_EXIT_BATTLEFIELD;
+    case DNGN_ENTER_ANCIENT_TEMPLE:
+        return TILE_DNGN_ENTER_ANCIENT_TEMPLE;
+    case DNGN_EXIT_ANCIENT_TEMPLE:
+        return TILE_DNGN_EXIT_ANCIENT_TEMPLE;
     case DNGN_ENTER_ORC:
         return TILE_DNGN_ENTER_ORC;
     case DNGN_ENTER_ELF:
@@ -529,6 +533,8 @@ tileidx_t tileidx_feature_base(dungeon_feature_type feat)
         return TILE_DNGN_ALTAR_IGNIS;
     case DNGN_ALTAR_VASHTAR:
         return TILE_DNGN_ALTAR_VASHTAR;
+    case DNGN_ALTAR_TONALLI:
+        return TILE_DNGN_ALTAR_TONALLI;
     case DNGN_ALTAR_ECUMENICAL:
         return TILE_DNGN_ALTAR_ECUMENICAL;
     case DNGN_FOUNTAIN_BLUE:
@@ -3084,6 +3090,8 @@ static tileidx_t _tileidx_weapon_base(const item_def &item)
     case WPN_SCIMITAR:              return TILE_WPN_SCIMITAR;
     case WPN_DOUBLE_SWORD:          return TILE_WPN_DOUBLE_SWORD;
     case WPN_BASTARD_SWORD:         return TILE_WPN_BASTARD_SWORD;
+    case WPN_BRASS_KNUCKLES:        return TILE_WPN_BRASS_KNUCKLES;
+    case WPN_BAGH_NAKH:             return TILE_WPN_BAGH_NAKH;
     case WPN_TRIPLE_SWORD:          return TILE_WPN_TRIPLE_SWORD;
     case WPN_HAND_AXE:              return TILE_WPN_HAND_AXE;
     case WPN_WAR_AXE:               return TILE_WPN_WAR_AXE;
@@ -3241,6 +3249,9 @@ static tileidx_t _tileidx_armour_base(const item_def &item)
 
     case ARM_ROCK_PLATE_ARMOUR:
         return TILE_ARM_ROCK_PLATE_ARMOUR;
+
+    case ARM_MASK:
+        return TILE_ARM_MASK;
 
 #if TAG_MAJOR_VERSION == 34
     case ARM_CAP:
@@ -4402,6 +4413,8 @@ tileidx_t tileidx_ability(const ability_type ability)
         return TILEG_ABILITY_EVOKE_OLGREB;
     case ABIL_EVOKE_TURN_INVISIBLE:
         return TILEG_ABILITY_EVOKE_INVISIBILITY;
+    case ABIL_EVOKE_MASK:
+        return TILEG_ABILITY_EVOKE_MASK;
 
     // Divine abilities
     // Zin
@@ -4729,6 +4742,14 @@ tileidx_t tileidx_ability(const ability_type ability)
         return TILEG_ABILITY_VASHTAR_SPOILS_OF_WAR;
     case ABIL_VASHTAR_THOUSAND_ARMS:
         return TILEG_ABILITY_VASHTAR_THOUSAND_ARMS;
+    case ABIL_TONALLI_OBSIDIAN_EDGE:
+        return TILEG_ABILITY_TONALLI_OBSIDIAN_EDGE;
+    case ABIL_TONALLI_SUN_LANCE:
+        return TILEG_ABILITY_TONALLI_SUN_LANCE;
+    case ABIL_TONALLI_FEATHERED_SERPENT:
+        return TILEG_ABILITY_TONALLI_FEATHERED_SERPENT;
+    case ABIL_TONALLI_HEART_OFFERING:
+        return TILEG_ABILITY_TONALLI_HEART_OFFERING;
 
     // General divine (pseudo) abilities.
     case ABIL_RENOUNCE_RELIGION:
@@ -4828,6 +4849,8 @@ tileidx_t tileidx_branch(const branch_type br)
         return TILE_DNGN_ALTAR_MAKHLEB;
     case BRANCH_BATTLEFIELD:
         return TILE_DNGN_ENTER_BATTLEFIELD;
+    case BRANCH_ANCIENT_TEMPLE:
+        return TILE_DNGN_ENTER_ANCIENT_TEMPLE;
     default:
         return TILEG_ERROR;
     }

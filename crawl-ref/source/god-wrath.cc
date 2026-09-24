@@ -102,6 +102,7 @@ static const char *_god_wrath_adjectives[] =
     "rancor",           // Wu Jian
     "fiery vengeance",  // Ignis
     "bloodlust",        // Vashtar
+    "scorching",        // Tonalli
 };
 COMPILE_CHECK(ARRAYSZ(_god_wrath_adjectives) == NUM_GODS);
 
@@ -1783,6 +1784,42 @@ static bool _vashtar_retribution()
 }
 
 /**
+ * Call down the wrath of Tonalli upon the player!
+ *
+ * The sun's fire and the jaguar warriors of his temple.
+ *
+ * @return Whether to take further divine wrath actions afterward.
+ */
+static bool _tonalli_retribution()
+{
+    const god_type god = GOD_TONALLI;
+
+    switch (random2(3))
+    {
+    case 0:
+        _god_smites_you(god, "The Fifth Sun burns the faithless!");
+        break;
+    case 1:
+    {
+        const int wanted = 1 + random2(1 + you.experience_level / 9);
+        int count = 0;
+        for (int i = 0; i < wanted; ++i)
+            if (create_monster(_wrath_mon_data(MONS_JAGUAR_WARRIOR, god), false))
+                ++count;
+        simple_god_message(count ? " sends jaguar warriors to take your heart!"
+                                 : "'s warriors fail to arrive.", false, god);
+        break;
+    }
+    default:
+        simple_god_message(" turns the sun's eye from you.", false, god);
+        you.increase_duration(DUR_SLOW, 5 + random2(10), 20);
+        mpr("The world feels cold and heavy.");
+        break;
+    }
+    return true;
+}
+
+/**
  * Send one of Vashtar's blood collectors after the player: a Vashtari
  * champion, cut down to size for weaker characters so the fight is winnable.
  */
@@ -2035,6 +2072,7 @@ bool divine_retribution(god_type god, bool no_bonus, bool force)
     case GOD_WU_JIAN:       do_more = _wu_jian_retribution(); break;
     case GOD_IGNIS:         do_more = _ignis_retribution(); break;
     case GOD_VASHTAR:       do_more = _vashtar_retribution(); break;
+    case GOD_TONALLI:       do_more = _tonalli_retribution(); break;
 
     case GOD_ASHENZARI:
     case GOD_ELYVILON:

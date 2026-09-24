@@ -1448,6 +1448,9 @@ enum monster_type                      // env.mons[].type
     MONS_VEYRAK,
     MONS_VASHTARI_CHAMPION,
     MONS_SUSPICIOUS_FIGURE,
+    MONS_JAGUAR_WARRIOR,
+    MONS_SUN_PRIEST,
+    MONS_FEATHERED_SERPENT,
 
     NUM_MONSTERS,               // used for polymorph
 

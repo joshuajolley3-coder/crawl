@@ -183,6 +183,14 @@ creature dies, only that it does: followers are rewarded for every kill made by
 them or their allies, and even for deaths they merely witness. Unlike Trog,
 Vashtar has no quarrel with magic, and asks nothing of followers but slaughter.
 %%%%
+Tonalli
+
+Tonalli, the Burning Heart, is the Fifth Sun of a jungle people long gone, whose
+only altar still stands atop a stepped temple swallowed by the Lair. The sun
+must be fed to keep burning, and Tonalli feeds on hearts: followers win favour
+with every living foe they slay, and are fed in turn by the hearts of the dead.
+Tonalli asks nothing else of them, and gives generously.
+%%%%
 Uskayaw
 
 Uskayaw the Reveller is a god of ecstatic dance. In the dungeon, Uskayaw
@@ -456,6 +464,14 @@ or mind in exchange for a blood tithe, and those who have killed enough may
 claim a choice of artefact weapons as spoils of war. The most devoted may take
 on a thousand arms, striking every foe around them, sustained by each kill.
 %%%%
+Tonalli powers
+
+Followers of Tonalli are fed a little health and magic by each heart they or
+their allies claim, and can edge their blows with obsidian. With more favour they
+turn aside fire, hurl lances of sunfire, and call feathered serpents down from
+the sun to fight beside them. The most devoted may tear the heart from a dying
+foe beside them, killing it outright and burning with its strength.
+%%%%
 Uskayaw powers
 
 Worshippers of Uskayaw can stomp to damage foes around them, and rapidly move
@@ -673,6 +689,11 @@ Vashtar wrath
 
 Vashtar does not forgive deserters. Apostates are hunted by war demons, and
 Vashtar will drink deep of their strength, leaving them weakened and drained.
+%%%%
+Tonalli wrath
+
+Those who abandon the Fifth Sun are scorched by it, hunted by the jaguar
+warriors of the temple, and left cold and slow when the sun turns its eye away.
 %%%%
 Uskayaw wrath
 

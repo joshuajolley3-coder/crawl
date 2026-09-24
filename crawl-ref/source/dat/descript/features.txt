@@ -1582,3 +1582,29 @@ demonic tree burning
 
 It is susceptible to bolts of lightning and to sufficiently intense sources of
 fire. Burning this tree releases a cloud of pure chaos instead of flames.
+%%%%
+A sun-stone altar of Tonalli
+
+A stepped altar of mossy stone, crowned by a great carved disc of the sun. The
+stone is warm to the touch and stained dark with old offerings. This is the
+last altar of Tonalli, the Burning Heart.
+%%%%
+An overgrown stair to the Ancient Temple
+
+A stepped stone doorway, half-swallowed by vines, leads down into a hidden
+jungle and the ruins of a temple to a forgotten sun.
+%%%%
+An overgrown stair back to the Lair
+
+A stair of worn, mossy stone climbs out of the jungle and back into the Lair of
+Beasts. Daylight of a sort spills down it.
+%%%%
+A passage to the Abandoned Battlefield
+
+A collapsed trench leads down into darkness. A cold wind comes up out of it,
+carrying the smell of old iron and older death.
+%%%%
+A passage back to the Dungeon
+
+A rough passage climbing out of the old battlefield and back into the Dungeon.
+%%%%

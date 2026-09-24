@@ -607,6 +607,8 @@ BRANCH_EXIT(DNGN_EXIT_TEMPLE, "staircase back to the Dungeon", "exit_temple"),
 
 BRANCH_ENTRANCE(DNGN_ENTER_BATTLEFIELD, "passage to the Abandoned Battlefield", "enter_battlefield"),
 BRANCH_EXIT(DNGN_EXIT_BATTLEFIELD, "passage back to the Dungeon", "exit_battlefield"),
+BRANCH_ENTRANCE(DNGN_ENTER_ANCIENT_TEMPLE, "overgrown stair to the Ancient Temple", "enter_ancient_temple"),
+BRANCH_EXIT(DNGN_EXIT_ANCIENT_TEMPLE, "overgrown stair back to the Lair", "exit_ancient_temple"),
 
 BRANCH_ENTRANCE(DNGN_ENTER_SNAKE, "staircase to the Snake Pit", "enter_snake_pit"),
 BRANCH_EXIT(DNGN_EXIT_SNAKE, "staircase back to the Lair", "exit_snake_pit"),
@@ -669,6 +671,7 @@ ALTAR(DNGN_ALTAR_HEPLIAKLQANA, "hazy altar of Hepliaklqana", "altar_hepliaklqana
 ALTAR(DNGN_ALTAR_WU_JIAN, "ornate altar of the Wu Jian Council", "altar_wu_jian", ETC_WU_JIAN),
 ALTAR(DNGN_ALTAR_IGNIS, "candlelit altar of Ignis", "altar_ignis", ETC_CANDLES),
 ALTAR(DNGN_ALTAR_VASHTAR, "skull-heaped altar of Vashtar", "altar_vashtar", RED),
+ALTAR(DNGN_ALTAR_TONALLI, "sun-stone altar of Tonalli", "altar_tonalli", LIGHTGREEN),
 
 #define FOUNTAIN(enum, name, vaultname, colour)\
 {\

@@ -1,0 +1,21 @@
+name: "jaguar warrior"
+glyph: {char: "@", colour: yellow}
+flags: [fighter, speaks, warm_blood]
+exp: 900
+will: 60
+attacks:
+ - {type: hit, damage: 24}
+hd: 11
+hp_10x: 700
+ac: 5
+ev: 15
+spells: jaguar_warrior
+has_corpse: true
+corpse_tile: human
+shout: roar
+intelligence: human
+speed: 12
+uses: weapons_armour
+size: medium
+shape: humanoid
+god: Tonalli

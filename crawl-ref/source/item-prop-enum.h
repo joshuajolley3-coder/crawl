@@ -118,6 +118,7 @@ enum armour_type
     ARM_CROWN,
     ARM_BEAST_HIDE_ROBE,
     ARM_ROCK_PLATE_ARMOUR,
+    ARM_MASK,
 
     NUM_ARMOURS
 };
@@ -755,6 +756,8 @@ enum weapon_type
 #endif
 
     WPN_BASTARD_SWORD,
+    WPN_BRASS_KNUCKLES,
+    WPN_BAGH_NAKH,
 
     NUM_WEAPONS,
 

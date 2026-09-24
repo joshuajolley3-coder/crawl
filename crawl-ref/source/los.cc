@@ -110,7 +110,7 @@ void clear_rays_on_exit()
 }
 
 // LOS radius.
-int los_radius = LOS_DEFAULT_RANGE;
+int los_radius = PLAYER_BASE_VISION;
 
 static void _handle_los_change();
 

@@ -65,6 +65,7 @@ static const branch_type logical_branch_order[] = {
     BRANCH_NECROPOLIS,
     BRANCH_GULCH,
     BRANCH_BATTLEFIELD,
+    BRANCH_ANCIENT_TEMPLE,
 };
 COMPILE_CHECK(ARRAYSZ(logical_branch_order) == NUM_BRANCHES);
 
@@ -86,6 +87,7 @@ static const branch_type danger_branch_order[] = {
     BRANCH_ORC,
     BRANCH_BATTLEFIELD,
     BRANCH_SWAMP,
+    BRANCH_ANCIENT_TEMPLE,
     BRANCH_SHOALS,
     BRANCH_SNAKE,
     BRANCH_SPIDER,
@@ -177,6 +179,10 @@ vector<branch_type> random_choose_disabled_branches()
 
     for (int i=0; i < number_of_branch_swap_pairs; i++)
         disabled_branch.push_back(swap_branches[i][random_choose(0,1)]);
+
+    // The Ancient Temple is found in only some games.
+    if (crawl_state.game_is_descent() || !x_chance_in_y(ANCIENT_TEMPLE_CHANCE, 100))
+        disabled_branch.push_back(BRANCH_ANCIENT_TEMPLE);
 
     // Descent mode disables some other branches for dungeon structure reasons
     if (crawl_state.game_is_descent())

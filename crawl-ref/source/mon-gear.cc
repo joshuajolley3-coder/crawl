@@ -999,6 +999,17 @@ int make_mons_weapon(monster_type type, int level, bool melee_only)
               { SPWPN_DRAINING,      1 },
               { NUM_SPECIAL_WEAPONS, 3 } },
         } },
+        // Obsidian-edged clubs and spears of the jaguar cult.
+        { MONS_JAGUAR_WARRIOR, {
+            { { WPN_MORNINGSTAR,        2 },
+              { WPN_WAR_AXE,            1 },
+              { WPN_SPEAR,              1 }, },
+            { 0, 1, 3 },
+            { { SPWPN_HEAVY,         1 },
+              { SPWPN_FLAMING,       1 },
+              { NUM_SPECIAL_WEAPONS, 4 } },
+        } },
+        { MONS_SUN_PRIEST, { { { WPN_QUARTERSTAFF, 2 }, { WPN_DAGGER, 1 } } } },
         { MONS_VEYRAK, {
             { { WPN_GREAT_SWORD,        2 },
               { WPN_EXECUTIONERS_AXE,   1 }, },
@@ -2215,6 +2226,16 @@ int make_mons_armour(monster_type type, int level)
         item.sub_type  = ARM_PLATE_ARMOUR;
         break;
 
+    case MONS_JAGUAR_WARRIOR:
+        item.base_type = OBJ_ARMOUR;
+        item.sub_type  = random_choose(ARM_ANIMAL_SKIN, ARM_LEATHER_ARMOUR);
+        break;
+
+    case MONS_SUN_PRIEST:
+        item.base_type = OBJ_ARMOUR;
+        item.sub_type  = ARM_ROBE;
+        break;
+
     case MONS_GASTRONOK:
         if (one_chance_in(10) && !get_unique_item_status(UNRAND_PONDERING))
         {
@@ -2450,6 +2471,13 @@ static void _give_extra_equipment(monster* mon, int level)
 
     case MONS_ERICA:
         make_item_for_monster(mon, OBJ_JEWELLERY, NUM_RINGS, 0, 1);
+        break;
+
+    // Some of the jaguar cult go masked into battle.
+    case MONS_JAGUAR_WARRIOR:
+    case MONS_SUN_PRIEST:
+        if (one_chance_in(4))
+            make_item_for_monster(mon, OBJ_ARMOUR, ARM_MASK, level);
         break;
 
     case MONS_FANNAR:

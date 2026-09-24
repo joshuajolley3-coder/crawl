@@ -619,6 +619,7 @@ static const pair<god_type, dungeon_feature_type> _god_altars[] =
     { GOD_WU_JIAN, DNGN_ALTAR_WU_JIAN },
     { GOD_IGNIS, DNGN_ALTAR_IGNIS },
     { GOD_VASHTAR, DNGN_ALTAR_VASHTAR },
+    { GOD_TONALLI, DNGN_ALTAR_TONALLI },
     { GOD_ECUMENICAL, DNGN_ALTAR_ECUMENICAL },
 };
 

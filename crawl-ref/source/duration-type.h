@@ -315,5 +315,6 @@ enum duration_type
     DUR_ANTISWIFT,
     DUR_WAR_PAINT,
     DUR_PACK_COOLDOWN,
+    DUR_OBSIDIAN_EDGE,
     NUM_DURATIONS
 };

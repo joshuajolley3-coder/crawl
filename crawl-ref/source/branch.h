@@ -133,6 +133,8 @@ string branch_noise_desc(branch_type br);
 string branch_rune_desc(branch_type br, bool remaining_only);
 branch_type rune_location(rune_type rune);
 
+/// Percentage of games that have an Ancient Temple.
+#define ANCIENT_TEMPLE_CHANCE 50
 vector<branch_type> random_choose_disabled_branches();
 
 bool vaults_is_locked();

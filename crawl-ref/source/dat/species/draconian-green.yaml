@@ -17,7 +17,7 @@ aptitudes:
   ranged weapons: -1
   throwing: -1
   armour: False
-  dodging: -1
+  dodging: 0
   spellcasting: -1
   hexes: -1
   shapeshifting: -1
@@ -26,7 +26,7 @@ aptitudes:
   alchemy: 2
 str: 10
 int: 8
-dex: 6
+dex: 8
 levelup_stat_frequency: 4
 mutations:
   1:

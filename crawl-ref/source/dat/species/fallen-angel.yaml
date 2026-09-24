@@ -29,9 +29,9 @@ mutations:
   1:
     MUT_ACUTE_VISION: 1
     MUT_NEGATIVE_ENERGY_RESISTANCE: 2
-  7:
+  10:
     MUT_BIG_WINGS: 1
-  12:
+  14:
     MUT_NEGATIVE_ENERGY_RESISTANCE: 1
     MUT_HEAT_RESISTANCE: 1
 fake_mutations:

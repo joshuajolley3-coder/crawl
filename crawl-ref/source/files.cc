@@ -54,6 +54,7 @@
 #include "player-save-info.h"
 #include "fineff.h"
 #include "floor-theme.h"
+#include "weather.h"
 #include "ghost.h"
 #include "god-abil.h"
 #include "god-companions.h"
@@ -1844,6 +1845,7 @@ static const vector<branch_type> branch_generation_order =
     BRANCH_VAULTS,
     BRANCH_CRYPT,
     BRANCH_BATTLEFIELD,
+    BRANCH_ANCIENT_TEMPLE,
     BRANCH_DEPTHS,
     BRANCH_VESTIBULE,
     BRANCH_ELF,
@@ -2461,9 +2463,12 @@ bool load_level(dungeon_feature_type stair_taken, load_mode_type load_mode,
     }
 
 
-    // Themed Dungeon floors announce themselves when you arrive.
+    // Themed floors and weather announce themselves when you arrive.
     if (make_changes && load_mode == LOAD_ENTER_LEVEL)
+    {
         announce_floor_theme(just_created_level);
+        announce_weather(just_created_level);
+    }
 
     if (load_mode != LOAD_VISITOR)
     {

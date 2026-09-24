@@ -980,3 +980,15 @@ imagery, but the focus of the scene is obscured by a great dark stain {{
         return "that smells strongly "
     end
 }}of ashes and salt. It seems somehow blasphemous to wear.
+%%%%
+Xom's Treads
+
+A pair of boots that shimmer through every colour at once. They were a gift from
+Xom to a follower who complained that the dungeon was boring, and they have
+never been boring since.
+%%%%
+alien zapper
+
+A humming silver ray gun of no earthly make, fallen from somewhere far beyond the
+sky. No one knows who built it, only that it works terribly well.
+%%%%

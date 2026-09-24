@@ -75,6 +75,7 @@ enum branch_type                // you.where_are_you
     BRANCH_GULCH,
 #endif
     BRANCH_BATTLEFIELD,
+    BRANCH_ANCIENT_TEMPLE,
     NUM_BRANCHES,
 
     GLOBAL_BRANCH_INFO = 127,

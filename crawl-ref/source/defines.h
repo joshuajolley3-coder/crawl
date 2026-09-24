@@ -110,9 +110,11 @@ const int MAPGEN_BORDER    = 2;
 // maximal LOS radius.
 // XXX: uses of this should be replaced depending on the intended behaviour,
 // with LOS_DEFAULT_RANGE or LOS_MAX_RANGE or possibly you.current_vision
-#define LOS_RADIUS 8
-// LOS radius for 'normal' characters
+#define LOS_RADIUS 9
+// LOS radius for 'normal' characters (monster AI distances still use this)
 #define LOS_DEFAULT_RANGE 7
+// The player's base sight: one tile further than vanilla.
+#define PLAYER_BASE_VISION (LOS_DEFAULT_RANGE + 1)
 
 // maximal horizontal or vertical LOS range:
 //   a quadrant needs to fit inside an 2D array with

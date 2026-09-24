@@ -464,6 +464,18 @@ const Branch branches[NUM_BRANCHES] =
       '&', {}, branch_noise::quiet, DEFAULT_MON_DIE_SIZE,
       {} },
 
+    // An overgrown temple of the sun, deep in the jungle off Lair:2-4. Not
+    // every game has one. Tonalli's only altar stands at its summit.
+    { BRANCH_ANCIENT_TEMPLE, BRANCH_LAIR, 2, 4, 1, 14,
+      brflag::dangerous_end,
+      DNGN_ENTER_ANCIENT_TEMPLE, DNGN_EXIT_ANCIENT_TEMPLE, NUM_FEATURES,
+      "Ancient Temple", "the Ancient Temple", "Ruin",
+      "Sweltering air and the cries of unseen birds close around you. Ahead, "
+      "a stepped temple rises out of the jungle.",
+      GREEN, LIGHTGREEN,
+      '*', {}, branch_noise::normal, DEFAULT_MON_DIE_SIZE,
+      {} },
+
 };
 
 /*

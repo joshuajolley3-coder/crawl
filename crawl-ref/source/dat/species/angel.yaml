@@ -7,7 +7,7 @@ difficulty: Intermediate
 difficulty_priority: 55
 aptitudes:
   xp: -1
-  hp: 1
+  hp: 0
   mp_mod: 0
   wl: 3
   fighting: 1
@@ -30,9 +30,9 @@ mutations:
   1:
     MUT_ACUTE_VISION: 1
     MUT_NEGATIVE_ENERGY_RESISTANCE: 1
-  7:
+  10:
     MUT_BIG_WINGS: 1
-  12:
+  14:
     MUT_NEGATIVE_ENERGY_RESISTANCE: 1
 fake_mutations:
   - long: You serve the holy trio. If you forsake them, you will fall.

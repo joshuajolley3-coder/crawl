@@ -4146,3 +4146,22 @@ You hear the echoes of planets behind the deafening roar of stars as it
 approaches. It is the jaws of the abyss. It brings forth crawling chaos from
 within. It is the last sight you will ever see.
 %%%%
+%%%%
+jaguar warrior
+
+A warrior of the jaguar cult that still keeps Tonalli's temple, clad in the
+spotted pelt of the great cat whose strength they claim. Jaguar warriors are
+swift and savage, and fight to take hearts for the Fifth Sun.
+%%%%
+sun priest
+
+A priest of Tonalli, the Burning Heart, robed in white and turquoise beneath a
+headdress of quetzal feathers. Sun priests call down fire on intruders, and
+urge the temple's warriors on with blessings of speed and healing.
+%%%%
+feathered serpent
+
+A great serpent clad in feathers of emerald and flame, borne aloft on feathered
+wings. The feathered serpents are the sacred beasts of Tonalli's temple; their
+bite is venomous and their breath is sunfire.
+%%%%

@@ -3069,6 +3069,8 @@ item_def* monster_die(monster& mons, killer_type killer,
                                || killer_index == YOU_FAULTLESS;
         vashtar_death_effects(mons,
                               your_kill || _is_pet_kill(killer, killer_index));
+        tonalli_death_effects(mons,
+                              your_kill || _is_pet_kill(killer, killer_index));
     }
 
     // Slaying one of Vashtar's blood collectors breaks his claim on you.

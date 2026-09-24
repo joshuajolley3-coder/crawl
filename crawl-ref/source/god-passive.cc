@@ -272,6 +272,11 @@ static const vector<god_passive> god_passives[] =
 
     // Vashtar
     { },
+
+    // Tonalli
+    {
+        { 2, passive_t::resist_fire },
+    },
 };
 COMPILE_CHECK(ARRAYSZ(god_passives) == NUM_GODS);
 

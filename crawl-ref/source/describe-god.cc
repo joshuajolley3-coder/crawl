@@ -246,6 +246,10 @@ static const char *divine_title[][8] =
     // Vashtar -- asura/endless war theme
     {"Deserter",          "Bloodied",               "Skull-taker",              "Warbringer",
         "Reaver",             "Asura",                 "Thousand-Armed",           "Unending War"},
+
+    // Tonalli -- Aztec sun and sacrifice theme
+    {"Heartless",         "Offering",              "Jaguar Cub",               "Obsidian Blade",
+        "Eagle Warrior",      "Jaguar Knight",         "Feathered Serpent",        "Fifth Sun"},
 };
 COMPILE_CHECK(ARRAYSZ(divine_title) == NUM_GODS);
 

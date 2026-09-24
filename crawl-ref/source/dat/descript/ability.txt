@@ -1145,6 +1145,12 @@ everything in line of sight for as long as the aura lasts. The power of this
 ability scales with the Evocations skill, and this ability is available only
 while wielding the Staff of Olgreb.
 %%%%
+Evoke Terrifying Visage ability
+
+Turns the dreadful face of a worn mask upon every foe in sight, terrifying those
+whose will fails them so that they flee. Its power grows with Evocations skill.
+The mask needs fifty turns to gather its dread again after each use.
+%%%%
 Jump ability
 
 Leaps through the air in the blink of an eye. While it is impossible to control
@@ -1173,3 +1179,26 @@ always perform a Howl afterward.
 
 Can only target an enemy who is afraid, and who has at least one occupiable tile
 adjacent to them.
+%%%%
+Obsidian Edge ability
+
+Tonalli edges your blows with volcanic glass for a while, adding to the accuracy
+and damage of your attacks. The bonus grows with Invocations skill.
+%%%%
+Sun Lance ability
+
+Hurls a lance of sunfire that burns everything in its path. Its power grows with
+Invocations skill.
+%%%%
+Feathered Serpent ability
+
+Calls a feathered serpent down from the sun to fight beside you for a while. It
+flies, bites with venom and breathes sunfire, and grows stronger with your
+Invocations skill.
+%%%%
+Heart Offering ability
+
+Tear the heart from an adjacent living foe that has been wounded to a third of its
+health or less, killing it outright. Tonalli drinks the offering and restores a
+quarter of your health and magic.
+%%%%

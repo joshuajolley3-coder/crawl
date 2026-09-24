@@ -3755,6 +3755,8 @@ colour_t item_def::weapon_colour() const
             return RED;
         case SK_STAVES:
             return GREEN;
+        case SK_UNARMED_COMBAT: // fist weapons
+            return is_type(OBJ_WEAPONS, WPN_BRASS_KNUCKLES) ? YELLOW : BROWN;
         default:
             die("Unknown weapon attack skill %d", item_attack_skill(*this));
             // XXX: give more info!
@@ -3834,6 +3836,8 @@ colour_t item_def::armour_colour() const
             return MAGENTA;
         case ARM_CROWN:
             return YELLOW;
+        case ARM_MASK:
+            return WHITE;
         case ARM_BOOTS:
             return BLUE;
         case ARM_GLOVES:

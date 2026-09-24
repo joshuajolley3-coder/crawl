@@ -1532,7 +1532,10 @@ static string _name_weapon(const item_def &weap, description_level_type desc,
 
     const string cosmetic_text
         = show_cosmetic ? _cosmetic_text(weap) : "";
-    const string base_name = item_base_name(weap);
+    // Brass knuckles come in pairs, like gloves.
+    const string pair_of = weap.is_type(OBJ_WEAPONS, WPN_BRASS_KNUCKLES)
+                           ? "pair of " : "";
+    const string base_name = pair_of + item_base_name(weap);
     const string name_with_ego
         = identified && !dbname ? weapon_brand_desc(base_name.c_str(), weap, terse)
         : base_name;

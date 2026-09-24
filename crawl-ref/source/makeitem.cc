@@ -1055,6 +1055,7 @@ armour_type pick_random_aux_armour_type()
                                   // Head slot
                                   10, ARM_HELMET,
                                   2, ARM_HAT,
+                                  1, ARM_MASK,
                                   1, ARM_CROWN);
 }
 

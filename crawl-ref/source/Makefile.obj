@@ -69,6 +69,7 @@ fight.o \
 files.o \
 fineff.o \
 floor-theme.o \
+weather.o \
 blood-altar.o \
 suspicious-figure.o \
 format.o \

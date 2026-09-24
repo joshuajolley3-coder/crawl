@@ -48,6 +48,7 @@
 #include "exercise.h"
 #include "files.h"
 #include "floor-theme.h"
+#include "weather.h"
 #include "god-abil.h"
 #include "god-companions.h"
 #include "god-conduct.h"
@@ -1333,6 +1334,7 @@ void player_reacts()
         _do_eel_flavour_msg();
 
     floor_theme_ambience();
+    weather_tick();
 
     _handle_fugue(you.time_taken);
     if (you.has_mutation(MUT_WARMUP_STRIKES))

@@ -1221,6 +1221,19 @@ POP_DEPTHS,
   {  1,  1,   40, FLAT, MONS_FLAYED_GHOST },
   {  1,  1,   25, FLAT, MONS_SHADOW_WRAITH },
 },
+
+{ // Ancient Temple: the jungle, and the sun-cult that still keeps it.
+  {  1,  1,  300, FLAT, MONS_JAGUAR_WARRIOR },
+  {  1,  1,  150, FLAT, MONS_SUN_PRIEST },
+  {  1,  1,  100, FLAT, MONS_FEATHERED_SERPENT },
+  {  1,  1,  150, FLAT, MONS_BLACK_MAMBA },
+  {  1,  1,  120, FLAT, MONS_ANACONDA },
+  {  1,  1,  120, FLAT, MONS_JUMPING_SPIDER },
+  {  1,  1,  100, FLAT, MONS_VAMPIRE_MOSQUITO },
+  {  1,  1,   80, FLAT, MONS_WOLF_SPIDER },
+  {  1,  1,   60, FLAT, MONS_GUARDIAN_SERPENT },
+  {  1,  1,   40, FLAT, MONS_SPARK_WASP },
+},
 };
 
 COMPILE_CHECK(ARRAYSZ(population) == NUM_BRANCHES);
@@ -1377,6 +1390,11 @@ static const vector<pop_entry> population_water[] =
     GENERIC_WATER_POP, // Necropolis
     GENERIC_WATER_POP, // Gulch
     GENERIC_WATER_POP, // Battlefield
+    { // Ancient Temple
+      {  1,  27,  100, FLAT, MONS_ANACONDA },
+      {  1,  27,   60, FLAT, MONS_ALLIGATOR },
+      {  1,  27,   40, FLAT, MONS_WATER_MOCCASIN },
+    },
 };
 COMPILE_CHECK(ARRAYSZ(population_water) == NUM_BRANCHES);
 
@@ -1483,6 +1501,7 @@ static const vector<pop_entry> population_lava[] =
     GENERIC_LAVA_POP, // Necropolis
     GENERIC_LAVA_POP, // Gulch
     GENERIC_LAVA_POP, // Battlefield
+    GENERIC_LAVA_POP, // Ancient Temple
 };
 
 COMPILE_CHECK(ARRAYSZ(population_lava) == NUM_BRANCHES);

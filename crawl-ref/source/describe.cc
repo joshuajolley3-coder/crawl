@@ -1388,15 +1388,19 @@ string damage_rating(const item_def *item, int *rating_value)
     // This is just SPWPN_HEAVY.
     const int post_brand_dam = brand_adjust_weapon_damage(base_dam, brand, false);
     const int heavy_dam = post_brand_dam - base_dam;
+    // Fist weapons add your fists' force and Unarmed Combat skill.
+    const bool fist = item && is_fist_weapon(*item);
     const int extra_base_dam = thrown ? throwing_base_damage_bonus(*item, false) :
                                !item ? unarmed_base_damage_bonus(false) :
+                                fist ? heavy_dam + unarmed_base_damage(false)
+                                       + unarmed_base_damage_bonus(false) :
                                     heavy_dam; // 0 for non-heavy weapons
     const skill_type skill = item ? _item_training_skill(*item) : SK_UNARMED_COMBAT;
     const int stat_mult = stat_modify_damage(100, skill);
     const bool use_str = weapon_uses_strength(skill);
     // Throwing weapons and UC only get a damage mult from Fighting skill,
     // not from Throwing/UC skill.
-    const bool use_weapon_skill = item && !thrown;
+    const bool use_weapon_skill = item && !thrown && !fist;
     const int weapon_skill_mult = use_weapon_skill ? apply_weapon_skill(100, skill, false) : 100;
     const int skill_mult = apply_fighting_skill(weapon_skill_mult, false, false);
 
@@ -1423,6 +1427,8 @@ string damage_rating(const item_def *item, int *rating_value)
     const string base_dam_desc = thrown ? make_stringf("[%d + %d (Thrw)]",
                                                        base_dam, extra_base_dam) :
                                   !item ? make_stringf("[%d + %d (UC)]",
+                                                       base_dam, extra_base_dam) :
+                                   fist ? make_stringf("[%d + %d (Fists + UC)]",
                                                        base_dam, extra_base_dam) :
                    brand == SPWPN_HEAVY ? make_stringf("[%d + %d (Hvy)]",
                                                        base_dam, extra_base_dam) :
@@ -1822,6 +1828,11 @@ static string _category_string(const item_def &item, bool monster)
 
     switch (item_attack_skill(item))
     {
+    case SK_UNARMED_COMBAT:
+        description += "Every blow lands with the full force of the wielder's "
+                       "fists, and their Unarmed Combat skill, plus the "
+                       "weapon's own damage. ";
+        break;
     case SK_POLEARMS:
         // TODO(PF): maybe remove this whole section for util/monster summaries..?
         description += "It has an extended reach";

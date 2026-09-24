@@ -1011,14 +1011,18 @@ int attack::calc_damage()
     {
         int potential_damage, damage;
 
-        potential_damage = using_weapon() ? adjusted_weapon_damage()
+        // Fist weapons hit with your fists' force plus their own; their
+        // skill (Unarmed Combat) is already counted, so no skill multiplier.
+        const bool fist = using_weapon() && is_fist_weapon(*weapon);
+        potential_damage = fist ? fist_weapon_damage(*weapon, true)
+                         : using_weapon() ? adjusted_weapon_damage()
                                           : calc_base_unarmed_damage();
 
         // Multiply damage before modifying by stats to avoid large breakpoints.
         potential_damage = stat_modify_damage(potential_damage * 100, wpn_skill);
         damage = div_round_near(random2(potential_damage+1), 100);
 
-        if (using_weapon())
+        if (using_weapon() && !fist)
             damage = apply_weapon_skill(damage, wpn_skill, true);
         damage = apply_fighting_skill(damage, false, true);
         damage = player_apply_misc_modifiers(damage);

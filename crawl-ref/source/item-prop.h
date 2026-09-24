@@ -82,6 +82,7 @@ void     set_equip_desc(item_def &item, iflags_t flags);
 iflags_t get_equip_desc(const item_def &item) PURE;
 
 bool  is_hard_helmet(const item_def &item) PURE;
+bool  is_fist_weapon(const item_def &item) PURE;
 
 // ego items:
 brand_type choose_weapon_brand(weapon_type wpn_type);

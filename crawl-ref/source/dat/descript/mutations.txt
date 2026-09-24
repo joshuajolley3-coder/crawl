@@ -1663,3 +1663,9 @@ than 14, will additionally be slow. At higher XL, multiple reapers may appear at
 once.
 
 When this bane is lifted, all reapers summoned this way will immediately vanish.
+%%%%
+hollow silence mutation
+
+The emptiness where your magic should be can be turned outward. You can smother
+the magic of a creature you can see, silencing it for a while.
+%%%%

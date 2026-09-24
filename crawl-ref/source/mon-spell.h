@@ -2693,6 +2693,30 @@ static const mon_spellbook mspell_list[] =
       }
     },
 
+    // Tonalli's jaguar warriors howl their god's name as they charge.
+    {  MST_JAGUAR_WARRIOR,
+      {
+       { SPELL_BATTLECRY, 15, MON_SPELL_VOCAL },
+      }
+    },
+
+    // The priests of the Fifth Sun.
+    {  MST_SUN_PRIEST,
+      {
+       { SPELL_BOLT_OF_FIRE, 25, MON_SPELL_PRIEST },
+       { SPELL_SMITING, 10, MON_SPELL_PRIEST },
+       { SPELL_HASTE_OTHER, 12, MON_SPELL_PRIEST },
+       { SPELL_HEAL_OTHER, 12, MON_SPELL_PRIEST },
+      }
+    },
+
+    {  MST_FEATHERED_SERPENT,
+      {
+       { SPELL_FIRE_BREATH, 30, MON_SPELL_NATURAL | MON_SPELL_BREATH
+                                 | MON_SPELL_NOISY },
+      }
+    },
+
     // A monster that doesn't show up anywhere, for Arena testing.
     {  MST_TEST_SPAWNER,
       {
